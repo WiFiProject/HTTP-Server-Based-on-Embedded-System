@@ -18,3 +18,13 @@
 .\rvmdk\main.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\../source/nonos.h
 .\rvmdk\main.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h
 .\rvmdk\main.o: sl_common.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/tm4c1294ncpdt.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_memmap.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_ssi.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_types.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/ssi.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/gpio.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/rom.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/sysctl.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/fpu.h
+.\rvmdk\main.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/uart.h

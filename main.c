@@ -48,6 +48,17 @@
 #include "protocol.h"
 #include "sl_common.h"
 
+#include "inc/tm4c1294ncpdt.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_ssi.h"
+#include "inc/hw_types.h"
+#include "driverlib/ssi.h"
+#include "driverlib/gpio.h"
+#include "driverlib/rom.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/fpu.h"
+#include "driverlib/uart.h"
+
 #define APPLICATION_VERSION "1.2.0"
 
 #define SL_STOP_TIMEOUT        0xFF
@@ -396,20 +407,31 @@ int main(int argc, char** argv)
     _u8   SecType = 0;
     _i32   retVal = -1;
     _i32   mode = ROLE_STA;
-
-    retVal = initializeAppVariables();
+	
+		retVal = initializeAppVariables();
     ASSERT_ON_ERROR(retVal);
-
-    /* Stop WDT and initialize the system-clock of the MCU */
+	
+		/* Stop WDT and initialize the system-clock of the MCU */
     stopWDT();
     initClk();
+	
+		
+		
+	
+		/* Configure command line interface */
+    CLI_Configure();
+		CLI_Write(" Device is configured in default state \n\r");
+    displayBanner();
+		
+		
+		
+    
+
+    
 
     //initLEDs();
 
-    /* Configure command line interface */
-    CLI_Configure();
-
-    displayBanner();
+    
 
     /*
      * Following function configures the device to default state by cleaning
@@ -422,15 +444,19 @@ int main(int argc, char** argv)
      * Note that all profiles and persistent settings that were done on the
      * device will be lost
      */
+		 
     retVal = configureSimpleLinkToDefaultState();
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
+		GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0);
+		GPIOPinWrite(GPIO_PORTN_BASE, GPIO_PIN_0, GPIO_PIN_0);
     if(retVal < 0)
     {
         if (DEVICE_NOT_IN_STATION_MODE == retVal)
             CLI_Write(" Failed to configure the device in its default state \n\r");
-
+				
         LOOP_FOREVER();
     }
-
+		
     CLI_Write(" Device is configured in default state \n\r");
 
     /*

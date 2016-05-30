@@ -175,7 +175,7 @@ __Vectors
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; I2C4 Master and Slave
         DCD     IntDefaultHandler           ; I2C5 Master and Slave
-        DCD     GPIOM_intHandler           	; GPIO Port M
+		DCD     IntDefaultHandler           	; GPIO Port M	
         DCD     IntDefaultHandler           ; GPIO Port N
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; Tamper

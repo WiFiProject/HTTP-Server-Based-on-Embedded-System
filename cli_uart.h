@@ -43,7 +43,9 @@
 //          Define _USE_CLI_ Macro in project's properties to use the
 //          command line interface
 //****************************************************************************
-
+#ifndef _USE_CLI_
+#define _USE_CLI_
+#endif
 //*****************************************************************************
 //
 // If building with a C++ compiler, make all of the definitions in this header

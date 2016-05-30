@@ -69,6 +69,9 @@ void initClk()
 						 SYSCTL_OSC_MAIN |
 						 SYSCTL_USE_PLL |
 						 SYSCTL_CFG_VCO_480), 60000000);
+		
+		
+		
 }
 
 void stopWDT()

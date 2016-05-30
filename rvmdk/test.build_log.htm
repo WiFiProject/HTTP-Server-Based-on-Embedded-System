@@ -73,11 +73,11 @@ compiling main.c...
   void UnMaskIntHdlr();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(190): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-main.c(83): warning:  #1295-D: Deprecated declaration configureSimpleLinkToDefaultState - give arg types
+main.c(94): warning:  #1295-D: Deprecated declaration configureSimpleLinkToDefaultState - give arg types
   static _i32 configureSimpleLinkToDefaultState();
-main.c(84): warning:  #1295-D: Deprecated declaration initializeAppVariables - give arg types
+main.c(95): warning:  #1295-D: Deprecated declaration initializeAppVariables - give arg types
   static _i32 initializeAppVariables();
-main.c(85): warning:  #1295-D: Deprecated declaration displayBanner - give arg types
+main.c(96): warning:  #1295-D: Deprecated declaration displayBanner - give arg types
   static void displayBanner();
 main.c: 13 warnings, 0 errors
 compiling spi.c...
@@ -324,17 +324,35 @@ compiling wlan.c...
   void UARTRxTxHandler();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 10 warnings, 0 errors
 linking...
-Program Size: Code=11278 RO-data=1658 RW-data=40 ZI-data=1040  
+Program Size: Code=11534 RO-data=1658 RW-data=40 ZI-data=1040  
 After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
 ".\rvmdk\test.axf" - 0 Error(s), 143 Warning(s).
+Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
 </pre>
 </body>
 </html>
- cancelled. Debugger aborted !
-nished: 0 information, 0 warning and 1 error messages.
-".\rvmdk\test.axf" - 0 Error(s), 143 Warning(s).
- main.o).
-Not enough information to list image symbols.
-Finished: 1 information, 0 warning and 2 error messages.
-".\rvmdk\test.axf" - 2 Error(s), 145 Warning(s).
+ed-on-Embedded-System\board.h(102): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+  void CC3100_disable();
+..\HTTP-Server-Based-on-Embedded-System\board.h(115): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+  void CC3100_InterruptEnable();
+..\HTTP-Server-Based-on-Embedded-System\board.h(128): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+  void CC3100_InterruptDisable();
+..\HTTP-Server-Based-on-Embedded-System\board.h(141): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+  void stopWDT();
+..\HTTP-Server-Based-on-Embedded-System\board.h(154): warning:  #1295-D: Deprecated declaration initClk - give arg types
+  void initClk();
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+  void MaskIntHdlr();
+..\HTTP-Server-Based-on-Embedded-System\board.h(176): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+  void UnMaskIntHdlr();
+..\HTTP-Server-Based-on-Embedded-System\board.h(190): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+  void UARTRxTxHandler();
+..\HTTP-Server-Based-on-Embedded-System\cli_uart.h(38): error:  #37: the #endif for this directive is missing
+  #ifndef __CLI_UART_H__
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 10 warnings, 1 error
+".\rvmdk\test.axf" - 14 Error(s), 143 Warning(s).
 Target not created
