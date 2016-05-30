@@ -1,0 +1,1526 @@
+Product: MDK-ARM Lite 5.10
+Component: ARM Compiler 5.04 update 1 (build 49)
+Tool: armlink [5040049]
+
+==============================================================================
+
+Section Cross References
+
+    board.o(i.CC3100_InterruptDisable) refers to gpio.o(i.GPIOIntDisable) for GPIOIntDisable
+    board.o(i.CC3100_InterruptEnable) refers to gpio.o(i.GPIOIntEnable) for GPIOIntEnable
+    board.o(i.GPIOM_intHandler) refers to gpio.o(i.GPIOIntStatus) for GPIOIntStatus
+    board.o(i.GPIOM_intHandler) refers to gpio.o(i.GPIOIntClear) for GPIOIntClear
+    board.o(i.GPIOM_intHandler) refers to board.o(.data) for .data
+    board.o(i.MaskIntHdlr) refers to board.o(.data) for .data
+    board.o(i.UnMaskIntHdlr) refers to board.o(.data) for .data
+    board.o(i.initClk) refers to fpu.o(i.FPUEnable) for FPUEnable
+    board.o(i.initClk) refers to fpu.o(i.FPULazyStackingEnable) for FPULazyStackingEnable
+    board.o(i.initClk) refers to sysctl.o(i.SysCtlClockFreqSet) for SysCtlClockFreqSet
+    board.o(i.initClk) refers to board.o(.data) for .data
+    board.o(i.registerInterruptHandler) refers to board.o(.data) for .data
+    main.o(i.SimpleLinkGeneralEventHandler) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.SimpleLinkHttpServerCallback) refers to strlen.o(.text) for strlen
+    main.o(i.SimpleLinkHttpServerCallback) refers to memcmp.o(.text) for memcmp
+    main.o(i.SimpleLinkHttpServerCallback) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.SimpleLinkHttpServerCallback) refers to main.o(.data) for .data
+    main.o(i.SimpleLinkNetAppEventHandler) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.SimpleLinkNetAppEventHandler) refers to main.o(.data) for .data
+    main.o(i.SimpleLinkSockEventHandler) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.SimpleLinkWlanEventHandler) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.SimpleLinkWlanEventHandler) refers to main.o(.data) for .data
+    main.o(i.configureSimpleLinkToDefaultState) refers to memseta.o(.text) for __aeabi_memclr4
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Start) for sl_Start
+    main.o(i.configureSimpleLinkToDefaultState) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSetMode) for sl_WlanSetMode
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_Stop) for sl_Stop
+    main.o(i.configureSimpleLinkToDefaultState) refers to device.o(i.sl_DevGet) for sl_DevGet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanPolicySet) for sl_WlanPolicySet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanProfileDel) for sl_WlanProfileDel
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanDisconnect) for sl_WlanDisconnect
+    main.o(i.configureSimpleLinkToDefaultState) refers to netcfg.o(i.sl_NetCfgSet) for sl_NetCfgSet
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanSet) for sl_WlanSet
+    main.o(i.configureSimpleLinkToDefaultState) refers to netapp.o(i.sl_NetAppMDNSUnRegisterService) for sl_NetAppMDNSUnRegisterService
+    main.o(i.configureSimpleLinkToDefaultState) refers to wlan.o(i.sl_WlanRxFilterSet) for sl_WlanRxFilterSet
+    main.o(i.configureSimpleLinkToDefaultState) refers to main.o(i.initializeAppVariables) for initializeAppVariables
+    main.o(i.configureSimpleLinkToDefaultState) refers to main.o(.data) for .data
+    main.o(i.initializeAppVariables) refers to memseta.o(.text) for __aeabi_memclr
+    main.o(i.initializeAppVariables) refers to main.o(.data) for .data
+    main.o(i.initializeAppVariables) refers to main.o(.bss) for .bss
+    main.o(i.main) refers to main.o(i.initializeAppVariables) for initializeAppVariables
+    main.o(i.main) refers to board.o(i.stopWDT) for stopWDT
+    main.o(i.main) refers to board.o(i.initClk) for initClk
+    main.o(i.main) refers to cli_uart.o(i.CLI_Configure) for CLI_Configure
+    main.o(i.main) refers to cli_uart.o(i.CLI_Write) for CLI_Write
+    main.o(i.main) refers to main.o(i.configureSimpleLinkToDefaultState) for configureSimpleLinkToDefaultState
+    main.o(i.main) refers to device.o(i.sl_Start) for sl_Start
+    main.o(i.main) refers to wlan.o(i.sl_WlanSetMode) for sl_WlanSetMode
+    main.o(i.main) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
+    main.o(i.main) refers to wlan.o(i.sl_WlanSet) for sl_WlanSet
+    main.o(i.main) refers to device.o(i.sl_Stop) for sl_Stop
+    main.o(i.main) refers to netapp.o(i.sl_NetAppSet) for sl_NetAppSet
+    main.o(i.main) refers to netapp.o(i.sl_NetAppGet) for sl_NetAppGet
+    main.o(i.main) refers to main.o(.conststring) for .conststring
+    main.o(i.main) refers to main.o(.data) for .data
+    main.o(i.main) refers to main.o(.bss) for .bss
+    main.o(i.set_port_number) refers to netapp.o(i.sl_NetAppStop) for sl_NetAppStop
+    main.o(i.set_port_number) refers to netapp.o(i.sl_NetAppSet) for sl_NetAppSet
+    main.o(i.set_port_number) refers to netapp.o(i.sl_NetAppStart) for sl_NetAppStart
+    spi.o(i.spi_Close) refers to board.o(i.CC3100_InterruptDisable) for CC3100_InterruptDisable
+    spi.o(i.spi_Open) refers to sysctl.o(i.SysCtlPeripheralEnable) for SysCtlPeripheralEnable
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOPinConfigure) for GPIOPinConfigure
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOPinTypeSSI) for GPIOPinTypeSSI
+    spi.o(i.spi_Open) refers to ssi.o(i.SSIConfigSetExpClk) for SSIConfigSetExpClk
+    spi.o(i.spi_Open) refers to ssi.o(i.SSIEnable) for SSIEnable
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOIntDisable) for GPIOIntDisable
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOPinTypeGPIOInput) for GPIOPinTypeGPIOInput
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOIntTypeSet) for GPIOIntTypeSet
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOIntStatus) for GPIOIntStatus
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOIntClear) for GPIOIntClear
+    spi.o(i.spi_Open) refers to gpio.o(i.GPIOIntEnable) for GPIOIntEnable
+    spi.o(i.spi_Open) refers to interrupt.o(i.IntEnable) for IntEnable
+    spi.o(i.spi_Open) refers to interrupt.o(i.IntMasterEnable) for IntMasterEnable
+    spi.o(i.spi_Open) refers to sysctl.o(.emb_text) for SysCtlDelay
+    spi.o(i.spi_Open) refers to board.o(i.CC3100_InterruptEnable) for CC3100_InterruptEnable
+    spi.o(i.spi_Open) refers to board.o(.data) for g_SysClock
+    spi.o(i.spi_Read) refers to gpio.o(i.GPIOPinWrite) for GPIOPinWrite
+    spi.o(i.spi_Read) refers to ssi.o(i.SSIDataPutNonBlocking) for SSIDataPutNonBlocking
+    spi.o(i.spi_Read) refers to ssi.o(i.SSIDataGetNonBlocking) for SSIDataGetNonBlocking
+    spi.o(i.spi_Read) refers to ssi.o(i.SSIBusy) for SSIBusy
+    spi.o(i.spi_Write) refers to gpio.o(i.GPIOPinWrite) for GPIOPinWrite
+    spi.o(i.spi_Write) refers to ssi.o(i.SSIDataPutNonBlocking) for SSIDataPutNonBlocking
+    spi.o(i.spi_Write) refers to ssi.o(i.SSIDataGetNonBlocking) for SSIDataGetNonBlocking
+    spi.o(i.spi_Write) refers to ssi.o(i.SSIBusy) for SSIBusy
+    startup_rvmdk.o(RESET) refers to startup_rvmdk.o(STACK) for StackMem
+    startup_rvmdk.o(RESET) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    device.o(i._SlDrvDeviceEventHandler) refers to device.o(i._sl_HandleAsync_InitComplete) for _sl_HandleAsync_InitComplete
+    device.o(i._SlDrvDeviceEventHandler) refers to device.o(i._sl_HandleAsync_Stop) for _sl_HandleAsync_Stop
+    device.o(i._SlDrvDeviceEventHandler) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    device.o(i._SlDrvDeviceEventHandler) refers to driver.o(i._SlDriverHandleError) for _SlDriverHandleError
+    device.o(i._SlDrvDeviceEventHandler) refers to main.o(i.SimpleLinkGeneralEventHandler) for SimpleLinkGeneralEventHandler
+    device.o(i._sl_GetStartResponseConvert) refers to device.o(.constdata) for .constdata
+    device.o(i._sl_HandleAsync_InitComplete) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    device.o(i._sl_HandleAsync_InitComplete) refers to device.o(i._sl_GetStartResponseConvert) for _sl_GetStartResponseConvert
+    device.o(i._sl_HandleAsync_InitComplete) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    device.o(i._sl_HandleAsync_InitComplete) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    device.o(i._sl_HandleAsync_InitComplete) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    device.o(i._sl_HandleAsync_InitComplete) refers to driver.o(.data) for g_pCB
+    device.o(i._sl_HandleAsync_Stop) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    device.o(i._sl_HandleAsync_Stop) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    device.o(i._sl_HandleAsync_Stop) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    device.o(i._sl_HandleAsync_Stop) refers to driver.o(.data) for g_pCB
+    device.o(i.sl_DevGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    device.o(i.sl_DevGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    device.o(i.sl_DevGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_DevGet) refers to device.o(.constdata) for .constdata
+    device.o(i.sl_DevSet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    device.o(i.sl_DevSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    device.o(i.sl_DevSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_DevSet) refers to device.o(.constdata) for .constdata
+    device.o(i.sl_EventMaskGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    device.o(i.sl_EventMaskGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_EventMaskGet) refers to device.o(.constdata) for .constdata
+    device.o(i.sl_EventMaskSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    device.o(i.sl_EventMaskSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_EventMaskSet) refers to device.o(.constdata) for .constdata
+    device.o(i.sl_Start) refers to driver.o(i._SlDrvDriverCBInit) for _SlDrvDriverCBInit
+    device.o(i.sl_Start) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    device.o(i.sl_Start) refers to board.o(i.CC3100_disable) for CC3100_disable
+    device.o(i.sl_Start) refers to board.o(i.registerInterruptHandler) for registerInterruptHandler
+    device.o(i.sl_Start) refers to board.o(i.CC3100_enable) for CC3100_enable
+    device.o(i.sl_Start) refers to spi.o(i.spi_Open) for spi_Open
+    device.o(i.sl_Start) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    device.o(i.sl_Start) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    device.o(i.sl_Start) refers to device.o(i._sl_GetStartResponseConvert) for _sl_GetStartResponseConvert
+    device.o(i.sl_Start) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_Start) refers to driver.o(i._SlDrvRxIrqHandler) for _SlDrvRxIrqHandler
+    device.o(i.sl_Stop) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    device.o(i.sl_Stop) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    device.o(i.sl_Stop) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    device.o(i.sl_Stop) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    device.o(i.sl_Stop) refers to board.o(i.registerInterruptHandler) for registerInterruptHandler
+    device.o(i.sl_Stop) refers to board.o(i.CC3100_disable) for CC3100_disable
+    device.o(i.sl_Stop) refers to spi.o(i.spi_Close) for spi_Close
+    device.o(i.sl_Stop) refers to driver.o(i._SlDrvDriverCBDeinit) for _SlDrvDriverCBDeinit
+    device.o(i.sl_Stop) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    device.o(i.sl_Stop) refers to device.o(.constdata) for .constdata
+    device.o(i.sl_Task) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
+    driver.o(i._SlAsyncEventGenericHandler) refers to driver.o(.data) for .data
+    driver.o(i._SlAsyncEventGenericHandler) refers to driver.o(.constdata) for .constdata
+    driver.o(i._SlDriverHandleError) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDriverHandleError) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    driver.o(i._SlDriverHandleError) refers to main.o(i.SimpleLinkGeneralEventHandler) for SimpleLinkGeneralEventHandler
+    driver.o(i._SlDriverHandleError) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvBasicCmd) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    driver.o(i._SlDrvBasicCmd) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    driver.o(i._SlDrvClassifyRxMsg) refers to driver.o(.constdata) for .constdata
+    driver.o(i._SlDrvClassifyRxMsg) refers to netapp.o(i._SlDrvNetAppEventHandler) for _SlDrvNetAppEventHandler
+    driver.o(i._SlDrvClassifyRxMsg) refers to netapp.o(i._sl_HandleAsync_PingResponse) for _sl_HandleAsync_PingResponse
+    driver.o(i._SlDrvClassifyRxMsg) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvCmdOp) refers to driver.o(i._SlDrvObjGlobalLockWaitForever) for _SlDrvObjGlobalLockWaitForever
+    driver.o(i._SlDrvCmdOp) refers to driver.o(i._SlDrvMsgWrite) for _SlDrvMsgWrite
+    driver.o(i._SlDrvCmdOp) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvCmdOp) refers to driver.o(i._SlDrvMsgReadCmdCtx) for _SlDrvMsgReadCmdCtx
+    driver.o(i._SlDrvCmdOp) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvCmdSend) refers to memcpya.o(.text) for __aeabi_memcpy4
+    driver.o(i._SlDrvCmdSend) refers to driver.o(i._SlDrvMsgWrite) for _SlDrvMsgWrite
+    driver.o(i._SlDrvCmdSend) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvWaitForPoolObj) for _SlDrvWaitForPoolObj
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvObjLockWaitForever) for _SlDrvObjLockWaitForever
+    driver.o(i._SlDrvDataReadOp) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvObjGlobalLockWaitForever) for _SlDrvObjGlobalLockWaitForever
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvObjUnLock) for _SlDrvObjUnLock
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvMsgWrite) for _SlDrvMsgWrite
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    driver.o(i._SlDrvDataReadOp) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvObjLockWaitForever) for _SlDrvObjLockWaitForever
+    driver.o(i._SlDrvDataWriteOp) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvObjUnLock) for _SlDrvObjUnLock
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvObjGlobalLockWaitForever) for _SlDrvObjGlobalLockWaitForever
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(i._SlDrvMsgWrite) for _SlDrvMsgWrite
+    driver.o(i._SlDrvDataWriteOp) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvDispatchHttpServerEvents) refers to main.o(i.SimpleLinkHttpServerCallback) for SimpleLinkHttpServerCallback
+    driver.o(i._SlDrvDriverCBDeinit) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvDriverCBDeinit) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvDriverCBInit) refers to memseta.o(.text) for __aeabi_memclr4
+    driver.o(i._SlDrvDriverCBInit) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    driver.o(i._SlDrvDriverCBInit) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvDriverCBInit) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvDriverCBInit) refers to driver.o(.bss) for .bss
+    driver.o(i._SlDrvDriverCBInit) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvDriverCBInit) refers to nonos.o(.bss) for g__SlNonOsCB
+    driver.o(i._SlDrvGlobalObjUnLock) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvGlobalObjUnLock) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvMemZero) refers to memseta.o(.text) for __aeabi_memclr
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvRxHdrRead) for _SlDrvRxHdrRead
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvClassifyRxMsg) for _SlDrvClassifyRxMsg
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDriverHandleError) for _SlDriverHandleError
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    driver.o(i._SlDrvMsgRead) refers to spi.o(i.spi_Read) for spi_Read
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlFindAndSetActiveObj) for _SlFindAndSetActiveObj
+    driver.o(i._SlDrvMsgRead) refers to memcpya.o(.text) for __aeabi_memcpy
+    driver.o(i._SlDrvMsgRead) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    driver.o(i._SlDrvMsgRead) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvMsgRead) refers to driver.o(.bss) for .bss
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(i._SlDrvMsgRead) for _SlDrvMsgRead
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(i._SlAsyncEventGenericHandler) for _SlAsyncEventGenericHandler
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(i._SlDriverHandleError) for _SlDriverHandleError
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to nonos.o(i._SlNonOsSpawn) for _SlNonOsSpawn
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvMsgReadCmdCtx) refers to driver.o(i._SlDrvMsgReadSpawnCtx) for _SlDrvMsgReadSpawnCtx
+    driver.o(i._SlDrvMsgReadSpawnCtx) refers to driver.o(i._SlDrvObjGlobalLockWaitForever) for _SlDrvObjGlobalLockWaitForever
+    driver.o(i._SlDrvMsgReadSpawnCtx) refers to driver.o(i._SlDrvMsgRead) for _SlDrvMsgRead
+    driver.o(i._SlDrvMsgReadSpawnCtx) refers to driver.o(i._SlDrvGlobalObjUnLock) for _SlDrvGlobalObjUnLock
+    driver.o(i._SlDrvMsgReadSpawnCtx) refers to driver.o(i._SlAsyncEventGenericHandler) for _SlAsyncEventGenericHandler
+    driver.o(i._SlDrvMsgReadSpawnCtx) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvMsgWrite) refers to spi.o(i.spi_Write) for spi_Write
+    driver.o(i._SlDrvMsgWrite) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvMsgWrite) refers to driver.o(.constdata) for .constdata
+    driver.o(i._SlDrvObjGlobalLockWaitForever) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvObjGlobalLockWaitForever) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvObjLockWaitForever) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvObjUnLock) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvProtectAsyncRespSetting) refers to driver.o(i._SlDrvWaitForPoolObj) for _SlDrvWaitForPoolObj
+    driver.o(i._SlDrvProtectAsyncRespSetting) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    driver.o(i._SlDrvProtectAsyncRespSetting) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    driver.o(i._SlDrvProtectAsyncRespSetting) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvProtectionObjLockWaitForever) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvProtectionObjLockWaitForever) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvProtectionObjUnLock) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvProtectionObjUnLock) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvReleasePoolObj) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    driver.o(i._SlDrvReleasePoolObj) refers to driver.o(i._SlRemoveFromList) for _SlRemoveFromList
+    driver.o(i._SlDrvReleasePoolObj) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    driver.o(i._SlDrvReleasePoolObj) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    driver.o(i._SlDrvReleasePoolObj) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvResetCmdExt) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    driver.o(i._SlDrvRxHdrRead) refers to spi.o(i.spi_Write) for spi_Write
+    driver.o(i._SlDrvRxHdrRead) refers to spi.o(i.spi_Read) for spi_Read
+    driver.o(i._SlDrvRxHdrRead) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvRxHdrRead) refers to driver.o(.constdata) for .constdata
+    driver.o(i._SlDrvRxIrqHandler) refers to nonos.o(i._SlNonOsSpawn) for _SlNonOsSpawn
+    driver.o(i._SlDrvRxIrqHandler) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvRxIrqHandler) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvRxIrqHandler) refers to driver.o(i._SlDrvMsgReadSpawnCtx) for _SlDrvMsgReadSpawnCtx
+    driver.o(i._SlDrvSyncObjSignal) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    driver.o(i._SlDrvSyncObjWaitForever) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvSyncObjWaitForever) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvSyncObjWaitTimeout) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    driver.o(i._SlDrvSyncObjWaitTimeout) refers to driver.o(i._SlDriverHandleError) for _SlDriverHandleError
+    driver.o(i._SlDrvSyncObjWaitTimeout) refers to driver.o(.data) for .data
+    driver.o(i._SlDrvWaitForPoolObj) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    driver.o(i._SlDrvWaitForPoolObj) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    driver.o(i._SlDrvWaitForPoolObj) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    driver.o(i._SlDrvWaitForPoolObj) refers to driver.o(.data) for .data
+    driver.o(i._SlFindAndSetActiveObj) refers to driver.o(.data) for .data
+    driver.o(i._SlFindAndSetActiveObj) refers to driver.o(.constdata) for .constdata
+    driver.o(i._SlRemoveFromList) refers to driver.o(.data) for .data
+    driver.o(.constdata) refers to socket.o(i._sl_HandleAsync_Accept) for _sl_HandleAsync_Accept
+    driver.o(.constdata) refers to socket.o(i._sl_HandleAsync_Connect) for _sl_HandleAsync_Connect
+    driver.o(.constdata) refers to socket.o(i._sl_HandleAsync_Select) for _sl_HandleAsync_Select
+    driver.o(.constdata) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByName) for _sl_HandleAsync_DnsGetHostByName
+    driver.o(.constdata) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByService) for _sl_HandleAsync_DnsGetHostByService
+    driver.o(.constdata) refers to netapp.o(i._sl_HandleAsync_PingResponse) for _sl_HandleAsync_PingResponse
+    driver.o(.constdata) refers to device.o(i._sl_HandleAsync_Stop) for _sl_HandleAsync_Stop
+    driver.o(.constdata) refers to device.o(i._SlDrvDeviceEventHandler) for _SlDrvDeviceEventHandler
+    driver.o(.constdata) refers to main.o(i.SimpleLinkWlanEventHandler) for SimpleLinkWlanEventHandler
+    driver.o(.constdata) refers to main.o(i.SimpleLinkSockEventHandler) for SimpleLinkSockEventHandler
+    driver.o(.constdata) refers to main.o(i.SimpleLinkNetAppEventHandler) for SimpleLinkNetAppEventHandler
+    fs.o(i._sl_GetCreateFsMode) refers to memcpya.o(.text) for __aeabi_memcpy4
+    fs.o(i._sl_GetCreateFsMode) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsClose) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    fs.o(i.sl_FsClose) refers to fs.o(i._sl_Strlen) for _sl_Strlen
+    fs.o(i.sl_FsClose) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsClose) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsClose) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsDel) refers to fs.o(i._sl_Strlen) for _sl_Strlen
+    fs.o(i.sl_FsDel) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsDel) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsDel) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsGetInfo) refers to fs.o(i._sl_Strlen) for _sl_Strlen
+    fs.o(i.sl_FsGetInfo) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsGetInfo) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsGetInfo) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsOpen) refers to fs.o(i._sl_Strlen) for _sl_Strlen
+    fs.o(i.sl_FsOpen) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsOpen) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsOpen) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsRead) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsRead) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsRead) refers to fs.o(.constdata) for .constdata
+    fs.o(i.sl_FsWrite) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    fs.o(i.sl_FsWrite) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    fs.o(i.sl_FsWrite) refers to fs.o(.constdata) for .constdata
+    netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByName) for _sl_HandleAsync_DnsGetHostByName
+    netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_DnsGetHostByService) for _sl_HandleAsync_DnsGetHostByService
+    netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_HandleAsync_PingResponse) for _sl_HandleAsync_PingResponse
+    netapp.o(i._SlDrvNetAppEventHandler) refers to driver.o(i._SlDrvDispatchHttpServerEvents) for _SlDrvDispatchHttpServerEvents
+    netapp.o(i._SlDrvNetAppEventHandler) refers to netapp.o(i._sl_NetAppSendTokenValue) for _sl_NetAppSendTokenValue
+    netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to memcpya.o(.text) for __aeabi_memcpy
+    netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    netapp.o(i._sl_HandleAsync_DnsGetHostByName) refers to driver.o(.data) for g_pCB
+    netapp.o(i._sl_HandleAsync_DnsGetHostByService) refers to memcpya.o(.text) for __aeabi_memcpy
+    netapp.o(i._sl_HandleAsync_DnsGetHostByService) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    netapp.o(i._sl_HandleAsync_DnsGetHostByService) refers to driver.o(.data) for g_pCB
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to netapp.o(i.CopyPingResultsToReport) for CopyPingResultsToReport
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to memcpya.o(.text) for __aeabi_memcpy
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to driver.o(.data) for pPingCallBackFunc
+    netapp.o(i._sl_HandleAsync_PingResponse) refers to driver.o(.data) for g_pCB
+    netapp.o(i._sl_NetAppSendTokenValue) refers to memcpya.o(.text) for __aeabi_memcpy
+    netapp.o(i._sl_NetAppSendTokenValue) refers to driver.o(i._SlDrvCmdSend) for _SlDrvCmdSend
+    netapp.o(i._sl_NetAppSendTokenValue) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvWaitForPoolObj) for _SlDrvWaitForPoolObj
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to memcpya.o(.text) for __aeabi_memcpy4
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppDnsGetHostByName) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppDnsGetHostByService) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppGet) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppGetServiceList) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppGetServiceList) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppGetServiceList) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppGetServiceList) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppMDNSRegisterService) refers to netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) for sl_NetAppMDNSRegisterUnregisterService
+    netapp.o(i.sl_NetAppMDNSRegisterService) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to memcpya.o(.text) for __aeabi_memcpy
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppMDNSUnRegisterService) refers to netapp.o(i.sl_NetAppMDNSRegisterUnregisterService) for sl_NetAppMDNSRegisterUnregisterService
+    netapp.o(i.sl_NetAppMDNSUnRegisterService) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(i._SlDrvBasicCmd) for _SlDrvBasicCmd
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(i._SlDrvWaitForPoolObj) for _SlDrvWaitForPoolObj
+    netapp.o(i.sl_NetAppPingStart) refers to nonos.o(i._SlNonOsSemGet) for _SlNonOsSemGet
+    netapp.o(i.sl_NetAppPingStart) refers to nonos.o(i._SlNonOsSemSet) for _SlNonOsSemSet
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    netapp.o(i.sl_NetAppPingStart) refers to netapp.o(i.CopyPingResultsToReport) for CopyPingResultsToReport
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    netapp.o(i.sl_NetAppPingStart) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppPingStart) refers to driver.o(.data) for pPingCallBackFunc
+    netapp.o(i.sl_NetAppSet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netapp.o(i.sl_NetAppSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppSet) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppStart) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppStart) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppStart) refers to netapp.o(.constdata) for .constdata
+    netapp.o(i.sl_NetAppStop) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netapp.o(i.sl_NetAppStop) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netapp.o(i.sl_NetAppStop) refers to netapp.o(.constdata) for .constdata
+    netcfg.o(i.sl_NetCfgGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netcfg.o(i.sl_NetCfgGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netcfg.o(i.sl_NetCfgGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netcfg.o(i.sl_NetCfgGet) refers to netcfg.o(.constdata) for .constdata
+    netcfg.o(i.sl_NetCfgSet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    netcfg.o(i.sl_NetCfgSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    netcfg.o(i.sl_NetCfgSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    netcfg.o(i.sl_NetCfgSet) refers to netcfg.o(.constdata) for .constdata
+    nonos.o(i._SlNonOsMainLoopTask) refers to nonos.o(.bss) for .bss
+    nonos.o(i._SlNonOsSemGet) refers to nonos.o(i._SlNonOsMainLoopTask) for _SlNonOsMainLoopTask
+    nonos.o(i._SlNonOsSemGet) refers to driver.o(.data) for g_pCB
+    nonos.o(i._SlNonOsSpawn) refers to nonos.o(.bss) for .bss
+    socket.o(i._sl_HandleAsync_Accept) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    socket.o(i._sl_HandleAsync_Accept) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    socket.o(i._sl_HandleAsync_Accept) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    socket.o(i._sl_HandleAsync_Accept) refers to driver.o(.data) for g_pCB
+    socket.o(i._sl_HandleAsync_Connect) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    socket.o(i._sl_HandleAsync_Connect) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    socket.o(i._sl_HandleAsync_Connect) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    socket.o(i._sl_HandleAsync_Connect) refers to driver.o(.data) for g_pCB
+    socket.o(i._sl_HandleAsync_Select) refers to driver.o(i._SlDrvProtectionObjLockWaitForever) for _SlDrvProtectionObjLockWaitForever
+    socket.o(i._sl_HandleAsync_Select) refers to driver.o(i._SlDrvSyncObjSignal) for _SlDrvSyncObjSignal
+    socket.o(i._sl_HandleAsync_Select) refers to driver.o(i._SlDrvProtectionObjUnLock) for _SlDrvProtectionObjUnLock
+    socket.o(i._sl_HandleAsync_Select) refers to driver.o(.data) for g_pCB
+    socket.o(i._sl_TruncatePayloadByProtocol) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Accept) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    socket.o(i.sl_Accept) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Accept) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    socket.o(i.sl_Accept) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    socket.o(i.sl_Accept) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    socket.o(i.sl_Accept) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Accept) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Bind) refers to socket.o(i._sl_BuildAddress) for _sl_BuildAddress
+    socket.o(i.sl_Bind) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Bind) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Bind) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Close) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Close) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Close) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Connect) refers to socket.o(i._sl_BuildAddress) for _sl_BuildAddress
+    socket.o(i.sl_Connect) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    socket.o(i.sl_Connect) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Connect) refers to driver.o(i._SlDrvSyncObjWaitTimeout) for _SlDrvSyncObjWaitTimeout
+    socket.o(i.sl_Connect) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    socket.o(i.sl_Connect) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    socket.o(i.sl_Connect) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Connect) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_GetSockOpt) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_GetSockOpt) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_GetSockOpt) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_GetSockOpt) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Listen) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Listen) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Listen) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Recv) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_Recv) refers to driver.o(i._SlDrvDataReadOp) for _SlDrvDataReadOp
+    socket.o(i.sl_Recv) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Recv) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_RecvFrom) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_RecvFrom) refers to driver.o(i._SlDrvDataReadOp) for _SlDrvDataReadOp
+    socket.o(i.sl_RecvFrom) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_RecvFrom) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Select) refers to driver.o(i._SlDrvProtectAsyncRespSetting) for _SlDrvProtectAsyncRespSetting
+    socket.o(i.sl_Select) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Select) refers to driver.o(i._SlDrvSyncObjWaitForever) for _SlDrvSyncObjWaitForever
+    socket.o(i.sl_Select) refers to driver.o(i._SlDrvReleasePoolObj) for _SlDrvReleasePoolObj
+    socket.o(i.sl_Select) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Select) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Send) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_Send) refers to socket.o(i._sl_TruncatePayloadByProtocol) for _sl_TruncatePayloadByProtocol
+    socket.o(i.sl_Send) refers to driver.o(i._SlDrvDataWriteOp) for _SlDrvDataWriteOp
+    socket.o(i.sl_Send) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Send) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_SendTo) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_SendTo) refers to socket.o(i._sl_TruncatePayloadByProtocol) for _sl_TruncatePayloadByProtocol
+    socket.o(i.sl_SendTo) refers to socket.o(i._sl_BuildAddress) for _sl_BuildAddress
+    socket.o(i.sl_SendTo) refers to driver.o(i._SlDrvDataWriteOp) for _SlDrvDataWriteOp
+    socket.o(i.sl_SendTo) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_SetSockOpt) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    socket.o(i.sl_SetSockOpt) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_SetSockOpt) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_SetSockOpt) refers to socket.o(.constdata) for .constdata
+    socket.o(i.sl_Socket) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    socket.o(i.sl_Socket) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    socket.o(i.sl_Socket) refers to socket.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanConnect) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    wlan.o(i.sl_WlanConnect) refers to memcpya.o(.text) for __aeabi_memcpy
+    wlan.o(i.sl_WlanConnect) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanConnect) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanDisconnect) refers to driver.o(i._SlDrvBasicCmd) for _SlDrvBasicCmd
+    wlan.o(i.sl_WlanDisconnect) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanGet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanGetNetworkList) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanGetNetworkList) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanGetNetworkList) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanGetNetworkList) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanPolicyGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanPolicyGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanPolicyGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanPolicyGet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanPolicySet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanPolicySet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanPolicySet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanPolicySet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanProfileAdd) refers to memcpya.o(.text) for __aeabi_memcpy
+    wlan.o(i.sl_WlanProfileAdd) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    wlan.o(i.sl_WlanProfileAdd) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanProfileAdd) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanProfileDel) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanProfileDel) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanProfileDel) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanProfileGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanProfileGet) refers to memcpya.o(.text) for __aeabi_memcpy
+    wlan.o(i.sl_WlanProfileGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanProfileGet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanRxFilterAdd) refers to memcpya.o(.text) for __aeabi_memcpy4
+    wlan.o(i.sl_WlanRxFilterAdd) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanRxFilterAdd) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanRxFilterAdd) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanRxFilterGet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanRxFilterGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanRxFilterGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanRxFilterGet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanRxFilterSet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanRxFilterSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanRxFilterSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanRxFilterSet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanRxStatGet) refers to driver.o(i._SlDrvMemZero) for _SlDrvMemZero
+    wlan.o(i.sl_WlanRxStatGet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanRxStatGet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanRxStatGet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanRxStatStart) refers to driver.o(i._SlDrvBasicCmd) for _SlDrvBasicCmd
+    wlan.o(i.sl_WlanRxStatStart) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanRxStatStop) refers to driver.o(i._SlDrvBasicCmd) for _SlDrvBasicCmd
+    wlan.o(i.sl_WlanRxStatStop) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanSet) refers to driver.o(i._SlDrvResetCmdExt) for _SlDrvResetCmdExt
+    wlan.o(i.sl_WlanSet) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanSet) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanSet) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanSetMode) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanSetMode) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanSetMode) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanSmartConfigStart) refers to memcpya.o(.text) for __aeabi_memcpy
+    wlan.o(i.sl_WlanSmartConfigStart) refers to driver.o(i._SlDrvCmdOp) for _SlDrvCmdOp
+    wlan.o(i.sl_WlanSmartConfigStart) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    wlan.o(i.sl_WlanSmartConfigStart) refers to wlan.o(.constdata) for .constdata
+    wlan.o(i.sl_WlanSmartConfigStop) refers to driver.o(i._SlDrvBasicCmd) for _SlDrvBasicCmd
+    wlan.o(i.sl_WlanSmartConfigStop) refers to driver.o(.data) for g_bDeviceRestartIsRequired
+    gpio.o(i.GPIOIntRegister) refers to interrupt.o(i.IntRegister) for IntRegister
+    gpio.o(i.GPIOIntRegister) refers to interrupt.o(i.IntEnable) for IntEnable
+    gpio.o(i.GPIOIntRegister) refers to gpio.o(.constdata) for .constdata
+    gpio.o(i.GPIOIntUnregister) refers to interrupt.o(i.IntDisable) for IntDisable
+    gpio.o(i.GPIOIntUnregister) refers to interrupt.o(i.IntUnregister) for IntUnregister
+    gpio.o(i.GPIOIntUnregister) refers to gpio.o(.constdata) for .constdata
+    gpio.o(i.GPIOPinConfigure) refers to gpio.o(.constdata) for .constdata
+    gpio.o(i.GPIOPinTypeADC) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeADC) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeCAN) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeCAN) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeComparator) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeComparator) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeComparatorOutput) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeComparatorOutput) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeDIVSCLK) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeDIVSCLK) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeEPI) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeEPI) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeEthernetLED) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeEthernetLED) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeEthernetMII) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeEthernetMII) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeGPIOInput) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeGPIOInput) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeGPIOOutput) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeGPIOOutput) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeGPIOOutputOD) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeGPIOOutputOD) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeHibernateRTCCLK) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeHibernateRTCCLK) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeI2C) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeI2C) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeI2CSCL) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeI2CSCL) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeLCD) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeLCD) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeOneWire) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeOneWire) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypePWM) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypePWM) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeQEI) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeQEI) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeSSI) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeSSI) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeTimer) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeTimer) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeTrace) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeTrace) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeUART) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeUART) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeUSBAnalog) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeUSBAnalog) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeUSBDigital) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeUSBDigital) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeWakeHigh) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeWakeHigh) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    gpio.o(i.GPIOPinTypeWakeLow) refers to gpio.o(i.GPIODirModeSet) for GPIODirModeSet
+    gpio.o(i.GPIOPinTypeWakeLow) refers to gpio.o(i.GPIOPadConfigSet) for GPIOPadConfigSet
+    interrupt.o(i.IntDisable) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntEnable) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntIsEnabled) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntMasterDisable) refers to cpu.o(.emb_text) for CPUcpsid
+    interrupt.o(i.IntMasterEnable) refers to cpu.o(.emb_text) for CPUcpsie
+    interrupt.o(i.IntPendClear) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntPendSet) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntPriorityGet) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntPriorityGroupingGet) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntPriorityGroupingSet) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntPriorityMaskGet) refers to cpu.o(.emb_text) for CPUbasepriGet
+    interrupt.o(i.IntPriorityMaskSet) refers to cpu.o(.emb_text) for CPUbasepriSet
+    interrupt.o(i.IntPrioritySet) refers to interrupt.o(.constdata) for .constdata
+    interrupt.o(i.IntRegister) refers to interrupt.o(vtable) for vtable
+    interrupt.o(i.IntUnregister) refers to interrupt.o(i._IntDefaultHandler) for _IntDefaultHandler
+    interrupt.o(i.IntUnregister) refers to interrupt.o(vtable) for vtable
+    ssi.o(i.SSIIntRegister) refers to interrupt.o(i.IntRegister) for IntRegister
+    ssi.o(i.SSIIntRegister) refers to interrupt.o(i.IntEnable) for IntEnable
+    ssi.o(i.SSIIntRegister) refers to ssi.o(.constdata) for .constdata
+    ssi.o(i.SSIIntUnregister) refers to interrupt.o(i.IntDisable) for IntDisable
+    ssi.o(i.SSIIntUnregister) refers to interrupt.o(i.IntUnregister) for IntUnregister
+    ssi.o(i.SSIIntUnregister) refers to ssi.o(.constdata) for .constdata
+    sysctl.o(i.SysCtlClockFreqSet) refers to sysctl.o(.constdata) for .constdata
+    sysctl.o(i.SysCtlClockGet) refers to sysctl.o(.constdata) for .constdata
+    sysctl.o(i.SysCtlClockSet) refers to sysctl.o(.emb_text) for SysCtlDelay
+    sysctl.o(i.SysCtlDeepSleep) refers to cpu.o(.emb_text) for CPUwfi
+    sysctl.o(i.SysCtlIntRegister) refers to interrupt.o(i.IntRegister) for IntRegister
+    sysctl.o(i.SysCtlIntRegister) refers to interrupt.o(i.IntEnable) for IntEnable
+    sysctl.o(i.SysCtlIntUnregister) refers to interrupt.o(i.IntDisable) for IntDisable
+    sysctl.o(i.SysCtlIntUnregister) refers to interrupt.o(i.IntUnregister) for IntUnregister
+    sysctl.o(i.SysCtlSleep) refers to cpu.o(.emb_text) for CPUwfi
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to startup_rvmdk.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to startup_rvmdk.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing board.o(i.GPIOM_intHandler), (52 bytes).
+    Removing board.o(i.MaskIntHdlr), (12 bytes).
+    Removing board.o(i.UARTRxTxHandler), (2 bytes).
+    Removing board.o(i.UnMaskIntHdlr), (12 bytes).
+    Removing cli_uart.o(i.CLI_Read), (12 bytes).
+    Removing main.o(i.set_port_number), (46 bytes).
+    Removing main.o(.data), (11 bytes).
+    Removing startup_rvmdk.o(HEAP), (0 bytes).
+    Removing startup_rvmdk.o(.text), (0 bytes).
+    Removing device.o(i.sl_DevSet), (88 bytes).
+    Removing device.o(i.sl_EventMaskGet), (52 bytes).
+    Removing device.o(i.sl_EventMaskSet), (48 bytes).
+    Removing device.o(i.sl_Task), (4 bytes).
+    Removing driver.o(i._SlDrvDataReadOp), (296 bytes).
+    Removing driver.o(i._SlDrvDataWriteOp), (212 bytes).
+    Removing driver.o(i._SlDrvObjLockWaitForever), (10 bytes).
+    Removing driver.o(i._SlDrvObjUnLock), (6 bytes).
+    Removing fs.o(i._sl_GetCreateFsMode), (84 bytes).
+    Removing fs.o(i._sl_Strlen), (22 bytes).
+    Removing fs.o(i.sl_FsClose), (120 bytes).
+    Removing fs.o(i.sl_FsDel), (84 bytes).
+    Removing fs.o(i.sl_FsGetInfo), (116 bytes).
+    Removing fs.o(i.sl_FsOpen), (104 bytes).
+    Removing fs.o(i.sl_FsRead), (160 bytes).
+    Removing fs.o(i.sl_FsWrite), (160 bytes).
+    Removing fs.o(.constdata), (44 bytes).
+    Removing netapp.o(i._sl_HandleAsync_DnsGetHostByAddr), (4 bytes).
+    Removing netapp.o(i.sl_NetAppDnsGetHostByName), (212 bytes).
+    Removing netapp.o(i.sl_NetAppDnsGetHostByService), (196 bytes).
+    Removing netapp.o(i.sl_NetAppGetServiceList), (136 bytes).
+    Removing netapp.o(i.sl_NetAppMDNSRegisterService), (44 bytes).
+    Removing netapp.o(i.sl_NetAppPingStart), (296 bytes).
+    Removing netapp.o(i.sl_NetAppStart), (48 bytes).
+    Removing netapp.o(i.sl_NetAppStop), (48 bytes).
+    Removing netcfg.o(i.sl_NetCfgGet), (140 bytes).
+    Removing socket.o(i.SL_FD_CLR), (16 bytes).
+    Removing socket.o(i.SL_FD_ISSET), (22 bytes).
+    Removing socket.o(i.SL_FD_SET), (16 bytes).
+    Removing socket.o(i.SL_FD_ZERO), (6 bytes).
+    Removing socket.o(i._sl_BuildAddress), (38 bytes).
+    Removing socket.o(i._sl_ParseAddress), (50 bytes).
+    Removing socket.o(i._sl_TruncatePayloadByProtocol), (24 bytes).
+    Removing socket.o(i.sl_Accept), (272 bytes).
+    Removing socket.o(i.sl_Bind), (112 bytes).
+    Removing socket.o(i.sl_Close), (48 bytes).
+    Removing socket.o(i.sl_Connect), (236 bytes).
+    Removing socket.o(i.sl_GetSockOpt), (136 bytes).
+    Removing socket.o(i.sl_Htonl), (40 bytes).
+    Removing socket.o(i.sl_Htons), (48 bytes).
+    Removing socket.o(i.sl_Listen), (52 bytes).
+    Removing socket.o(i.sl_Recv), (88 bytes).
+    Removing socket.o(i.sl_RecvFrom), (196 bytes).
+    Removing socket.o(i.sl_Select), (236 bytes).
+    Removing socket.o(i.sl_Send), (184 bytes).
+    Removing socket.o(i.sl_SendTo), (188 bytes).
+    Removing socket.o(i.sl_SetSockOpt), (92 bytes).
+    Removing socket.o(i.sl_Socket), (64 bytes).
+    Removing socket.o(.constdata), (64 bytes).
+    Removing wlan.o(i.sl_WlanConnect), (460 bytes).
+    Removing wlan.o(i.sl_WlanGet), (136 bytes).
+    Removing wlan.o(i.sl_WlanGetNetworkList), (92 bytes).
+    Removing wlan.o(i.sl_WlanPolicyGet), (132 bytes).
+    Removing wlan.o(i.sl_WlanProfileAdd), (472 bytes).
+    Removing wlan.o(i.sl_WlanProfileGet), (192 bytes).
+    Removing wlan.o(i.sl_WlanRxFilterAdd), (108 bytes).
+    Removing wlan.o(i.sl_WlanRxFilterGet), (104 bytes).
+    Removing wlan.o(i.sl_WlanRxStatGet), (52 bytes).
+    Removing wlan.o(i.sl_WlanRxStatStart), (28 bytes).
+    Removing wlan.o(i.sl_WlanRxStatStop), (28 bytes).
+    Removing wlan.o(i.sl_WlanSmartConfigStart), (128 bytes).
+    Removing wlan.o(i.sl_WlanSmartConfigStop), (28 bytes).
+    Removing fpu.o(i.FPUDisable), (16 bytes).
+    Removing fpu.o(i.FPUFlushToZeroModeSet), (20 bytes).
+    Removing fpu.o(i.FPUHalfPrecisionModeSet), (20 bytes).
+    Removing fpu.o(i.FPUNaNModeSet), (20 bytes).
+    Removing fpu.o(i.FPURoundingModeSet), (20 bytes).
+    Removing fpu.o(i.FPUStackingDisable), (16 bytes).
+    Removing fpu.o(i.FPUStackingEnable), (20 bytes).
+    Removing gpio.o(i.GPIOADCTriggerDisable), (14 bytes).
+    Removing gpio.o(i.GPIOADCTriggerEnable), (12 bytes).
+    Removing gpio.o(i.GPIODMATriggerDisable), (14 bytes).
+    Removing gpio.o(i.GPIODMATriggerEnable), (12 bytes).
+    Removing gpio.o(i.GPIODirModeGet), (34 bytes).
+    Removing gpio.o(i.GPIOIntRegister), (88 bytes).
+    Removing gpio.o(i.GPIOIntTypeGet), (68 bytes).
+    Removing gpio.o(i.GPIOIntUnregister), (88 bytes).
+    Removing gpio.o(i.GPIOPadConfigGet), (204 bytes).
+    Removing gpio.o(i.GPIOPinRead), (6 bytes).
+    Removing gpio.o(i.GPIOPinTypeADC), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeCAN), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeComparator), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeComparatorOutput), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeDIVSCLK), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeEPI), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeEthernetLED), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeEthernetMII), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeGPIOOutput), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeGPIOOutputOD), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeHibernateRTCCLK), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeI2C), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeI2CSCL), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeLCD), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeOneWire), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypePWM), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeQEI), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeTimer), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeTrace), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeUART), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeUSBAnalog), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeUSBDigital), (28 bytes).
+    Removing gpio.o(i.GPIOPinTypeWakeHigh), (30 bytes).
+    Removing gpio.o(i.GPIOPinTypeWakeLow), (30 bytes).
+    Removing gpio.o(i.GPIOPinWakeStatus), (6 bytes).
+    Removing interrupt.o(i.IntDisable), (100 bytes).
+    Removing interrupt.o(i.IntIsEnabled), (96 bytes).
+    Removing interrupt.o(i.IntMasterDisable), (14 bytes).
+    Removing interrupt.o(i.IntPendClear), (68 bytes).
+    Removing interrupt.o(i.IntPendSet), (84 bytes).
+    Removing interrupt.o(i.IntPriorityGet), (28 bytes).
+    Removing interrupt.o(i.IntPriorityGroupingGet), (36 bytes).
+    Removing interrupt.o(i.IntPriorityGroupingSet), (28 bytes).
+    Removing interrupt.o(i.IntPriorityMaskGet), (4 bytes).
+    Removing interrupt.o(i.IntPriorityMaskSet), (4 bytes).
+    Removing interrupt.o(i.IntPrioritySet), (40 bytes).
+    Removing interrupt.o(i.IntRegister), (52 bytes).
+    Removing interrupt.o(i.IntTrigger), (12 bytes).
+    Removing interrupt.o(i.IntUnregister), (20 bytes).
+    Removing interrupt.o(i._IntDefaultHandler), (2 bytes).
+    Removing interrupt.o(vtable), (620 bytes).
+    Removing ssi.o(i.SSIAdvDataPutFrameEnd), (20 bytes).
+    Removing ssi.o(i.SSIAdvDataPutFrameEndNonBlocking), (26 bytes).
+    Removing ssi.o(i.SSIAdvFrameHoldDisable), (10 bytes).
+    Removing ssi.o(i.SSIAdvFrameHoldEnable), (10 bytes).
+    Removing ssi.o(i.SSIAdvModeSet), (12 bytes).
+    Removing ssi.o(i.SSIClockSourceGet), (6 bytes).
+    Removing ssi.o(i.SSIClockSourceSet), (6 bytes).
+    Removing ssi.o(i.SSIDMADisable), (10 bytes).
+    Removing ssi.o(i.SSIDMAEnable), (8 bytes).
+    Removing ssi.o(i.SSIDataGet), (14 bytes).
+    Removing ssi.o(i.SSIDataPut), (12 bytes).
+    Removing ssi.o(i.SSIDisable), (10 bytes).
+    Removing ssi.o(i.SSIIntClear), (4 bytes).
+    Removing ssi.o(i.SSIIntDisable), (10 bytes).
+    Removing ssi.o(i.SSIIntEnable), (8 bytes).
+    Removing ssi.o(i.SSIIntRegister), (88 bytes).
+    Removing ssi.o(i.SSIIntStatus), (10 bytes).
+    Removing ssi.o(i.SSIIntUnregister), (88 bytes).
+    Removing ssi.o(.constdata), (64 bytes).
+    Removing sysctl.o(i.SysCtlAltClkConfig), (12 bytes).
+    Removing sysctl.o(i.SysCtlClockGet), (340 bytes).
+    Removing sysctl.o(i.SysCtlClockOutConfig), (20 bytes).
+    Removing sysctl.o(i.SysCtlClockSet), (288 bytes).
+    Removing sysctl.o(i.SysCtlDeepSleep), (32 bytes).
+    Removing sysctl.o(i.SysCtlDeepSleepClockConfigSet), (112 bytes).
+    Removing sysctl.o(i.SysCtlDeepSleepClockSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlDeepSleepPowerSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlFlashSectorSizeGet), (56 bytes).
+    Removing sysctl.o(i.SysCtlFlashSizeGet), (56 bytes).
+    Removing sysctl.o(i.SysCtlGPIOAHBDisable), (28 bytes).
+    Removing sysctl.o(i.SysCtlGPIOAHBEnable), (24 bytes).
+    Removing sysctl.o(i.SysCtlIntClear), (12 bytes).
+    Removing sysctl.o(i.SysCtlIntDisable), (16 bytes).
+    Removing sysctl.o(i.SysCtlIntEnable), (16 bytes).
+    Removing sysctl.o(i.SysCtlIntRegister), (20 bytes).
+    Removing sysctl.o(i.SysCtlIntStatus), (16 bytes).
+    Removing sysctl.o(i.SysCtlIntUnregister), (18 bytes).
+    Removing sysctl.o(i.SysCtlLDODeepSleepGet), (12 bytes).
+    Removing sysctl.o(i.SysCtlLDODeepSleepSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlLDOSleepGet), (12 bytes).
+    Removing sysctl.o(i.SysCtlLDOSleepSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlMOSCConfigSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlNMIClear), (16 bytes).
+    Removing sysctl.o(i.SysCtlNMIStatus), (12 bytes).
+    Removing sysctl.o(i.SysCtlPIOSCCalibrate), (76 bytes).
+    Removing sysctl.o(i.SysCtlPWMClockGet), (24 bytes).
+    Removing sysctl.o(i.SysCtlPWMClockSet), (20 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralClockGating), (68 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralDeepSleepDisable), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralDeepSleepEnable), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralDisable), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralPowerOff), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralPowerOn), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralPresent), (44 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralReady), (44 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralReset), (60 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralSleepDisable), (40 bytes).
+    Removing sysctl.o(i.SysCtlPeripheralSleepEnable), (40 bytes).
+    Removing sysctl.o(i.SysCtlReset), (16 bytes).
+    Removing sysctl.o(i.SysCtlResetBehaviorGet), (12 bytes).
+    Removing sysctl.o(i.SysCtlResetBehaviorSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlResetCauseClear), (16 bytes).
+    Removing sysctl.o(i.SysCtlResetCauseGet), (12 bytes).
+    Removing sysctl.o(i.SysCtlSRAMSizeGet), (16 bytes).
+    Removing sysctl.o(i.SysCtlSleep), (4 bytes).
+    Removing sysctl.o(i.SysCtlSleepPowerSet), (12 bytes).
+    Removing sysctl.o(i.SysCtlUSBPLLDisable), (16 bytes).
+    Removing sysctl.o(i.SysCtlUSBPLLEnable), (16 bytes).
+    Removing sysctl.o(i.SysCtlVoltageEventClear), (16 bytes).
+    Removing sysctl.o(i.SysCtlVoltageEventConfig), (12 bytes).
+    Removing sysctl.o(i.SysCtlVoltageEventStatus), (12 bytes).
+
+200 unused section(s) (total 12013 bytes) removed from the image.
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    RESET                                    0x00000000   Section      540  startup_rvmdk.o(RESET)
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/string/memcmp.c         0x00000000   Number         0  memcmp.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
+    ../clib/microlib/string/strlen.c         0x00000000   Number         0  strlen.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c 0x00000000   Number         0  device.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c 0x00000000   Number         0  driver.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c 0x00000000   Number         0  flowcont.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c 0x00000000   Number         0  fs.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c 0x00000000   Number         0  netapp.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c 0x00000000   Number         0  netcfg.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c 0x00000000   Number         0  nonos.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c 0x00000000   Number         0  socket.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c 0x00000000   Number         0  spawn.o ABSOLUTE
+    C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c 0x00000000   Number         0  wlan.o ABSOLUTE
+    board.c                                  0x00000000   Number         0  board.o ABSOLUTE
+    cli_uart.c                               0x00000000   Number         0  cli_uart.o ABSOLUTE
+    cpu.c                                    0x00000000   Number         0  cpu.o ABSOLUTE
+    cpu.c                                    0x00000000   Number         0  cpu.o ABSOLUTE
+    dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
+    fpu.c                                    0x00000000   Number         0  fpu.o ABSOLUTE
+    gpio.c                                   0x00000000   Number         0  gpio.o ABSOLUTE
+    handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
+    init.s                                   0x00000000   Number         0  init.o ABSOLUTE
+    interrupt.c                              0x00000000   Number         0  interrupt.o ABSOLUTE
+    main.c                                   0x00000000   Number         0  main.o ABSOLUTE
+    spi.c                                    0x00000000   Number         0  spi.o ABSOLUTE
+    ssi.c                                    0x00000000   Number         0  ssi.o ABSOLUTE
+    startup_rvmdk.S                          0x00000000   Number         0  startup_rvmdk.o ABSOLUTE
+    sysctl.c                                 0x00000000   Number         0  sysctl.o ABSOLUTE
+    sysctl.c                                 0x00000000   Number         0  sysctl.o ABSOLUTE
+    NmiSR                                    0x00000215   Thumb Code     0  startup_rvmdk.o(RESET)
+    FaultISR                                 0x00000217   Thumb Code     0  startup_rvmdk.o(RESET)
+    IntDefaultHandler                        0x00000219   Thumb Code     0  startup_rvmdk.o(RESET)
+    .ARM.Collect$$$$00000000                 0x0000021c   Section        0  entry.o(.ARM.Collect$$$$00000000)
+    .ARM.Collect$$$$00000001                 0x0000021c   Section        4  entry2.o(.ARM.Collect$$$$00000001)
+    .ARM.Collect$$$$00000004                 0x00000220   Section        4  entry5.o(.ARM.Collect$$$$00000004)
+    .ARM.Collect$$$$00000008                 0x00000224   Section        0  entry7b.o(.ARM.Collect$$$$00000008)
+    .ARM.Collect$$$$0000000A                 0x00000224   Section        0  entry8b.o(.ARM.Collect$$$$0000000A)
+    .ARM.Collect$$$$0000000B                 0x00000224   Section        8  entry9a.o(.ARM.Collect$$$$0000000B)
+    .ARM.Collect$$$$0000000D                 0x0000022c   Section        0  entry10a.o(.ARM.Collect$$$$0000000D)
+    .ARM.Collect$$$$0000000F                 0x0000022c   Section        0  entry11a.o(.ARM.Collect$$$$0000000F)
+    .ARM.Collect$$$$00002712                 0x0000022c   Section        4  entry2.o(.ARM.Collect$$$$00002712)
+    __lit__00000000                          0x0000022c   Data           4  entry2.o(.ARM.Collect$$$$00002712)
+    .emb_text                                0x00000230   Section        6  sysctl.o(.emb_text)
+    $v0                                      0x00000230   Number         0  sysctl.o(.emb_text)
+    .emb_text                                0x00000238   Section       38  cpu.o(.emb_text)
+    $v0                                      0x00000238   Number         0  cpu.o(.emb_text)
+    .text                                    0x0000025e   Section        0  memcpya.o(.text)
+    .text                                    0x00000282   Section        0  memseta.o(.text)
+    .text                                    0x000002a6   Section        0  strlen.o(.text)
+    .text                                    0x000002b4   Section        0  memcmp.o(.text)
+    .text                                    0x000002d0   Section       36  init.o(.text)
+    i.CC3100_InterruptDisable                0x000002f4   Section        0  board.o(i.CC3100_InterruptDisable)
+    i.CC3100_InterruptEnable                 0x00000300   Section        0  board.o(i.CC3100_InterruptEnable)
+    i.CC3100_disable                         0x0000030c   Section        0  board.o(i.CC3100_disable)
+    i.CC3100_enable                          0x00000320   Section        0  board.o(i.CC3100_enable)
+    i.CLI_Configure                          0x00000334   Section        0  cli_uart.o(i.CLI_Configure)
+    i.CLI_Write                              0x00000336   Section        0  cli_uart.o(i.CLI_Write)
+    i.CopyPingResultsToReport                0x00000342   Section        0  netapp.o(i.CopyPingResultsToReport)
+    CopyPingResultsToReport                  0x00000343   Thumb Code    26  netapp.o(i.CopyPingResultsToReport)
+    i.FPUEnable                              0x0000035c   Section        0  fpu.o(i.FPUEnable)
+    i.FPULazyStackingEnable                  0x0000036c   Section        0  fpu.o(i.FPULazyStackingEnable)
+    i.GPIODirModeSet                         0x0000037c   Section        0  gpio.o(i.GPIODirModeSet)
+    i.GPIOIntClear                           0x000003a4   Section        0  gpio.o(i.GPIOIntClear)
+    i.GPIOIntDisable                         0x000003aa   Section        0  gpio.o(i.GPIOIntDisable)
+    i.GPIOIntEnable                          0x000003b8   Section        0  gpio.o(i.GPIOIntEnable)
+    i.GPIOIntStatus                          0x000003c4   Section        0  gpio.o(i.GPIOIntStatus)
+    i.GPIOIntTypeSet                         0x000003d2   Section        0  gpio.o(i.GPIOIntTypeSet)
+    i.GPIOPadConfigSet                       0x00000422   Section        0  gpio.o(i.GPIOPadConfigSet)
+    i.GPIOPinConfigure                       0x0000055c   Section        0  gpio.o(i.GPIOPinConfigure)
+    i.GPIOPinTypeGPIOInput                   0x000005a0   Section        0  gpio.o(i.GPIOPinTypeGPIOInput)
+    i.GPIOPinTypeSSI                         0x000005bc   Section        0  gpio.o(i.GPIOPinTypeSSI)
+    i.GPIOPinWrite                           0x000005d8   Section        0  gpio.o(i.GPIOPinWrite)
+    i.IntEnable                              0x000005e0   Section        0  interrupt.o(i.IntEnable)
+    i.IntMasterEnable                        0x00000644   Section        0  interrupt.o(i.IntMasterEnable)
+    i.SSIBusy                                0x00000652   Section        0  ssi.o(i.SSIBusy)
+    i.SSIConfigSetExpClk                     0x0000065a   Section        0  ssi.o(i.SSIConfigSetExpClk)
+    i.SSIDataGetNonBlocking                  0x00000694   Section        0  ssi.o(i.SSIDataGetNonBlocking)
+    i.SSIDataPutNonBlocking                  0x000006a8   Section        0  ssi.o(i.SSIDataPutNonBlocking)
+    i.SSIEnable                              0x000006b8   Section        0  ssi.o(i.SSIEnable)
+    i.SimpleLinkGeneralEventHandler          0x000006c4   Section        0  main.o(i.SimpleLinkGeneralEventHandler)
+    i.SimpleLinkHttpServerCallback           0x000006e0   Section        0  main.o(i.SimpleLinkHttpServerCallback)
+    i.SimpleLinkNetAppEventHandler           0x000007a0   Section        0  main.o(i.SimpleLinkNetAppEventHandler)
+    i.SimpleLinkSockEventHandler             0x00000818   Section        0  main.o(i.SimpleLinkSockEventHandler)
+    i.SimpleLinkWlanEventHandler             0x00000844   Section        0  main.o(i.SimpleLinkWlanEventHandler)
+    i.SysCtlClockFreqSet                     0x00000950   Section        0  sysctl.o(i.SysCtlClockFreqSet)
+    i.SysCtlPeripheralEnable                 0x00000c18   Section        0  sysctl.o(i.SysCtlPeripheralEnable)
+    i._SlAsyncEventGenericHandler            0x00000c40   Section        0  driver.o(i._SlAsyncEventGenericHandler)
+    _SlAsyncEventGenericHandler              0x00000c41   Thumb Code   114  driver.o(i._SlAsyncEventGenericHandler)
+    i._SlDriverHandleError                   0x00000cbc   Section        0  driver.o(i._SlDriverHandleError)
+    i._SlDrvBasicCmd                         0x00000d14   Section        0  driver.o(i._SlDrvBasicCmd)
+    i._SlDrvClassifyRxMsg                    0x00000d44   Section        0  driver.o(i._SlDrvClassifyRxMsg)
+    _SlDrvClassifyRxMsg                      0x00000d45   Thumb Code   100  driver.o(i._SlDrvClassifyRxMsg)
+    i._SlDrvCmdOp                            0x00000db8   Section        0  driver.o(i._SlDrvCmdOp)
+    i._SlDrvCmdSend                          0x00000e24   Section        0  driver.o(i._SlDrvCmdSend)
+    i._SlDrvDeviceEventHandler               0x00000e74   Section        0  device.o(i._SlDrvDeviceEventHandler)
+    i._SlDrvDispatchHttpServerEvents         0x00000ed6   Section        0  driver.o(i._SlDrvDispatchHttpServerEvents)
+    i._SlDrvDriverCBDeinit                   0x00000edc   Section        0  driver.o(i._SlDrvDriverCBDeinit)
+    i._SlDrvDriverCBInit                     0x00000f68   Section        0  driver.o(i._SlDrvDriverCBInit)
+    i._SlDrvGlobalObjUnLock                  0x00001048   Section        0  driver.o(i._SlDrvGlobalObjUnLock)
+    i._SlDrvMemZero                          0x00001058   Section        0  driver.o(i._SlDrvMemZero)
+    i._SlDrvMsgRead                          0x0000105c   Section        0  driver.o(i._SlDrvMsgRead)
+    _SlDrvMsgRead                            0x0000105d   Thumb Code   808  driver.o(i._SlDrvMsgRead)
+    i._SlDrvMsgReadCmdCtx                    0x0000138c   Section        0  driver.o(i._SlDrvMsgReadCmdCtx)
+    _SlDrvMsgReadCmdCtx                      0x0000138d   Thumb Code   196  driver.o(i._SlDrvMsgReadCmdCtx)
+    i._SlDrvMsgReadSpawnCtx                  0x00001458   Section        0  driver.o(i._SlDrvMsgReadSpawnCtx)
+    i._SlDrvMsgWrite                         0x000014c8   Section        0  driver.o(i._SlDrvMsgWrite)
+    _SlDrvMsgWrite                           0x000014c9   Thumb Code   258  driver.o(i._SlDrvMsgWrite)
+    i._SlDrvNetAppEventHandler               0x000015d4   Section        0  netapp.o(i._SlDrvNetAppEventHandler)
+    i._SlDrvObjGlobalLockWaitForever         0x000016a0   Section        0  driver.o(i._SlDrvObjGlobalLockWaitForever)
+    _SlDrvObjGlobalLockWaitForever           0x000016a1   Thumb Code    28  driver.o(i._SlDrvObjGlobalLockWaitForever)
+    i._SlDrvProtectAsyncRespSetting          0x000016c0   Section        0  driver.o(i._SlDrvProtectAsyncRespSetting)
+    i._SlDrvProtectionObjLockWaitForever     0x000016f4   Section        0  driver.o(i._SlDrvProtectionObjLockWaitForever)
+    i._SlDrvProtectionObjUnLock              0x00001708   Section        0  driver.o(i._SlDrvProtectionObjUnLock)
+    i._SlDrvReleasePoolObj                   0x00001718   Section        0  driver.o(i._SlDrvReleasePoolObj)
+    i._SlDrvResetCmdExt                      0x000017e0   Section        0  driver.o(i._SlDrvResetCmdExt)
+    i._SlDrvRxHdrRead                        0x000017e8   Section        0  driver.o(i._SlDrvRxHdrRead)
+    _SlDrvRxHdrRead                          0x000017e9   Thumb Code   318  driver.o(i._SlDrvRxHdrRead)
+    i._SlDrvRxIrqHandler                     0x00001938   Section        0  driver.o(i._SlDrvRxIrqHandler)
+    i._SlDrvSyncObjSignal                    0x00001970   Section        0  driver.o(i._SlDrvSyncObjSignal)
+    i._SlDrvSyncObjWaitForever               0x00001978   Section        0  driver.o(i._SlDrvSyncObjWaitForever)
+    i._SlDrvSyncObjWaitTimeout               0x0000199c   Section        0  driver.o(i._SlDrvSyncObjWaitTimeout)
+    i._SlDrvWaitForPoolObj                   0x000019d0   Section        0  driver.o(i._SlDrvWaitForPoolObj)
+    i._SlFindAndSetActiveObj                 0x00001a94   Section        0  driver.o(i._SlFindAndSetActiveObj)
+    _SlFindAndSetActiveObj                   0x00001a95   Thumb Code   136  driver.o(i._SlFindAndSetActiveObj)
+    i._SlNonOsMainLoopTask                   0x00001b24   Section        0  nonos.o(i._SlNonOsMainLoopTask)
+    i._SlNonOsSemGet                         0x00001b58   Section        0  nonos.o(i._SlNonOsSemGet)
+    i._SlNonOsSemSet                         0x00001ba8   Section        0  nonos.o(i._SlNonOsSemSet)
+    i._SlNonOsSpawn                          0x00001bb0   Section        0  nonos.o(i._SlNonOsSpawn)
+    i._SlRemoveFromList                      0x00001bdc   Section        0  driver.o(i._SlRemoveFromList)
+    _SlRemoveFromList                        0x00001bdd   Thumb Code    84  driver.o(i._SlRemoveFromList)
+    i.__scatterload_copy                     0x00001c34   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001c42   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001c44   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._sl_GetStartResponseConvert            0x00001c54   Section        0  device.o(i._sl_GetStartResponseConvert)
+    _sl_GetStartResponseConvert              0x00001c55   Thumb Code    10  device.o(i._sl_GetStartResponseConvert)
+    i._sl_HandleAsync_Accept                 0x00001c64   Section        0  socket.o(i._sl_HandleAsync_Accept)
+    i._sl_HandleAsync_Connect                0x00001cbc   Section        0  socket.o(i._sl_HandleAsync_Connect)
+    i._sl_HandleAsync_DnsGetHostByName       0x00001d20   Section        0  netapp.o(i._sl_HandleAsync_DnsGetHostByName)
+    i._sl_HandleAsync_DnsGetHostByService    0x00001d74   Section        0  netapp.o(i._sl_HandleAsync_DnsGetHostByService)
+    i._sl_HandleAsync_InitComplete           0x00001dd8   Section        0  device.o(i._sl_HandleAsync_InitComplete)
+    i._sl_HandleAsync_PingResponse           0x00001e38   Section        0  netapp.o(i._sl_HandleAsync_PingResponse)
+    i._sl_HandleAsync_Select                 0x00001e9c   Section        0  socket.o(i._sl_HandleAsync_Select)
+    i._sl_HandleAsync_Stop                   0x00001ee0   Section        0  device.o(i._sl_HandleAsync_Stop)
+    i._sl_NetAppSendTokenValue               0x00001f20   Section        0  netapp.o(i._sl_NetAppSendTokenValue)
+    i.configureSimpleLinkToDefaultState      0x00001f70   Section        0  main.o(i.configureSimpleLinkToDefaultState)
+    configureSimpleLinkToDefaultState        0x00001f71   Thumb Code   318  main.o(i.configureSimpleLinkToDefaultState)
+    i.initClk                                0x000020b8   Section        0  board.o(i.initClk)
+    i.initializeAppVariables                 0x000020dc   Section        0  main.o(i.initializeAppVariables)
+    initializeAppVariables                   0x000020dd   Thumb Code    60  main.o(i.initializeAppVariables)
+    i.main                                   0x00002120   Section        0  main.o(i.main)
+    i.registerInterruptHandler               0x0000250c   Section        0  board.o(i.registerInterruptHandler)
+    i.sl_DevGet                              0x00002518   Section        0  device.o(i.sl_DevGet)
+    i.sl_NetAppGet                           0x00002598   Section        0  netapp.o(i.sl_NetAppGet)
+    i.sl_NetAppMDNSRegisterUnregisterService 0x00002608   Section        0  netapp.o(i.sl_NetAppMDNSRegisterUnregisterService)
+    i.sl_NetAppMDNSUnRegisterService         0x00002694   Section        0  netapp.o(i.sl_NetAppMDNSUnRegisterService)
+    i.sl_NetAppSet                           0x000026bc   Section        0  netapp.o(i.sl_NetAppSet)
+    i.sl_NetCfgSet                           0x00002714   Section        0  netcfg.o(i.sl_NetCfgSet)
+    i.sl_Start                               0x0000276c   Section        0  device.o(i.sl_Start)
+    i.sl_Stop                                0x0000280c   Section        0  device.o(i.sl_Stop)
+    i.sl_WlanDisconnect                      0x000028a8   Section        0  wlan.o(i.sl_WlanDisconnect)
+    i.sl_WlanPolicySet                       0x000028c4   Section        0  wlan.o(i.sl_WlanPolicySet)
+    i.sl_WlanProfileDel                      0x00002914   Section        0  wlan.o(i.sl_WlanProfileDel)
+    i.sl_WlanRxFilterSet                     0x00002944   Section        0  wlan.o(i.sl_WlanRxFilterSet)
+    i.sl_WlanSet                             0x00002990   Section        0  wlan.o(i.sl_WlanSet)
+    i.sl_WlanSetMode                         0x000029e8   Section        0  wlan.o(i.sl_WlanSetMode)
+    i.spi_Close                              0x00002a18   Section        0  spi.o(i.spi_Close)
+    i.spi_Open                               0x00002a24   Section        0  spi.o(i.spi_Open)
+    i.spi_Read                               0x00002b4c   Section        0  spi.o(i.spi_Read)
+    i.spi_Write                              0x00002bac   Section        0  spi.o(i.spi_Write)
+    i.stopWDT                                0x00002c0c   Section        0  board.o(i.stopWDT)
+    .constdata                               0x00002c0e   Section       28  device.o(.constdata)
+    _SlStopCmdCtrl                           0x00002c0e   Data           4  device.o(.constdata)
+    _SlEventMaskSetCmdCtrl                   0x00002c12   Data           4  device.o(.constdata)
+    _SlEventMaskGetCmdCtrl                   0x00002c16   Data           4  device.o(.constdata)
+    _SlDeviceGetCmdCtrl                      0x00002c1a   Data           4  device.o(.constdata)
+    _SlDeviceSetCmdCtrl                      0x00002c1e   Data           4  device.o(.constdata)
+    StartResponseLUT                         0x00002c22   Data           8  device.o(.constdata)
+    .constdata                               0x00002c2c   Section      164  driver.o(.constdata)
+    g_H2NSyncPattern                         0x00002c2c   Data           8  driver.o(.constdata)
+    g_H2NCnysPattern                         0x00002c34   Data           8  driver.o(.constdata)
+    RxMsgClassLUT                            0x00002cb0   Data          32  driver.o(.constdata)
+    .constdata                               0x00002cd0   Section       40  netapp.o(.constdata)
+    _SlNetAppStartCtrl                       0x00002cd0   Data           4  netapp.o(.constdata)
+    _SlNetAppStopCtrl                        0x00002cd4   Data           4  netapp.o(.constdata)
+    _SlGetServiceListeCtrl                   0x00002cd8   Data           4  netapp.o(.constdata)
+    _SlRegisterServiceCtrl                   0x00002cdc   Data           4  netapp.o(.constdata)
+    _SlGetHostByServiceCtrl                  0x00002ce0   Data           4  netapp.o(.constdata)
+    _SlGetHostByNameCtrl                     0x00002ce4   Data           4  netapp.o(.constdata)
+    _SlNetAppSetCmdCtrl                      0x00002ce8   Data           4  netapp.o(.constdata)
+    _SlNetAppGetCmdCtrl                      0x00002cf0   Data           4  netapp.o(.constdata)
+    .constdata                               0x00002cf8   Section        8  netcfg.o(.constdata)
+    _SlNetCfgSetCmdCtrl                      0x00002cf8   Data           4  netcfg.o(.constdata)
+    _SlNetCfgGetCmdCtrl                      0x00002cfc   Data           4  netcfg.o(.constdata)
+    .constdata                               0x00002d00   Section       52  wlan.o(.constdata)
+    _SlPolicySetCmdCtrl                      0x00002d00   Data           4  wlan.o(.constdata)
+    _SlPolicyGetCmdCtrl                      0x00002d04   Data           4  wlan.o(.constdata)
+    _SlProfileGetCmdCtrl                     0x00002d08   Data           4  wlan.o(.constdata)
+    _SlProfileDelCmdCtrl                     0x00002d0c   Data           4  wlan.o(.constdata)
+    _SlWlanGetNetworkListCtrl                0x00002d10   Data           4  wlan.o(.constdata)
+    _SlRxFilterAddtCmdCtrl                   0x00002d14   Data           4  wlan.o(.constdata)
+    _SlRxFilterSetCmdCtrl                    0x00002d18   Data           4  wlan.o(.constdata)
+    _SlRxFilterGetCmdCtrl                    0x00002d1c   Data           4  wlan.o(.constdata)
+    _SlSmartConfigStartCmdCtrl               0x00002d20   Data           4  wlan.o(.constdata)
+    _SlWlanSetModeCmdCtrl                    0x00002d24   Data           4  wlan.o(.constdata)
+    _SlWlanCfgSetCmdCtrl                     0x00002d28   Data           4  wlan.o(.constdata)
+    _SlWlanCfgGetCmdCtrl                     0x00002d2c   Data           4  wlan.o(.constdata)
+    .constdata                               0x00002d34   Section      528  gpio.o(.constdata)
+    g_ppui32GPIOIntMapBlizzard               0x00002d34   Data         192  gpio.o(.constdata)
+    g_ppui32GPIOIntMapSnowflake              0x00002df4   Data         192  gpio.o(.constdata)
+    g_pui32GPIOBaseAddrs                     0x00002eb4   Data         144  gpio.o(.constdata)
+    .constdata                               0x00002f44   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x00002f44   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x00002f64   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x00003000   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x00003014   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00003028   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x0000303c   Data          20  interrupt.o(.constdata)
+    .constdata                               0x00003050   Section      452  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x00003050   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x00003058   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x000030c4   Data         288  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x000031e4   Data          48  sysctl.o(.constdata)
+    .conststring                             0x00003214   Section       84  main.o(.conststring)
+    .data                                    0x20000000   Section       12  board.o(.data)
+    .data                                    0x2000000c   Section       15  main.o(.data)
+    .data                                    0x2000001c   Section        8  driver.o(.data)
+    gFirstCmdMode                            0x2000001c   Data           1  driver.o(.data)
+    .data                                    0x20000024   Section        4  driver.o(.data)
+    .bss                                     0x20000028   Section      104  main.o(.bss)
+    .bss                                     0x20000090   Section      360  driver.o(.bss)
+    g_StatMem                                0x20000090   Data         360  driver.o(.bss)
+    .bss                                     0x200001f8   Section       60  nonos.o(.bss)
+    STACK                                    0x20000238   Section      512  startup_rvmdk.o(STACK)
+    StackMem                                 0x20000238   Data           0  startup_rvmdk.o(STACK)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$E$P$D$K$B$S$7EM$VFPi3$EXTD16$VFPS$VFMA$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OTIME$EBA8$MICROLIB$REQ8$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    __ARM_use_no_argv                        0x00000000   Number         0  main.o ABSOLUTE
+    __Vectors                                0x00000000   Data           0  startup_rvmdk.o(RESET)
+    __cpp_initialize__aeabi_                  - Undefined Weak Reference
+    __cxa_finalize                            - Undefined Weak Reference
+    __decompress                              - Undefined Weak Reference
+    _clock_init                               - Undefined Weak Reference
+    _microlib_exit                            - Undefined Weak Reference
+    Reset_Handler                            0x00000201   Thumb Code     0  startup_rvmdk.o(RESET)
+    __main                                   0x0000021d   Thumb Code     0  entry.o(.ARM.Collect$$$$00000000)
+    _main_stk                                0x0000021d   Thumb Code     0  entry2.o(.ARM.Collect$$$$00000001)
+    _main_scatterload                        0x00000221   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    __main_after_scatterload                 0x00000225   Thumb Code     0  entry5.o(.ARM.Collect$$$$00000004)
+    _main_clock                              0x00000225   Thumb Code     0  entry7b.o(.ARM.Collect$$$$00000008)
+    _main_cpp_init                           0x00000225   Thumb Code     0  entry8b.o(.ARM.Collect$$$$0000000A)
+    _main_init                               0x00000225   Thumb Code     0  entry9a.o(.ARM.Collect$$$$0000000B)
+    __rt_final_cpp                           0x0000022d   Thumb Code     0  entry10a.o(.ARM.Collect$$$$0000000D)
+    __rt_final_exit                          0x0000022d   Thumb Code     0  entry11a.o(.ARM.Collect$$$$0000000F)
+    SysCtlDelay                              0x00000231   Thumb Code     6  sysctl.o(.emb_text)
+    CPUcpsid                                 0x00000239   Thumb Code     8  cpu.o(.emb_text)
+    CPUprimask                               0x00000241   Thumb Code     6  cpu.o(.emb_text)
+    CPUcpsie                                 0x00000247   Thumb Code     8  cpu.o(.emb_text)
+    CPUwfi                                   0x0000024f   Thumb Code     4  cpu.o(.emb_text)
+    CPUbasepriSet                            0x00000253   Thumb Code     6  cpu.o(.emb_text)
+    CPUbasepriGet                            0x00000259   Thumb Code     6  cpu.o(.emb_text)
+    __aeabi_memcpy                           0x0000025f   Thumb Code    36  memcpya.o(.text)
+    __aeabi_memcpy4                          0x0000025f   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memcpy8                          0x0000025f   Thumb Code     0  memcpya.o(.text)
+    __aeabi_memset                           0x00000283   Thumb Code    14  memseta.o(.text)
+    __aeabi_memset4                          0x00000283   Thumb Code     0  memseta.o(.text)
+    __aeabi_memset8                          0x00000283   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr                           0x00000291   Thumb Code     4  memseta.o(.text)
+    __aeabi_memclr4                          0x00000291   Thumb Code     0  memseta.o(.text)
+    __aeabi_memclr8                          0x00000291   Thumb Code     0  memseta.o(.text)
+    _memset$wrapper                          0x00000295   Thumb Code    18  memseta.o(.text)
+    strlen                                   0x000002a7   Thumb Code    14  strlen.o(.text)
+    memcmp                                   0x000002b5   Thumb Code    26  memcmp.o(.text)
+    __scatterload                            0x000002d1   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x000002d1   Thumb Code     0  init.o(.text)
+    CC3100_InterruptDisable                  0x000002f5   Thumb Code     8  board.o(i.CC3100_InterruptDisable)
+    CC3100_InterruptEnable                   0x00000301   Thumb Code     8  board.o(i.CC3100_InterruptEnable)
+    CC3100_disable                           0x0000030d   Thumb Code    16  board.o(i.CC3100_disable)
+    CC3100_enable                            0x00000321   Thumb Code    16  board.o(i.CC3100_enable)
+    CLI_Configure                            0x00000335   Thumb Code     2  cli_uart.o(i.CLI_Configure)
+    CLI_Write                                0x00000337   Thumb Code    12  cli_uart.o(i.CLI_Write)
+    FPUEnable                                0x0000035d   Thumb Code    12  fpu.o(i.FPUEnable)
+    FPULazyStackingEnable                    0x0000036d   Thumb Code    12  fpu.o(i.FPULazyStackingEnable)
+    GPIODirModeSet                           0x0000037d   Thumb Code    40  gpio.o(i.GPIODirModeSet)
+    GPIOIntClear                             0x000003a5   Thumb Code     6  gpio.o(i.GPIOIntClear)
+    GPIOIntDisable                           0x000003ab   Thumb Code    14  gpio.o(i.GPIOIntDisable)
+    GPIOIntEnable                            0x000003b9   Thumb Code    12  gpio.o(i.GPIOIntEnable)
+    GPIOIntStatus                            0x000003c5   Thumb Code    14  gpio.o(i.GPIOIntStatus)
+    GPIOIntTypeSet                           0x000003d3   Thumb Code    80  gpio.o(i.GPIOIntTypeSet)
+    GPIOPadConfigSet                         0x00000423   Thumb Code   312  gpio.o(i.GPIOPadConfigSet)
+    GPIOPinConfigure                         0x0000055d   Thumb Code    60  gpio.o(i.GPIOPinConfigure)
+    GPIOPinTypeGPIOInput                     0x000005a1   Thumb Code    28  gpio.o(i.GPIOPinTypeGPIOInput)
+    GPIOPinTypeSSI                           0x000005bd   Thumb Code    28  gpio.o(i.GPIOPinTypeSSI)
+    GPIOPinWrite                             0x000005d9   Thumb Code     6  gpio.o(i.GPIOPinWrite)
+    IntEnable                                0x000005e1   Thumb Code    92  interrupt.o(i.IntEnable)
+    IntMasterEnable                          0x00000645   Thumb Code    14  interrupt.o(i.IntMasterEnable)
+    SSIBusy                                  0x00000653   Thumb Code     8  ssi.o(i.SSIBusy)
+    SSIConfigSetExpClk                       0x0000065b   Thumb Code    58  ssi.o(i.SSIConfigSetExpClk)
+    SSIDataGetNonBlocking                    0x00000695   Thumb Code    20  ssi.o(i.SSIDataGetNonBlocking)
+    SSIDataPutNonBlocking                    0x000006a9   Thumb Code    16  ssi.o(i.SSIDataPutNonBlocking)
+    SSIEnable                                0x000006b9   Thumb Code    10  ssi.o(i.SSIEnable)
+    SimpleLinkGeneralEventHandler            0x000006c5   Thumb Code     6  main.o(i.SimpleLinkGeneralEventHandler)
+    SimpleLinkHttpServerCallback             0x000006e1   Thumb Code   132  main.o(i.SimpleLinkHttpServerCallback)
+    SimpleLinkNetAppEventHandler             0x000007a1   Thumb Code    40  main.o(i.SimpleLinkNetAppEventHandler)
+    SimpleLinkSockEventHandler               0x00000819   Thumb Code     6  main.o(i.SimpleLinkSockEventHandler)
+    SimpleLinkWlanEventHandler               0x00000845   Thumb Code    76  main.o(i.SimpleLinkWlanEventHandler)
+    SysCtlClockFreqSet                       0x00000951   Thumb Code   672  sysctl.o(i.SysCtlClockFreqSet)
+    SysCtlPeripheralEnable                   0x00000c19   Thumb Code    36  sysctl.o(i.SysCtlPeripheralEnable)
+    _SlDriverHandleError                     0x00000cbd   Thumb Code    84  driver.o(i._SlDriverHandleError)
+    _SlDrvBasicCmd                           0x00000d15   Thumb Code    48  driver.o(i._SlDrvBasicCmd)
+    _SlDrvCmdOp                              0x00000db9   Thumb Code   104  driver.o(i._SlDrvCmdOp)
+    _SlDrvCmdSend                            0x00000e25   Thumb Code    74  driver.o(i._SlDrvCmdSend)
+    _SlDrvDeviceEventHandler                 0x00000e75   Thumb Code    98  device.o(i._SlDrvDeviceEventHandler)
+    _SlDrvDispatchHttpServerEvents           0x00000ed7   Thumb Code     4  driver.o(i._SlDrvDispatchHttpServerEvents)
+    _SlDrvDriverCBDeinit                     0x00000edd   Thumb Code   134  driver.o(i._SlDrvDriverCBDeinit)
+    _SlDrvDriverCBInit                       0x00000f69   Thumb Code   210  driver.o(i._SlDrvDriverCBInit)
+    _SlDrvGlobalObjUnLock                    0x00001049   Thumb Code    12  driver.o(i._SlDrvGlobalObjUnLock)
+    _SlDrvMemZero                            0x00001059   Thumb Code     4  driver.o(i._SlDrvMemZero)
+    _SlDrvMsgReadSpawnCtx                    0x00001459   Thumb Code   106  driver.o(i._SlDrvMsgReadSpawnCtx)
+    _SlDrvNetAppEventHandler                 0x000015d5   Thumb Code   204  netapp.o(i._SlDrvNetAppEventHandler)
+    _SlDrvProtectAsyncRespSetting            0x000016c1   Thumb Code    46  driver.o(i._SlDrvProtectAsyncRespSetting)
+    _SlDrvProtectionObjLockWaitForever       0x000016f5   Thumb Code    16  driver.o(i._SlDrvProtectionObjLockWaitForever)
+    _SlDrvProtectionObjUnLock                0x00001709   Thumb Code    12  driver.o(i._SlDrvProtectionObjUnLock)
+    _SlDrvReleasePoolObj                     0x00001719   Thumb Code   194  driver.o(i._SlDrvReleasePoolObj)
+    _SlDrvResetCmdExt                        0x000017e1   Thumb Code     6  driver.o(i._SlDrvResetCmdExt)
+    _SlDrvRxIrqHandler                       0x00001939   Thumb Code    48  driver.o(i._SlDrvRxIrqHandler)
+    _SlDrvSyncObjSignal                      0x00001971   Thumb Code     6  driver.o(i._SlDrvSyncObjSignal)
+    _SlDrvSyncObjWaitForever                 0x00001979   Thumb Code    30  driver.o(i._SlDrvSyncObjWaitForever)
+    _SlDrvSyncObjWaitTimeout                 0x0000199d   Thumb Code    48  driver.o(i._SlDrvSyncObjWaitTimeout)
+    _SlDrvWaitForPoolObj                     0x000019d1   Thumb Code   190  driver.o(i._SlDrvWaitForPoolObj)
+    _SlNonOsMainLoopTask                     0x00001b25   Thumb Code    46  nonos.o(i._SlNonOsMainLoopTask)
+    _SlNonOsSemGet                           0x00001b59   Thumb Code    74  nonos.o(i._SlNonOsSemGet)
+    _SlNonOsSemSet                           0x00001ba9   Thumb Code     6  nonos.o(i._SlNonOsSemSet)
+    _SlNonOsSpawn                            0x00001bb1   Thumb Code    40  nonos.o(i._SlNonOsSpawn)
+    __scatterload_copy                       0x00001c35   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001c43   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001c45   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    _sl_HandleAsync_Accept                   0x00001c65   Thumb Code    84  socket.o(i._sl_HandleAsync_Accept)
+    _sl_HandleAsync_Connect                  0x00001cbd   Thumb Code    94  socket.o(i._sl_HandleAsync_Connect)
+    _sl_HandleAsync_DnsGetHostByName         0x00001d21   Thumb Code    80  netapp.o(i._sl_HandleAsync_DnsGetHostByName)
+    _sl_HandleAsync_DnsGetHostByService      0x00001d75   Thumb Code    96  netapp.o(i._sl_HandleAsync_DnsGetHostByService)
+    _sl_HandleAsync_InitComplete             0x00001dd9   Thumb Code    92  device.o(i._sl_HandleAsync_InitComplete)
+    _sl_HandleAsync_PingResponse             0x00001e39   Thumb Code    92  netapp.o(i._sl_HandleAsync_PingResponse)
+    _sl_HandleAsync_Select                   0x00001e9d   Thumb Code    64  socket.o(i._sl_HandleAsync_Select)
+    _sl_HandleAsync_Stop                     0x00001ee1   Thumb Code    60  device.o(i._sl_HandleAsync_Stop)
+    _sl_NetAppSendTokenValue                 0x00001f21   Thumb Code    76  netapp.o(i._sl_NetAppSendTokenValue)
+    initClk                                  0x000020b9   Thumb Code    24  board.o(i.initClk)
+    main                                     0x00002121   Thumb Code   574  main.o(i.main)
+    registerInterruptHandler                 0x0000250d   Thumb Code     8  board.o(i.registerInterruptHandler)
+    sl_DevGet                                0x00002519   Thumb Code   116  device.o(i.sl_DevGet)
+    sl_NetAppGet                             0x00002599   Thumb Code   100  netapp.o(i.sl_NetAppGet)
+    sl_NetAppMDNSRegisterUnregisterService   0x00002609   Thumb Code   130  netapp.o(i.sl_NetAppMDNSRegisterUnregisterService)
+    sl_NetAppMDNSUnRegisterService           0x00002695   Thumb Code    34  netapp.o(i.sl_NetAppMDNSUnRegisterService)
+    sl_NetAppSet                             0x000026bd   Thumb Code    78  netapp.o(i.sl_NetAppSet)
+    sl_NetCfgSet                             0x00002715   Thumb Code    78  netcfg.o(i.sl_NetCfgSet)
+    sl_Start                                 0x0000276d   Thumb Code   142  device.o(i.sl_Start)
+    sl_Stop                                  0x0000280d   Thumb Code   138  device.o(i.sl_Stop)
+    sl_WlanDisconnect                        0x000028a9   Thumb Code    22  wlan.o(i.sl_WlanDisconnect)
+    sl_WlanPolicySet                         0x000028c5   Thumb Code    72  wlan.o(i.sl_WlanPolicySet)
+    sl_WlanProfileDel                        0x00002915   Thumb Code    40  wlan.o(i.sl_WlanProfileDel)
+    sl_WlanRxFilterSet                       0x00002945   Thumb Code    66  wlan.o(i.sl_WlanRxFilterSet)
+    sl_WlanSet                               0x00002991   Thumb Code    80  wlan.o(i.sl_WlanSet)
+    sl_WlanSetMode                           0x000029e9   Thumb Code    40  wlan.o(i.sl_WlanSetMode)
+    spi_Close                                0x00002a19   Thumb Code    10  spi.o(i.spi_Close)
+    spi_Open                                 0x00002a25   Thumb Code   250  spi.o(i.spi_Open)
+    spi_Read                                 0x00002b4d   Thumb Code    88  spi.o(i.spi_Read)
+    spi_Write                                0x00002bad   Thumb Code    86  spi.o(i.spi_Write)
+    stopWDT                                  0x00002c0d   Thumb Code     2  board.o(i.stopWDT)
+    _SlActionLookupTable                     0x00002c3c   Data          56  driver.o(.constdata)
+    OpcodeTranslateTable                     0x00002c74   Data          60  driver.o(.constdata)
+    _SlNetAppSendTokenValueCmdCtrl           0x00002cec   Data           4  netapp.o(.constdata)
+    Region$$Table$$Base                      0x00003268   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00003288   Number         0  anon$$obj.o(Region$$Table)
+    IntIsMasked                              0x20000000   Data           1  board.o(.data)
+    pIrqEventHandler                         0x20000004   Data           4  board.o(.data)
+    g_SysClock                               0x20000008   Data           4  board.o(.data)
+    g_Status                                 0x2000000c   Data           4  main.o(.data)
+    GET_token                                0x20000010   Data          11  main.o(.data)
+    RxIrqCnt                                 0x2000001d   Data           1  driver.o(.data)
+    g_bDeviceRestartIsRequired               0x2000001e   Data           1  driver.o(.data)
+    g_pCB                                    0x20000020   Data           4  driver.o(.data)
+    pPingCallBackFunc                        0x20000024   Data           4  driver.o(.data)
+    g_auth_name                              0x20000028   Data          21  main.o(.bss)
+    g_auth_password                          0x2000003d   Data          21  main.o(.bss)
+    g_auth_realm                             0x20000052   Data          21  main.o(.bss)
+    g_domain_name                            0x20000067   Data          25  main.o(.bss)
+    g_device_urn                             0x20000080   Data          16  main.o(.bss)
+    g__SlNonOsCB                             0x200001f8   Data          60  nonos.o(.bss)
+    __initial_sp                             0x20000438   Data           0  startup_rvmdk.o(STACK)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000201
+
+  Load Region LR_IROM (Base: 0x00000000, Size: 0x000032b0, Max: 0x00100000, ABSOLUTE)
+
+    Execution Region ER_IROM (Base: 0x00000000, Size: 0x00003288, Max: 0x00100000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x0000021c   Code   RO          314  * RESET               startup_rvmdk.o
+    0x0000021c   0x00000000   Code   RO         2110  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000021c   0x00000004   Code   RO         2123    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000220   0x00000004   Code   RO         2126    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000224   0x00000000   Code   RO         2128    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000224   0x00000000   Code   RO         2130    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000224   0x00000008   Code   RO         2131    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000022c   0x00000000   Code   RO         2133    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000022c   0x00000000   Code   RO         2135    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000022c   0x00000004   Code   RO         2124    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000230   0x00000006   Code   RO         1758    .emb_text           driverlib.lib(sysctl.o)
+    0x00000236   0x00000002   PAD
+    0x00000238   0x00000026   Code   RO         2100    .emb_text           driverlib.lib(cpu.o)
+    0x0000025e   0x00000024   Code   RO         2113    .text               mc_w.l(memcpya.o)
+    0x00000282   0x00000024   Code   RO         2115    .text               mc_w.l(memseta.o)
+    0x000002a6   0x0000000e   Code   RO         2117    .text               mc_w.l(strlen.o)
+    0x000002b4   0x0000001a   Code   RO         2119    .text               mc_w.l(memcmp.o)
+    0x000002ce   0x00000002   PAD
+    0x000002d0   0x00000024   Code   RO         2137    .text               mc_w.l(init.o)
+    0x000002f4   0x0000000c   Code   RO            1    i.CC3100_InterruptDisable  board.o
+    0x00000300   0x0000000c   Code   RO            2    i.CC3100_InterruptEnable  board.o
+    0x0000030c   0x00000014   Code   RO            3    i.CC3100_disable    board.o
+    0x00000320   0x00000014   Code   RO            4    i.CC3100_enable     board.o
+    0x00000334   0x00000002   Code   RO          156    i.CLI_Configure     cli_uart.o
+    0x00000336   0x0000000c   Code   RO          158    i.CLI_Write         cli_uart.o
+    0x00000342   0x0000001a   Code   RO          660    i.CopyPingResultsToReport  netapp.o
+    0x0000035c   0x00000010   Code   RO         1114    i.FPUEnable         driverlib.lib(fpu.o)
+    0x0000036c   0x00000010   Code   RO         1117    i.FPULazyStackingEnable  driverlib.lib(fpu.o)
+    0x0000037c   0x00000028   Code   RO         1190    i.GPIODirModeSet    driverlib.lib(gpio.o)
+    0x000003a4   0x00000006   Code   RO         1191    i.GPIOIntClear      driverlib.lib(gpio.o)
+    0x000003aa   0x0000000e   Code   RO         1192    i.GPIOIntDisable    driverlib.lib(gpio.o)
+    0x000003b8   0x0000000c   Code   RO         1193    i.GPIOIntEnable     driverlib.lib(gpio.o)
+    0x000003c4   0x0000000e   Code   RO         1195    i.GPIOIntStatus     driverlib.lib(gpio.o)
+    0x000003d2   0x00000050   Code   RO         1197    i.GPIOIntTypeSet    driverlib.lib(gpio.o)
+    0x00000422   0x00000138   Code   RO         1200    i.GPIOPadConfigSet  driverlib.lib(gpio.o)
+    0x0000055a   0x00000002   PAD
+    0x0000055c   0x00000044   Code   RO         1201    i.GPIOPinConfigure  driverlib.lib(gpio.o)
+    0x000005a0   0x0000001c   Code   RO         1211    i.GPIOPinTypeGPIOInput  driverlib.lib(gpio.o)
+    0x000005bc   0x0000001c   Code   RO         1221    i.GPIOPinTypeSSI    driverlib.lib(gpio.o)
+    0x000005d8   0x00000006   Code   RO         1230    i.GPIOPinWrite      driverlib.lib(gpio.o)
+    0x000005de   0x00000002   PAD
+    0x000005e0   0x00000064   Code   RO         1494    i.IntEnable         driverlib.lib(interrupt.o)
+    0x00000644   0x0000000e   Code   RO         1497    i.IntMasterEnable   driverlib.lib(interrupt.o)
+    0x00000652   0x00000008   Code   RO         1611    i.SSIBusy           driverlib.lib(ssi.o)
+    0x0000065a   0x0000003a   Code   RO         1614    i.SSIConfigSetExpClk  driverlib.lib(ssi.o)
+    0x00000694   0x00000014   Code   RO         1618    i.SSIDataGetNonBlocking  driverlib.lib(ssi.o)
+    0x000006a8   0x00000010   Code   RO         1620    i.SSIDataPutNonBlocking  driverlib.lib(ssi.o)
+    0x000006b8   0x0000000a   Code   RO         1622    i.SSIEnable         driverlib.lib(ssi.o)
+    0x000006c2   0x00000002   PAD
+    0x000006c4   0x0000001c   Code   RO          211    i.SimpleLinkGeneralEventHandler  main.o
+    0x000006e0   0x000000c0   Code   RO          212    i.SimpleLinkHttpServerCallback  main.o
+    0x000007a0   0x00000078   Code   RO          213    i.SimpleLinkNetAppEventHandler  main.o
+    0x00000818   0x0000002c   Code   RO          214    i.SimpleLinkSockEventHandler  main.o
+    0x00000844   0x0000010c   Code   RO          215    i.SimpleLinkWlanEventHandler  main.o
+    0x00000950   0x000002c8   Code   RO         1760    i.SysCtlClockFreqSet  driverlib.lib(sysctl.o)
+    0x00000c18   0x00000028   Code   RO         1792    i.SysCtlPeripheralEnable  driverlib.lib(sysctl.o)
+    0x00000c40   0x0000007c   Code   RO          402    i._SlAsyncEventGenericHandler  driver.o
+    0x00000cbc   0x00000058   Code   RO          403    i._SlDriverHandleError  driver.o
+    0x00000d14   0x00000030   Code   RO          404    i._SlDrvBasicCmd    driver.o
+    0x00000d44   0x00000074   Code   RO          405    i._SlDrvClassifyRxMsg  driver.o
+    0x00000db8   0x0000006c   Code   RO          406    i._SlDrvCmdOp       driver.o
+    0x00000e24   0x00000050   Code   RO          407    i._SlDrvCmdSend     driver.o
+    0x00000e74   0x00000062   Code   RO          319    i._SlDrvDeviceEventHandler  device.o
+    0x00000ed6   0x00000004   Code   RO          410    i._SlDrvDispatchHttpServerEvents  driver.o
+    0x00000eda   0x00000002   PAD
+    0x00000edc   0x0000008c   Code   RO          411    i._SlDrvDriverCBDeinit  driver.o
+    0x00000f68   0x000000e0   Code   RO          412    i._SlDrvDriverCBInit  driver.o
+    0x00001048   0x00000010   Code   RO          413    i._SlDrvGlobalObjUnLock  driver.o
+    0x00001058   0x00000004   Code   RO          414    i._SlDrvMemZero     driver.o
+    0x0000105c   0x00000330   Code   RO          415    i._SlDrvMsgRead     driver.o
+    0x0000138c   0x000000cc   Code   RO          416    i._SlDrvMsgReadCmdCtx  driver.o
+    0x00001458   0x00000070   Code   RO          417    i._SlDrvMsgReadSpawnCtx  driver.o
+    0x000014c8   0x0000010c   Code   RO          418    i._SlDrvMsgWrite    driver.o
+    0x000015d4   0x000000cc   Code   RO          661    i._SlDrvNetAppEventHandler  netapp.o
+    0x000016a0   0x00000020   Code   RO          419    i._SlDrvObjGlobalLockWaitForever  driver.o
+    0x000016c0   0x00000034   Code   RO          422    i._SlDrvProtectAsyncRespSetting  driver.o
+    0x000016f4   0x00000014   Code   RO          423    i._SlDrvProtectionObjLockWaitForever  driver.o
+    0x00001708   0x00000010   Code   RO          424    i._SlDrvProtectionObjUnLock  driver.o
+    0x00001718   0x000000c8   Code   RO          425    i._SlDrvReleasePoolObj  driver.o
+    0x000017e0   0x00000006   Code   RO          426    i._SlDrvResetCmdExt  driver.o
+    0x000017e6   0x00000002   PAD
+    0x000017e8   0x00000150   Code   RO          427    i._SlDrvRxHdrRead   driver.o
+    0x00001938   0x00000038   Code   RO          428    i._SlDrvRxIrqHandler  driver.o
+    0x00001970   0x00000006   Code   RO          429    i._SlDrvSyncObjSignal  driver.o
+    0x00001976   0x00000002   PAD
+    0x00001978   0x00000024   Code   RO          430    i._SlDrvSyncObjWaitForever  driver.o
+    0x0000199c   0x00000034   Code   RO          431    i._SlDrvSyncObjWaitTimeout  driver.o
+    0x000019d0   0x000000c4   Code   RO          432    i._SlDrvWaitForPoolObj  driver.o
+    0x00001a94   0x00000090   Code   RO          433    i._SlFindAndSetActiveObj  driver.o
+    0x00001b24   0x00000034   Code   RO          796    i._SlNonOsMainLoopTask  nonos.o
+    0x00001b58   0x00000050   Code   RO          797    i._SlNonOsSemGet    nonos.o
+    0x00001ba8   0x00000006   Code   RO          798    i._SlNonOsSemSet    nonos.o
+    0x00001bae   0x00000002   PAD
+    0x00001bb0   0x0000002c   Code   RO          799    i._SlNonOsSpawn     nonos.o
+    0x00001bdc   0x00000058   Code   RO          434    i._SlRemoveFromList  driver.o
+    0x00001c34   0x0000000e   Code   RO         2141    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00001c42   0x00000002   Code   RO         2142    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00001c44   0x0000000e   Code   RO         2143    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00001c52   0x00000002   PAD
+    0x00001c54   0x00000010   Code   RO          320    i._sl_GetStartResponseConvert  device.o
+    0x00001c64   0x00000058   Code   RO          834    i._sl_HandleAsync_Accept  socket.o
+    0x00001cbc   0x00000064   Code   RO          835    i._sl_HandleAsync_Connect  socket.o
+    0x00001d20   0x00000054   Code   RO          663    i._sl_HandleAsync_DnsGetHostByName  netapp.o
+    0x00001d74   0x00000064   Code   RO          664    i._sl_HandleAsync_DnsGetHostByService  netapp.o
+    0x00001dd8   0x00000060   Code   RO          321    i._sl_HandleAsync_InitComplete  device.o
+    0x00001e38   0x00000064   Code   RO          665    i._sl_HandleAsync_PingResponse  netapp.o
+    0x00001e9c   0x00000044   Code   RO          836    i._sl_HandleAsync_Select  socket.o
+    0x00001ee0   0x00000040   Code   RO          322    i._sl_HandleAsync_Stop  device.o
+    0x00001f20   0x00000050   Code   RO          666    i._sl_NetAppSendTokenValue  netapp.o
+    0x00001f70   0x00000148   Code   RO          216    i.configureSimpleLinkToDefaultState  main.o
+    0x000020b8   0x00000024   Code   RO            9    i.initClk           board.o
+    0x000020dc   0x00000044   Code   RO          217    i.initializeAppVariables  main.o
+    0x00002120   0x000003ec   Code   RO          218    i.main              main.o
+    0x0000250c   0x0000000c   Code   RO           10    i.registerInterruptHandler  board.o
+    0x00002518   0x00000080   Code   RO          323    i.sl_DevGet         device.o
+    0x00002598   0x00000070   Code   RO          669    i.sl_NetAppGet      netapp.o
+    0x00002608   0x0000008c   Code   RO          672    i.sl_NetAppMDNSRegisterUnregisterService  netapp.o
+    0x00002694   0x00000028   Code   RO          673    i.sl_NetAppMDNSUnRegisterService  netapp.o
+    0x000026bc   0x00000058   Code   RO          675    i.sl_NetAppSet      netapp.o
+    0x00002714   0x00000058   Code   RO          777    i.sl_NetCfgSet      netcfg.o
+    0x0000276c   0x000000a0   Code   RO          327    i.sl_Start          device.o
+    0x0000280c   0x0000009c   Code   RO          328    i.sl_Stop           device.o
+    0x000028a8   0x0000001c   Code   RO          992    i.sl_WlanDisconnect  wlan.o
+    0x000028c4   0x00000050   Code   RO          996    i.sl_WlanPolicySet  wlan.o
+    0x00002914   0x00000030   Code   RO          998    i.sl_WlanProfileDel  wlan.o
+    0x00002944   0x0000004c   Code   RO         1002    i.sl_WlanRxFilterSet  wlan.o
+    0x00002990   0x00000058   Code   RO         1006    i.sl_WlanSet        wlan.o
+    0x000029e8   0x00000030   Code   RO         1007    i.sl_WlanSetMode    wlan.o
+    0x00002a18   0x0000000a   Code   RO          281    i.spi_Close         spi.o
+    0x00002a22   0x00000002   PAD
+    0x00002a24   0x00000128   Code   RO          282    i.spi_Open          spi.o
+    0x00002b4c   0x00000060   Code   RO          283    i.spi_Read          spi.o
+    0x00002bac   0x00000060   Code   RO          284    i.spi_Write         spi.o
+    0x00002c0c   0x00000002   Code   RO           11    i.stopWDT           board.o
+    0x00002c0e   0x0000001c   Data   RO          330    .constdata          device.o
+    0x00002c2a   0x00000002   PAD
+    0x00002c2c   0x000000a4   Data   RO          436    .constdata          driver.o
+    0x00002cd0   0x00000028   Data   RO          678    .constdata          netapp.o
+    0x00002cf8   0x00000008   Data   RO          778    .constdata          netcfg.o
+    0x00002d00   0x00000034   Data   RO         1010    .constdata          wlan.o
+    0x00002d34   0x00000210   Data   RO         1231    .constdata          driverlib.lib(gpio.o)
+    0x00002f44   0x0000010c   Data   RO         1510    .constdata          driverlib.lib(interrupt.o)
+    0x00003050   0x000001c4   Data   RO         1813    .constdata          driverlib.lib(sysctl.o)
+    0x00003214   0x00000054   Data   RO          221    .conststring        main.o
+    0x00003268   0x00000020   Data   RO         2139    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM (Base: 0x20000000, Size: 0x00000438, Max: 0x00040000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x0000000c   Data   RW           12    .data               board.o
+    0x2000000c   0x0000000f   Data   RW          223    .data               main.o
+    0x2000001b   0x00000001   PAD
+    0x2000001c   0x00000008   Data   RW          437    .data               driver.o
+    0x20000024   0x00000004   Data   RW          438    .data               driver.o
+    0x20000028   0x00000068   Zero   RW          220    .bss                main.o
+    0x20000090   0x00000168   Zero   RW          435    .bss                driver.o
+    0x200001f8   0x0000003c   Zero   RW          800    .bss                nonos.o
+    0x20000234   0x00000004   PAD
+    0x20000238   0x00000200   Zero   RW          312    STACK               startup_rvmdk.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       114         32          0         12          0      57269   board.o
+        14          0          0          0          0        880   cli_uart.o
+       718         62         28          0          0      23640   device.o
+      3592        174        164         12        360      27155   driver.o
+      2052        840         84         15        104      29471   main.o
+       974         58         40          0          0      10463   netapp.o
+        88         10          8          0          0       1647   netcfg.o
+       182         16          0          0         60       3276   nonos.o
+       256         14          0          0          0       3308   socket.o
+       498         64          0          0          0       2198   spi.o
+       540        514          0          0        512        284   startup_rvmdk.o
+       368         48         52          0          0       6630   wlan.o
+
+    ----------------------------------------------------------------------
+      9406       1832        410         40       1040     166221   Object Totals
+         0          0         32          0          0          0   (incl. Generated)
+        10          0          2          1          4          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Member Name
+
+        38          0          0          0          0        572   cpu.o
+        32          8          0          0          0       3956   fpu.o
+       608          8        528          0          0       7179   gpio.o
+       114          8        268          0          0       2042   interrupt.o
+       112          0          0          0          0       3543   ssi.o
+       758         44        452          0          0       4274   sysctl.o
+         0          0          0          0          0          0   entry.o
+         0          0          0          0          0          0   entry10a.o
+         0          0          0          0          0          0   entry11a.o
+         8          4          0          0          0          0   entry2.o
+         4          0          0          0          0          0   entry5.o
+         0          0          0          0          0          0   entry7b.o
+         0          0          0          0          0          0   entry8b.o
+         8          4          0          0          0          0   entry9a.o
+        30          0          0          0          0          0   handlers.o
+        36          8          0          0          0         68   init.o
+        26          0          0          0          0         80   memcmp.o
+        36          0          0          0          0         68   memcpya.o
+        36          0          0          0          0        108   memseta.o
+        14          0          0          0          0         68   strlen.o
+
+    ----------------------------------------------------------------------
+      1872         84       1248          0          0      21958   Library Totals
+        12          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
+
+      1662         68       1248          0          0      21566   driverlib.lib
+       198         16          0          0          0        392   mc_w.l
+
+    ----------------------------------------------------------------------
+      1872         84       1248          0          0      21958   Library Totals
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+     11278       1916       1658         40       1040     182575   Grand Totals
+     11278       1916       1658         40       1040     182575   ELF Image Totals
+     11278       1916       1658         40          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                12936 (  12.63kB)
+    Total RW  Size (RW Data + ZI Data)              1080 (   1.05kB)
+    Total ROM Size (Code + RO Data + RW Data)      12976 (  12.67kB)
+
+==============================================================================
+
