@@ -41,6 +41,8 @@
 #define PIN_HIGH                              0xFF
 #define PIN_LOW                              (!PIN_HIGH)
 
+
+
 typedef void (*P_EVENT_HANDLER)(void* pValue);
 
 /*!
@@ -152,7 +154,20 @@ void stopWDT();
     \warning
 */
 void initClk();
-
+void initTimer();
+void
+Timer0IntHandler(void);
+void DisableTimer0(void);
+void EnableTimer0(void);
+void initI2C(void);
+void
+IntHandlerGPIOPortH(void);
+void
+TMP006I2CIntHandler(void);
+void
+TMP006AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+void
+TMP006AppErrorHandler(char *pcFilename, unsigned     int ui32Line);
 /*!
     \brief      Masks the Host IRQ
 
@@ -201,5 +216,64 @@ void UARTRxTxHandler();
     \warning
 */
 void Delay(unsigned long interval);
+typedef enum
+{
+    NO_LED,
+    LED1,
+    LED2
+} ledEnum;
+void initLEDs();
+
+/*!
+    \brief          Turn on the LED on MCU
+
+    \param[in]      ledNum - LED to be turned on
+
+    \return         none
+
+    \note
+
+    \warning
+*/
+void turnLedOn(char ledNum);
+
+/*!
+    \brief          Turn off the LED on MCU
+
+    \param[in]      ledNum - LED to be turned of
+
+    \return         none
+
+    \note
+
+    \warning
+*/
+void turnLedOff(char ledNum);
+
+/*!
+    \brief          Toggle the LED
+
+    \param[in]      ledNum - LED to be toggled
+
+    \return         none
+
+    \note
+
+    \warning
+*/
+void toggleLed(char ledNum);
+
+/*!
+    \brief          Get the LED status
+
+    \param[in]      none
+
+    \return         unsigned char - byte containing the status of LED
+
+    \note
+
+    \warning
+*/
+unsigned char GetLEDStatus();
 
 #endif

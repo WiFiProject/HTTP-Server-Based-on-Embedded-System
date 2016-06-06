@@ -44,30 +44,16 @@
  *                          doc\examples\http_server.pdf
  */
 
+
 #include "simplelink.h"
 #include "protocol.h"
 #include "sl_common.h"
 
-#include "inc/tm4c1294ncpdt.h"
-#include "inc/hw_memmap.h"
-#include "inc/hw_ssi.h"
-#include "inc/hw_types.h"
-#include "driverlib/ssi.h"
-#include "driverlib/gpio.h"
-#include "driverlib/rom.h"
-#include "driverlib/sysctl.h"
-#include "driverlib/fpu.h"
-#include "driverlib/uart.h"
 
-#define APPLICATION_VERSION "1.2.0"
+
+#define APPLICATION_VERSION "1.1.0"
 
 #define SL_STOP_TIMEOUT        0xFF
-
-_u8 POST_token[] = "__SL_P_ULD";
-_u8 POST_token1[] = "__SL_P_UT1";
-_u8 POST_token2[] = "__SL_P_UT2";
-_u8 GET_token[]  = "__SL_G_ULD";
-
 
 /* Application specific status/error codes */
 typedef enum{
@@ -76,20 +62,41 @@ typedef enum{
     STATUS_CODE_MAX = -0xBB8
 }e_AppStatusCodes;
 
-/*
- * GLOBAL VARIABLES -- Start
- */
+/* The tokens cna be declared as const to be placed in Flash. Declared as variables in RAM for faster access */
+/* definition of http put events    */
+_u8 POST_token[] = "__SL_P_L.D";
+_u8 GET_token[]  = "__SL_G_LED";
+_u8 POST_token0[] = "__SL_P_U00"; /* turn on LED */
+_u8 POST_token1[] = "__SL_P_U01"; /* turn off LED */
+_u8 POST_token2[] = "__SL_P_U02"; /* turn on LED toggle */
+_u8 POST_token3[] = "__SL_P_U03"; /* turn off LED toggle */
+_u8 POST_token4[] = "__SL_P_U04"; /* set LED toggling speed */
+_u8 POST_token5[] = "__SL_P_U05"; /* clear button 1 count   */
+_u8 POST_token6[] = "__SL_P_U06"; /* clear button 2 count   */
+_u8 POST_token7[] = "__SL_P_U07"; /* update temperature reading */
+_u8 POST_token8[] = "__SL_P_U08"; /* set temperature unit in C  */
+_u8 POST_token9[] = "__SL_P_U09"; /* set temperature unit in F  */
+
+/* definition of http get events    */
+_u8 GET_token0[]  = "__SL_G_U00"; /* return LED on */
+_u8 GET_token1[]  = "__SL_G_U01"; /* return LED off */
+_u8 GET_token2[]  = "__SL_G_U02"; /* return LED toggle on */
+_u8 GET_token3[]  = "__SL_G_U03"; /* return LED toggle off */
+_u8 GET_token4[]  = "__SL_G_U04"; /* return LED toogle speed */
+_u8 GET_token5[]  = "__SL_G_U05"; /* return button 1 count  */
+_u8 GET_token6[]  = "__SL_G_U06"; /* return button 2 count  */
+_u8 GET_token7[]  = "__SL_G_U07"; /* return temperature */
+_u8 GET_token8[]  = "__SL_G_U08"; /* return temperature unit in C */
+_u8 GET_token9[]  = "__SL_G_U09"; /* return temperature unit in F */
+
+
 _u32  g_Status = 0;
-_u8		g_Toggle=0;
 _u8 g_auth_name[MAX_AUTH_NAME_LEN+1];
 _u8 g_auth_password[MAX_AUTH_PASSWORD_LEN+1];
 _u8 g_auth_realm[MAX_AUTH_REALM_LEN+1];
 
 _u8 g_domain_name[MAX_DOMAIN_NAME_LEN];
 _u8 g_device_urn[MAX_DEVICE_URN_LEN];
-/*
- * GLOBAL VARIABLES -- End
- */
 
 
 /*
@@ -107,9 +114,11 @@ static _i32 get_device_urn (_u8 *device_urn);
 static _i32 get_domain_name (_u8 *domain_name);
 
 _i32 set_port_number(_u16 num);
-/*
- * STATIC FUNCTION DEFINITIONS -- End
- */
+
+void HttpServer();
+
+extern Semaphore_Handle Semaphore_CC3100_Req;
+
 
 /*
  * ASYNCHRONOUS EVENT HANDLERS -- Start
@@ -129,10 +138,7 @@ _i32 set_port_number(_u16 num);
 void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
 {
     if(pWlanEvent == NULL)
-    {
         CLI_Write(" [WLAN EVENT] NULL Pointer Error \n\r");
-        return;
-    }
     
     switch(pWlanEvent->Event)
     {
@@ -162,7 +168,7 @@ void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
             pEventData = &pWlanEvent->EventData.STAandP2PModeDisconnected;
 
             /* If the user has initiated 'Disconnect' request, 'reason_code' is SL_USER_INITIATED_DISCONNECTION */
-            if(SL_WLAN_DISCONNECT_USER_INITIATED_DISCONNECTION == pEventData->reason_code)
+            if(SL_USER_INITIATED_DISCONNECTION == pEventData->reason_code)
             {
                 CLI_Write((_u8 *)" Device disconnected from the AP on application's request \n\r");
             }
@@ -210,11 +216,10 @@ void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
 void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                                   SlHttpServerResponse_t *pResponse)
 {
+    unsigned int ulSpeed, n;
+
     if(pEvent == NULL || pResponse == NULL)
-    {
         CLI_Write(" [HTTP EVENT] NULL Pointer Error \n\r");
-        return;
-    }
 
     switch (pEvent->Event)
     {
@@ -225,10 +230,12 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 
             ptr = pResponse->ResponseData.token_value.data;
             pResponse->ResponseData.token_value.len = 0;
+
+  /* Check if the token is for the original CC3100 demo    */
             if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token,
                                          pal_Strlen(GET_token)) == 0)
             {
-                status = GetLEDStatus();
+                //status = GetLEDStatus();
                 pal_Memcpy(ptr, "LED1_", pal_Strlen("LED1_"));
                 ptr += 5;
                 pResponse->ResponseData.token_value.len += 5;
@@ -263,15 +270,180 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 *ptr = '\0';
             }
 
+
+/* Check if the token is for the added MCU LED toggle demo    */
+
+/* check if the get LED on event, return the LED on status  */
+           if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token0,
+                                                    pal_Strlen(GET_token0)) == 0)
+           {
+        	   if(g_ui32LED_Status)
+        	   {
+        		   pal_Memcpy(ptr, "checked", pal_Strlen("checked")); /* return the on status to update the "LED ON" button */
+        		   ptr += 7;
+        		   pResponse->ResponseData.token_value.len += 7;
+        	   }
+        	   else
+        	   {
+        		   pal_Memcpy(ptr, " ", pal_Strlen(" "));            /* do not update the "LED ON" button */
+        	 	   ptr += 1;
+        	       pResponse->ResponseData.token_value.len += 1;
+        	   }
+ 			   *ptr = '\0';
+           }
+
+ /* check if the get LED off event, return the LED off status */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token1,
+							   pal_Strlen(GET_token1)) == 0)
+		  {
+			   if(!g_ui32LED_Status)
+			   {
+				   pal_Memcpy(ptr, "checked", pal_Strlen("checked")); /* return the off status to update the "LED OFF" button */
+				   ptr += 7;
+				   pResponse->ResponseData.token_value.len += 7;
+			   }
+			   else
+			   {
+				   pal_Memcpy(ptr, " ", pal_Strlen(" "));            /* do not update the "LED OFF" button */
+				   ptr += 1;
+				   pResponse->ResponseData.token_value.len += 1;
+			   }
+		  	   *ptr = '\0';
+		  }
+
+/* check if the get LED toggle on event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token2,
+		  		 							   pal_Strlen(GET_token2)) == 0)
+		  {
+			   if(g_ui32LED_Toggle_Status)
+			   {
+				   pal_Memcpy(ptr, "checked", pal_Strlen("checked"));    /* return the on status to update the "LED toggle on" button */
+				   ptr += 7;
+				   pResponse->ResponseData.token_value.len += 7;
+			   }
+			   else
+			   {
+				   pal_Memcpy(ptr, " ", pal_Strlen(" "));               /* do not update the "LED toggle on" button */
+				   ptr += 1;
+				   pResponse->ResponseData.token_value.len += 1;
+			   }
+			   *ptr = '\0';
+		  }
+
+/* check if the get LED toggle off event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token3,
+		 							   pal_Strlen(GET_token3)) == 0)
+		  {
+			   if(!g_ui32LED_Toggle_Status)
+			   {
+				   pal_Memcpy(ptr, "checked", pal_Strlen("checked"));   /* return the off status to update the "LED toggle off" button */
+				   ptr += 7;
+				   pResponse->ResponseData.token_value.len += 7;
+			   }
+			   else
+			   {
+				   pal_Memcpy(ptr, " ", pal_Strlen(" "));                /* do not update the "LED toggle off" button */
+				   ptr += 1;
+				   pResponse->ResponseData.token_value.len += 1;
+			   }
+			   *ptr = '\0';
+		  }
+
+/* check if the get toggle speed event  */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token4,
+										   pal_Strlen(GET_token4)) == 0)
+		  {
+			   n = Decimal2String(ptr, g_ui32AnimSpeed); /* write speed to the buffer and update the string length */
+			   ptr += n;
+			   pResponse->ResponseData.token_value.len += n;
+			   *ptr = '\0';
+		  }
+
+/* check if the get button 1 count event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token5,
+											   pal_Strlen(GET_token5)) == 0)
+		  {
+			   n = Decimal2String(ptr, g_ui32SW1Presses);  /* write number of button press to the buffer and update the string length */
+			   ptr += n;
+			   pResponse->ResponseData.token_value.len += n;
+			   *ptr = '\0';
+		  }
+
+/* check if the get button 2 count event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token6,
+		  		  							   pal_Strlen(GET_token6)) == 0)
+		  {
+			   n = Decimal2String(ptr, g_ui32SW2Presses);  /* write number of button press to the buffer and update the string length */
+  			   ptr += n;
+  			   pResponse->ResponseData.token_value.len += n;
+  			   *ptr = '\0';
+  		  }
+
+
+/* check if the get temperature event  */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token7,
+		  							   pal_Strlen(GET_token7)) == 0)
+		  {
+			   if(!g_ui32Temperature_U)
+			   {
+				   n = Decimal2String(ptr, g_ui32InternalTempC); /* write temperature in C to the buffer and update the string length */
+			   }
+			   else
+			   {
+				   n = Decimal2String(ptr, g_ui32InternalTempF); /* write temperature in F to the buffer and update the string length */
+			   }
+			   ptr += n;
+			   pResponse->ResponseData.token_value.len += n;
+			   *ptr = '\0';
+		  }
+
+/* check if the temperature in C event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token8,
+										  pal_Strlen(GET_token8)) == 0)
+		 {
+			   if(!g_ui32Temperature_U)
+			   {
+				   pal_Memcpy(ptr, "checked", pal_Strlen("checked")); /* update the temperature in C button and update the string length */
+				   ptr += 7;
+				   pResponse->ResponseData.token_value.len += 7;
+			   }
+			   else
+			   {
+				   pal_Memcpy(ptr, " ", pal_Strlen(" "));
+				   ptr += 1;
+				   pResponse->ResponseData.token_value.len += 1;
+			   }
+			   *ptr = '\0';
+		 }
+
+/* check if the temperature in F event */
+           else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token9,
+														  pal_Strlen(GET_token9)) == 0)
+		 {
+			   if(g_ui32Temperature_U)
+			   {
+				   pal_Memcpy(ptr, "checked", pal_Strlen("checked")); /* update the temperature in F button and update the string length */
+				   ptr += 7;
+				   pResponse->ResponseData.token_value.len += 7;
+			   }
+			   else
+			   {
+				   pal_Memcpy(ptr, " ", pal_Strlen(" "));
+				   ptr += 1;
+				   pResponse->ResponseData.token_value.len += 1;
+			   }
+			   *ptr = '\0';
+		 }
+
         }
         break;
 
         case SL_NETAPP_HTTPPOSTTOKENVALUE_EVENT:
         {
-					
             _u8 led = 0;
             _u8 *ptr = pEvent->EventData.httpPostData.token_name.data;
 
+/* Check if the post command is for original CC310 demo  */
             if(pal_Memcmp(ptr, POST_token, pal_Strlen(POST_token)) == 0)
             {
                 ptr = pEvent->EventData.httpPostData.token_value.data;
@@ -304,21 +476,90 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                     }
                 }
             }
-						else if(pal_Memcmp(ptr, POST_token1, pal_Strlen(POST_token1)) == 0)
-						{
-								
-								if(g_Toggle==1)
-								{
-									DisableTimer0();
-									g_Toggle=0;
-								}
-								else
-								{
-									EnableTimer0();
-									g_Toggle=1;
-								}
-						}
-						
+
+/* Check if the post command is for add MCU demo: LED on  */
+			if(pal_Memcmp(ptr, POST_token0, pal_Strlen(POST_token0)) == 0)
+			{
+				g_ui32LED_Status =1;                           /* turn the LED on */
+				turnLedOn(LED1);
+				if(g_ui32LED_Toggle_Status)            /* reenable LED toggling */
+				{
+					IoSetTimer(g_ui32AnimSpeed);
+				}
+			}
+
+/* Check if the post command is for add MCU demo: LED off  */
+			else if(pal_Memcmp(ptr, POST_token1, pal_Strlen(POST_token1)) == 0)
+			{
+				g_ui32LED_Status =0;
+				turnLedOff(LED1);
+				if(g_ui32LED_Toggle_Status)
+				{
+					IoSetTimer(0);         /*reenable LED toggling */
+				}
+			}
+
+/* Check if the post command is for add MCU demo: LED toggle on  */
+			else if(pal_Memcmp(ptr, POST_token2, pal_Strlen(POST_token2)) == 0)
+			{
+				g_ui32LED_Toggle_Status = 1;
+				if(g_ui32LED_Status)
+				{
+					IoSetTimer(g_ui32AnimSpeed);  /* enable LED toggling  */
+				}
+			}
+
+/* Check if the post command is for add MCU demo: LED toggle off  */
+			else if(pal_Memcmp(ptr, POST_token3, pal_Strlen(POST_token3)) == 0)
+			{
+				g_ui32LED_Toggle_Status = 0;
+				IoSetTimer(0);               /* disable toggling */
+				if(g_ui32LED_Status)
+				{
+					turnLedOn(LED1);
+				}
+				else
+				{
+					turnLedOff(LED1);
+				}
+			}
+
+/* Check if the post command is for add MCU demo: set LED toggling speed  */
+			else if(pal_Memcmp(ptr, POST_token4, pal_Strlen(POST_token4)) == 0)
+			{
+				ptr = pEvent->EventData.httpPostData.token_value.data;
+				ulSpeed = String2Decimal(ptr);  /* get speed value from string */
+				g_ui32AnimSpeed = ulSpeed;
+				if (g_ui32LED_Toggle_Status && g_ui32LED_Status)
+				{
+					IoSetTimer(ulSpeed);
+				}
+			}
+
+/* Check if the post command is for add MCU demo: Clear button 1 count  */
+			else if(pal_Memcmp(ptr, POST_token5, pal_Strlen(POST_token5)) == 0)
+			{
+				g_ui32SW1Presses = 0;
+			}
+
+/* Check if the post command is for add MCU demo: Clear button 2 count  */
+			else if(pal_Memcmp(ptr, POST_token6, pal_Strlen(POST_token6)) == 0)
+			{
+				g_ui32SW2Presses = 0;
+			}
+
+/* Check if the post command is for add MCU demo: temperature in C */
+			else if(pal_Memcmp(ptr, POST_token8, pal_Strlen(POST_token8)) == 0)
+			{
+				g_ui32Temperature_U = 0;
+			}
+
+/* Check if the post command is for add MCU demo: temperature in F */
+			else if(pal_Memcmp(ptr, POST_token9, pal_Strlen(POST_token9)) == 0)
+			{
+				g_ui32Temperature_U = 1;
+			}
+
         }
         break;
 
@@ -342,10 +583,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 void SimpleLinkNetAppEventHandler(SlNetAppEvent_t *pNetAppEvent)
 {
     if(pNetAppEvent == NULL)
-    {
         CLI_Write(" [NETAPP EVENT] NULL Pointer Error \n\r");
-        return;
-    }
  
     switch(pNetAppEvent->Event)
     {
@@ -424,29 +662,20 @@ int main(int argc, char** argv)
     _u8   SecType = 0;
     _i32   retVal = -1;
     _i32   mode = ROLE_STA;
-	
-		retVal = initializeAppVariables();
+
+    retVal = initializeAppVariables();
     ASSERT_ON_ERROR(retVal);
-	
-		/* Stop WDT and initialize the system-clock of the MCU */
-    stopWDT();
+
+    /* Stop WDT and initialize the system-clock of the MCU */ 
+    stopWDT();//WDT-Watch Dog Timer
     initClk();
-		initTimer();
-		
-	
-		
-		
-	
-		/* Configure command line interface */
-    CLI_Configure();
-		
-		CLI_Write(" Device is configured in default state \n\r");
-    displayBanner();
-		
+
     initLEDs();
-		
-		initI2C();
-    
+
+    /* Configure command line interface */
+    CLI_Configure();
+
+    displayBanner();
 
     /*
      * Following function configures the device to default state by cleaning
@@ -459,19 +688,15 @@ int main(int argc, char** argv)
      * Note that all profiles and persistent settings that were done on the
      * device will be lost
      */
-		 
-		
-		while(1);
     retVal = configureSimpleLinkToDefaultState();
-		
     if(retVal < 0)
     {
         if (DEVICE_NOT_IN_STATION_MODE == retVal)
             CLI_Write(" Failed to configure the device in its default state \n\r");
-				
+
         LOOP_FOREVER();
     }
-		
+
     CLI_Write(" Device is configured in default state \n\r");
 
     /*
@@ -538,7 +763,7 @@ int main(int argc, char** argv)
     }
 
     CLI_Write(" \r\n Device is configured in AP mode \n\r");
-		
+
     CLI_Write(" Waiting for client to connect\n\r");
     /* wait for client to connect */
     while((!IS_IP_LEASED(g_Status)) || (!IS_STA_CONNECTED(g_Status))) { _SlNonOsMainLoopTask(); }
@@ -593,6 +818,155 @@ int main(int argc, char** argv)
     {
         _SlNonOsMainLoopTask();
     }
+}
+
+void HttpServer(){
+	 _u8   SecType = 0;
+	    _i32   retVal = -1;
+	    _i32   mode = ROLE_STA;
+	   /*
+	     * Following function configures the device to default state by cleaning
+	     * the persistent settings stored in NVMEM (viz. connection profiles &
+	     * policies, power policy etc)
+	     *
+	     * Applications may choose to skip this step if the developer is sure
+	     * that the device is in its default state at start of application
+	     *
+	     * Note that all profiles and persistent settings that were done on the
+	     * device will be lost
+	     */
+	    retVal = configureSimpleLinkToDefaultState();
+	    if(retVal < 0)
+	    {
+	        if (DEVICE_NOT_IN_STATION_MODE == retVal)
+	            CLI_Write(" Failed to configure the device in its default state \n\r");
+
+	        LOOP_FOREVER();
+	    }
+
+	    CLI_Write(" Device is configured in default state \n\r");
+
+	    /*
+	     * Assumption is that the device is configured in station mode already
+	     * and it is in its default state
+	     */
+	    mode = sl_Start(0, 0, 0);
+	    if(mode < 0)
+	    {
+	        LOOP_FOREVER();
+	    }
+	    else
+	    {
+	        if (ROLE_AP == mode)
+	        {
+	            /* If the device is in AP mode, we need to wait for this
+	             * event before doing anything */
+	            while(!IS_IP_ACQUIRED(g_Status)) { _SlNonOsMainLoopTask(); }
+	        }
+	        else
+	        {
+	            /* Configure CC3100 to start in AP mode */
+	            retVal = sl_WlanSetMode(ROLE_AP);
+	            if(retVal < 0)
+	                LOOP_FOREVER();
+	        }
+	    }
+
+	    /* Configure AP mode without security */
+	    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SSID,
+	               pal_Strlen(SSID_AP_MODE), (_u8 *)SSID_AP_MODE);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    SecType = SEC_TYPE_AP_MODE;
+	    /* Configure the Security parameter in the AP mode */
+	    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SECURITY_TYPE, 1,
+	            (_u8 *)&SecType);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_PASSWORD, pal_Strlen(PASSWORD_AP_MODE),
+	            (_u8 *)PASSWORD_AP_MODE);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    /* Restart the CC3100 */
+	    retVal = sl_Stop(SL_STOP_TIMEOUT);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    g_Status = 0;
+
+	    mode = sl_Start(0, 0, 0);
+	    if (ROLE_AP == mode)
+	    {
+	        /* If the device is in AP mode, we need to wait for this event before doing anything */
+	        while(!IS_IP_ACQUIRED(g_Status)) { _SlNonOsMainLoopTask(); }
+	    }
+	    else
+	    {
+	        CLI_Write(" Device couldn't come in AP mode \n\r");
+	        LOOP_FOREVER();
+	    }
+
+	    CLI_Write(" \r\n Device is configured in AP mode \n\r");
+
+	    CLI_Write(" Waiting for client to connect\n\r");
+	    /* wait for client to connect */
+	    while((!IS_IP_LEASED(g_Status)) || (!IS_STA_CONNECTED(g_Status))) { _SlNonOsMainLoopTask(); }
+
+	    CLI_Write(" Client connected\n\r");
+
+	    /* Enable the HTTP Authentication */
+	    retVal = set_authentication_check(TRUE);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    /* Get authentication parameters */
+	    retVal = get_auth_name(g_auth_name);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    retVal = get_auth_password(g_auth_password);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    retVal = get_auth_realm(g_auth_realm);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    CLI_Write((_u8 *)"\r\n Authentication parameters: ");
+	    CLI_Write((_u8 *)"\r\n Name = ");
+	    CLI_Write(g_auth_name);
+	    CLI_Write((_u8 *)"\r\n Password = ");
+	    CLI_Write(g_auth_password);
+	    CLI_Write((_u8 *)"\r\n Realm = ");
+	    CLI_Write(g_auth_realm);
+
+	    /* Get the domain name */
+	    retVal = get_domain_name(g_domain_name);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    CLI_Write((_u8 *)"\r\n\r\n Domain name = ");
+	    CLI_Write(g_domain_name);
+
+	    /* Get URN */
+	    retVal = get_device_urn(g_device_urn);
+	    if(retVal < 0)
+	        LOOP_FOREVER();
+
+	    CLI_Write((_u8 *)"\r\n Device URN = ");
+	    CLI_Write(g_device_urn);
+	    CLI_Write((_u8 *)"\r\n");
+
+	    /* Process the async events from the NWP */
+	    while(1)
+	    {
+	        Semaphore_pend(Semaphore_CC3100_Req, BIOS_WAIT_FOREVER);
+	        _SlNonOsMainLoopTask();
+	    }
+
 }
 
 /*!
@@ -811,11 +1185,10 @@ static _i32 configureSimpleLinkToDefaultState()
 
     _i32          retVal = -1;
     _i32          mode = -1;
-		
+
     mode = sl_Start(0, 0, 0);
-		
     ASSERT_ON_ERROR(mode);
-		
+
     /* If the device is not in station-mode, try configuring it in station-mode */
     if (ROLE_STA != mode)
     {
@@ -939,4 +1312,9 @@ static void displayBanner()
     CLI_Write(" HTTP Server application - Version ");
     CLI_Write(APPLICATION_VERSION);
     CLI_Write("\n\r*******************************************************************************\n\r");
+}
+
+void CC3100_Semaphore_Post()
+{
+    Semaphore_post(Semaphore_CC3100_Req);
 }

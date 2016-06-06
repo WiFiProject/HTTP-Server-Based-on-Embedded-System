@@ -20,3 +20,13 @@
 .\rvmdk\device.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.h
 .\rvmdk\device.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h
 .\rvmdk\device.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/tm4c1294ncpdt.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_memmap.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_ssi.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\inc/hw_types.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/ssi.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/gpio.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/rom.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/sysctl.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/fpu.h
+.\rvmdk\device.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/uart.h

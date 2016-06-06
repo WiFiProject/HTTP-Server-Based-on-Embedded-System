@@ -34,23 +34,62 @@
  *
 */
 
+#include <stdint.h>
+#include <stdio.h>
 #include "simplelink.h"
 #include "inc/tm4c1294ncpdt.h"
 #include "inc/hw_memmap.h"
 #include "inc/hw_ssi.h"
 #include "inc/hw_types.h"
+//#include "inc/hw_ints.h"
 #include "driverlib/ssi.h"
+#include "driverlib/pin_map.h"
 #include "driverlib/gpio.h"
 #include "driverlib/rom.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/fpu.h"
 #include "driverlib/uart.h"
+#include "driverlib/timer.h"
+#include "driverlib/interrupt.h"
+#include "sensorlib/hw_tmp006.h"
+#include "sensorlib/i2cm_drv.h"
+#include "sensorlib/tmp006.h"
 #include "board.h"
+
+#define TMP006_I2C_ADDRESS      0x41
 
 P_EVENT_HANDLER        pIrqEventHandler = 0;
 
 _u8 IntIsMasked;
 _u32 g_SysClock;
+//*****************************************************************************
+//
+// Global instance structure for the I2C master driver.
+//
+//*****************************************************************************
+tI2CMInstance g_sI2CInst;
+
+//*****************************************************************************
+//
+// Global instance structure for the TMP006 sensor driver.
+//
+//*****************************************************************************
+tTMP006 g_sTMP006Inst;
+
+//*****************************************************************************
+//
+// Global new data flag to alert main that TMP006 data is ready.
+//
+//*****************************************************************************
+volatile uint_fast8_t g_vui8DataFlag;
+
+//*****************************************************************************
+//
+// Global new error flag to store the error condition if encountered.
+//
+//*****************************************************************************
+volatile uint_fast8_t g_vui8ErrorFlag;
+
 
 void initClk()
 {
@@ -68,10 +107,194 @@ void initClk()
     g_SysClock = SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ |
 						 SYSCTL_OSC_MAIN |
 						 SYSCTL_USE_PLL |
-						 SYSCTL_CFG_VCO_480), 60000000);
+						 SYSCTL_CFG_VCO_480), 120000000);
 		
 		
 		
+}
+
+void initI2C(void)
+{
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C7);
+		
+		GPIOPinConfigure(GPIO_PD0_I2C7SCL);
+		
+    GPIOPinConfigure(GPIO_PD1_I2C7SDA);
+	
+		
+	
+		GPIOPinTypeI2CSCL(GPIO_PORTD_BASE, GPIO_PIN_0);
+    GPIOPinTypeI2C(GPIO_PORTD_BASE, GPIO_PIN_1);
+		
+		
+	
+		GPIOPinTypeGPIOInput(GPIO_PORTH_BASE, GPIO_PIN_2);
+    GPIOIntEnable(GPIO_PORTH_BASE, GPIO_PIN_2);
+    GPIOIntTypeSet(GPIO_PORTH_BASE, GPIO_PIN_2, GPIO_FALLING_EDGE);
+    IntEnable(INT_GPIOH);
+	
+		
+		I2CMInit(&g_sI2CInst, I2C7_BASE, INT_I2C7, 0xff, 0xff, g_SysClock);
+	
+		//
+    // Initialize the TMP006
+    //
+    TMP006Init(&g_sTMP006Inst, &g_sI2CInst, TMP006_I2C_ADDRESS,
+               TMP006AppCallback, &g_sTMP006Inst);
+		
+		
+		if(g_vui8ErrorFlag)
+    {
+        TMP006AppErrorHandler(__FILE__, __LINE__);
+    }
+		
+		g_vui8DataFlag = 0;
+		
+		TMP006ReadModifyWrite(&g_sTMP006Inst, TMP006_O_CONFIG,
+                          ~TMP006_CONFIG_EN_DRDY_PIN_M,
+                          TMP006_CONFIG_EN_DRDY_PIN, TMP006AppCallback,
+                          &g_sTMP006Inst);
+}
+
+void
+IntHandlerGPIOPortH(void)
+{
+    uint32_t ui32Status;
+
+    ui32Status = GPIOIntStatus(GPIO_PORTH_BASE, 1);
+
+    //
+    // Clear all the pin interrupts that are set
+    //
+    GPIOIntClear(GPIO_PORTH_BASE, ui32Status);
+
+    if(ui32Status & GPIO_PIN_2)
+    {
+        //
+        // This interrupt indicates a conversion is complete and ready to be
+        // fetched.  So we start the process of getting the data.
+        //
+				
+        TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
+    }
+}
+
+void
+TMP006I2CIntHandler(void)
+{
+		
+    //
+    // Pass through to the I2CM interrupt handler provided by sensor library.
+    // This is required to be at application level so that I2CMIntHandler can
+    // receive the instance structure pointer as an argument.
+    //
+    I2CMIntHandler(&g_sI2CInst);
+		
+}
+
+void
+TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
+{
+		float fAmbient, fObject;
+    int_fast32_t i32IntegerPart;
+    int_fast32_t i32FractionPart;
+		unsigned char tempString[20]={0};
+		
+	  
+		
+		
+    //
+    // If the transaction succeeded set the data flag to indicate to
+    // application that this transaction is complete and data may be ready.
+    //
+    if(ui8Status == I2CM_STATUS_SUCCESS)
+    {
+        g_vui8DataFlag = 1;
+    }
+
+    //
+    // Store the most recent status in case it was an error condition
+    //
+    g_vui8ErrorFlag = ui8Status;
+		
+		g_vui8DataFlag = 0;
+
+		//
+		// Get a local copy of the latest data in float format.
+		//
+		TMP006DataTemperatureGetFloat(&g_sTMP006Inst, &fAmbient, &fObject);
+
+		//
+		// Convert the floating point ambient temperature  to an integer part
+		// and fraction part for easy printing.
+		//
+		i32IntegerPart = (int32_t)fAmbient;
+		i32FractionPart = (int32_t)(fAmbient * 1000.0f);
+		i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+		if(i32FractionPart < 0)
+		{
+				i32FractionPart *= -1;
+		}
+		sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
+		CLI_Write(tempString);
+		//
+		// Convert the floating point ambient temperature  to an integer part
+		// and fraction part for easy printing.
+		//
+		i32IntegerPart = (int32_t)fObject;
+		i32FractionPart = (int32_t)(fObject * 1000.0f);
+		i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+		if(i32FractionPart < 0)
+		{
+				i32FractionPart *= -1;
+		}
+		sprintf(tempString,"Object %3d.%03d\n", i32IntegerPart, i32FractionPart);
+		CLI_Write(tempString);
+		
+}
+
+void
+TMP006AppErrorHandler(char *pcFilename, unsigned     int ui32Line)
+{
+		
+}
+	
+
+void initTimer()
+{
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+		IntMasterEnable();
+		TimerConfigure(TIMER0_BASE, TIMER_CFG_PERIODIC);
+		TimerLoadSet(TIMER0_BASE, TIMER_A, g_SysClock/5);
+		IntPriorityGroupingSet(4);
+    IntPrioritySet(INT_TIMER0A, 0xE0);
+		IntEnable(INT_TIMER0A);
+		TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+		TimerEnable(TIMER0_BASE, TIMER_A);
+}
+void
+Timer0IntHandler(void)
+{
+		TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+		if(GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_4))
+		{
+			GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_4, PIN_LOW);
+		}
+		else
+		{
+			GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_4, PIN_HIGH);
+		}
+}
+void DisableTimer0(void)
+{
+		TimerDisable(TIMER0_BASE, TIMER_A);
+}
+
+void EnableTimer0(void)
+{
+		TimerEnable(TIMER0_BASE, TIMER_A);
 }
 
 void stopWDT()
@@ -132,6 +355,85 @@ void GPIOM_intHandler()
             pIrqEventHandler(0);
         }
     }
+}
+
+void initLEDs()
+{
+	  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+	  GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0|GPIO_PIN_1);
+		GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0|GPIO_PIN_4);
+	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_LOW);
+	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_1, PIN_LOW);
+		GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_0, PIN_LOW);
+	  GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_4, PIN_LOW);
+}
+
+void turnLedOn(char ledNum)
+{
+    switch(ledNum)
+    {
+      case LED1:
+    	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_HIGH);
+        break;
+      case LED2:
+    	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_1, PIN_HIGH);
+        break;
+    }
+}
+
+void turnLedOff(char ledNum)
+{
+    switch(ledNum)
+    {
+      case LED1:
+    	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_LOW);
+        break;
+      case LED2:
+    	  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_1, PIN_LOW);
+        break;
+    }
+}
+
+
+void toggleLed(char ledNum)
+{
+    switch(ledNum)
+    {
+      case LED1:
+    	  if(GPIOPinRead(GPIO_PORTN_BASE,GPIO_PIN_0))
+    	  {
+    		  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_LOW);
+    	  }
+    	  else
+    	  {
+    		  GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_HIGH);
+    	  }
+        break;
+      case LED2:
+    	  if(GPIOPinRead(GPIO_PORTN_BASE,GPIO_PIN_1))
+    	  {
+    	     GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_1, PIN_LOW);
+    	  }
+    	  else
+    	  {
+    	     GPIOPinWrite(GPIO_PORTN_BASE,GPIO_PIN_0, PIN_HIGH);
+    	  }
+        break;
+    }
+
+}
+
+unsigned char GetLEDStatus()
+{
+  unsigned char status = 0;
+
+  if(GPIOPinRead(GPIO_PORTN_BASE,GPIO_PIN_0))
+    status |= (1 << 0);
+  if(GPIOPinRead(GPIO_PORTN_BASE,GPIO_PIN_1))
+    status |= (1 << 1);
+
+  return status;
 }
 
 

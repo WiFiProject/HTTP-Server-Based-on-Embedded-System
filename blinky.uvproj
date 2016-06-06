@@ -492,6 +492,11 @@
               <FileType>2</FileType>
               <FilePath>.\startup_rvmdk.S</FilePath>
             </File>
+            <File>
+              <FileName>user.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\user.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -551,6 +556,11 @@
               <FileName>wlan.c</FileName>
               <FileType>1</FileType>
               <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensorlib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\rvmdk\sensorlib.lib</FilePath>
             </File>
           </Files>
         </Group>

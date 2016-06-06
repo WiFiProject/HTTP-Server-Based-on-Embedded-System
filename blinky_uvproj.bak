@@ -45,7 +45,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\rvmdk\</OutputDirectory>
-          <OutputName>blinky</OutputName>
+          <OutputName>test</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
@@ -406,6 +406,66 @@
       <Groups>
         <Group>
           <GroupName>Source</GroupName>
+          <GroupOption>
+            <CommonProperty>
+              <UseCPPCompiler>0</UseCPPCompiler>
+              <RVCTCodeConst>0</RVCTCodeConst>
+              <RVCTZI>0</RVCTZI>
+              <RVCTOtherData>0</RVCTOtherData>
+              <ModuleSelection>0</ModuleSelection>
+              <IncludeInBuild>2</IncludeInBuild>
+              <AlwaysBuild>2</AlwaysBuild>
+              <GenerateAssemblyFile>2</GenerateAssemblyFile>
+              <AssembleAssemblyFile>2</AssembleAssemblyFile>
+              <PublicsOnly>2</PublicsOnly>
+              <StopOnExitCode>11</StopOnExitCode>
+              <CustomArgument></CustomArgument>
+              <IncludeLibraryModules></IncludeLibraryModules>
+              <ComprImg>1</ComprImg>
+            </CommonProperty>
+            <GroupArmAds>
+              <Cads>
+                <interw>2</interw>
+                <Optim>0</Optim>
+                <oTime>2</oTime>
+                <SplitLS>2</SplitLS>
+                <OneElfS>2</OneElfS>
+                <Strict>2</Strict>
+                <EnumInt>2</EnumInt>
+                <PlainCh>2</PlainCh>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <wLevel>2</wLevel>
+                <uThumb>2</uThumb>
+                <uSurpInc>2</uSurpInc>
+                <uC99>2</uC99>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath>..\..\..\..;C:\software\tii\TivaWare_C_Series-2.1.2.111;C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include;C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source;..\HTTP-Server-Based-on-Embedded-System</IncludePath>
+                </VariousControls>
+              </Cads>
+              <Aads>
+                <interw>2</interw>
+                <Ropi>2</Ropi>
+                <Rwpi>2</Rwpi>
+                <thumb>2</thumb>
+                <SplitLS>2</SplitLS>
+                <SwStkChk>2</SwStkChk>
+                <NoWarn>2</NoWarn>
+                <uSurpInc>2</uSurpInc>
+                <useXO>2</useXO>
+                <VariousControls>
+                  <MiscControls></MiscControls>
+                  <Define></Define>
+                  <Undefine></Undefine>
+                  <IncludePath></IncludePath>
+                </VariousControls>
+              </Aads>
+            </GroupArmAds>
+          </GroupOption>
           <Files>
             <File>
               <FileName>board.c</FileName>
@@ -427,10 +487,77 @@
               <FileType>1</FileType>
               <FilePath>.\spi.c</FilePath>
             </File>
+            <File>
+              <FileName>startup_rvmdk.S</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\startup_rvmdk.S</FilePath>
+            </File>
+            <File>
+              <FileName>user.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\user.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Libraries</GroupName>
+          <Files>
+            <File>
+              <FileName>driverlib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rvmdk\driverlib.lib</FilePath>
+            </File>
+            <File>
+              <FileName>device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c</FilePath>
+            </File>
+            <File>
+              <FileName>driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>flowcont.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c</FilePath>
+            </File>
+            <File>
+              <FileName>fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>netapp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c</FilePath>
+            </File>
+            <File>
+              <FileName>netcfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>nonos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c</FilePath>
+            </File>
+            <File>
+              <FileName>socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c</FilePath>
+            </File>
+            <File>
+              <FileName>spawn.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c</FilePath>
+            </File>
+            <File>
+              <FileName>wlan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Documentation</GroupName>

@@ -79,6 +79,9 @@ __heap_limit
 ;
 ;******************************************************************************
         EXTERN  GPIOM_intHandler
+		EXTERN  Timer0IntHandler
+		EXTERN  IntHandlerGPIOPortH
+        EXTERN  TMP006I2CIntHandler
 
 ;******************************************************************************
 ;
@@ -122,7 +125,7 @@ __Vectors
         DCD     IntDefaultHandler           ; ADC Sequence 2
         DCD     IntDefaultHandler           ; ADC Sequence 3
         DCD     IntDefaultHandler           ; Watchdog timer
-        DCD     IntDefaultHandler           ; Timer 0 subtimer A
+        DCD     Timer0IntHandler           ; Timer 0 subtimer A
         DCD     IntDefaultHandler           ; Timer 0 subtimer B
         DCD     IntDefaultHandler           ; Timer 1 subtimer A
         DCD     IntDefaultHandler           ; Timer 1 subtimer B
@@ -135,7 +138,7 @@ __Vectors
         DCD     IntDefaultHandler           ; FLASH Control
         DCD     IntDefaultHandler           ; GPIO Port F
         DCD     IntDefaultHandler           ; GPIO Port G
-        DCD     IntDefaultHandler           ; GPIO Port H
+        DCD     IntHandlerGPIOPortH           ; GPIO Port H
         DCD     IntDefaultHandler           ; UART2 Rx and Tx
         DCD     IntDefaultHandler           ; SSI1 Rx and Tx
         DCD     IntDefaultHandler           ; Timer 3 subtimer A
@@ -175,7 +178,7 @@ __Vectors
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; I2C4 Master and Slave
         DCD     IntDefaultHandler           ; I2C5 Master and Slave
-		DCD     IntDefaultHandler           	; GPIO Port M	
+		DCD     GPIOM_intHandler           	; GPIO Port M	
         DCD     IntDefaultHandler           ; GPIO Port N
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; Tamper
@@ -206,7 +209,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Timer 7 subtimer A
         DCD     IntDefaultHandler           ; Timer 7 subtimer B
         DCD     IntDefaultHandler           ; I2C6 Master and Slave
-        DCD     IntDefaultHandler           ; I2C7 Master and Slave
+        DCD     TMP006I2CIntHandler          ; I2C7 Master and Slave
         DCD     IntDefaultHandler           ; HIM Scan Matrix Keyboard 0
         DCD     IntDefaultHandler           ; One Wire 0
         DCD     IntDefaultHandler           ; HIM PS/2 0

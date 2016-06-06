@@ -15,6 +15,7 @@
 ".\rvmdk\socket.o"
 ".\rvmdk\spawn.o"
 ".\rvmdk\wlan.o"
+"C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\rvmdk\sensorlib.lib"
 --library_type=microlib --strict --scatter "blinky.sct"
 
 --entry Reset_Handler --summary_stderr --info summarysizes --map --xref --callgraph --symbols
