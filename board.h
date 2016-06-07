@@ -168,9 +168,9 @@ void initI2C(void);
 
 void I2CIntHandler(void);
 
-void initSystick(void);
+void initTimer1(void);
 
-void SysTickIntHandler(void);
+void Timer1IntHandler(void);
 
 void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status);
 

@@ -80,7 +80,7 @@ __heap_limit
 ;******************************************************************************
         EXTERN  GPIOM_intHandler
 		EXTERN  Timer0IntHandler
-		EXTERN  SysTickIntHandler
+		EXTERN  Timer1IntHandler
         EXTERN  I2CIntHandler
 
 ;******************************************************************************
@@ -105,7 +105,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Debug monitor handler
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; The PendSV handler
-        DCD     SysTickIntHandler          ; The SysTick handler
+        DCD     IntDefaultHandler          ; The SysTick handler
         DCD     IntDefaultHandler           ; GPIO Port A
         DCD     IntDefaultHandler           ; GPIO Port B
         DCD     IntDefaultHandler           ; GPIO Port C
@@ -127,7 +127,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Watchdog timer
         DCD     Timer0IntHandler           ; Timer 0 subtimer A
         DCD     IntDefaultHandler           ; Timer 0 subtimer B
-        DCD     IntDefaultHandler           ; Timer 1 subtimer A
+        DCD     Timer1IntHandler           ; Timer 1 subtimer A
         DCD     IntDefaultHandler           ; Timer 1 subtimer B
         DCD     IntDefaultHandler           ; Timer 2 subtimer A
         DCD     IntDefaultHandler           ; Timer 2 subtimer B

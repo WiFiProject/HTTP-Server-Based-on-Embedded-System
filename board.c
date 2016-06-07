@@ -156,17 +156,23 @@ void initI2C(void)
 		
 }
 
-void initSystick(void)
+void initTimer1(void)
 {
 		sensorTurn=0;
-		SysTickPeriodSet(g_SysClock);
-    SysTickIntEnable();
-    SysTickEnable();
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER1);
+		IntMasterEnable();
+		TimerConfigure(TIMER1_BASE, TIMER_CFG_PERIODIC);
+		TimerLoadSet(TIMER1_BASE, TIMER_A, g_SysClock);
+		IntPriorityGroupingSet(4);
+    IntPrioritySet(INT_TIMER0A, 0xF0);
+		IntEnable(INT_TIMER1A);
+		TimerIntEnable(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
+		TimerEnable(TIMER1_BASE, TIMER_A);
 }
 
-void SysTickIntHandler(void)
+void Timer1IntHandler(void)
 {
-	
+	TimerIntClear(TIMER1_BASE, TIMER_TIMA_TIMEOUT);
 	if(GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_0))
 	{
 		GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_0, PIN_LOW);
@@ -180,15 +186,17 @@ void SysTickIntHandler(void)
 		case 0:
 		{
 				TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
-				SysTickDisable();
+				TimerDisable(TIMER1_BASE, TIMER_A);
+				
 				break;
 		}
 		case 1:
 		{
 				BMP180DataRead(&g_sBMP180Inst, BMP180AppCallback, &g_sBMP180Inst);
-				SysTickDisable();
+				TimerDisable(TIMER1_BASE, TIMER_A);
+				
 				break;
-		}	
+		}
 	}
 		
 			
@@ -300,10 +308,9 @@ void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
         // Print new line.
         //
         CLI_Write("\n\r");
+				//sensorTurn=3;
 				sensorTurn=(sensorTurn+1)%2;
-				sprintf(tempString,"Systick Value: %ld\n\r",SysTickValueGet());
-				CLI_Write(tempString);
-				SysTickEnable();
+				TimerEnable(TIMER1_BASE, TIMER_A);
 			}
 }
 
@@ -366,8 +373,8 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
 				sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
 				CLI_Write(tempString);
 				sensorTurn=(sensorTurn+1)%2;
-		
-				SysTickEnable();
+				//sensorTurn=4;
+				TimerEnable(TIMER1_BASE, TIMER_A);
 		}
 }
 	
