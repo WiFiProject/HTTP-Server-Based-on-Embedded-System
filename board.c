@@ -36,6 +36,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <math.h>
 #include "simplelink.h"
 #include "inc/tm4c1294ncpdt.h"
 #include "inc/hw_memmap.h"
@@ -47,21 +48,25 @@
 #include "driverlib/gpio.h"
 #include "driverlib/rom.h"
 #include "driverlib/sysctl.h"
+#include "driverlib/systick.h"
 #include "driverlib/fpu.h"
 #include "driverlib/uart.h"
 #include "driverlib/timer.h"
 #include "driverlib/interrupt.h"
 #include "sensorlib/hw_tmp006.h"
+#include "sensorlib/hw_bmp180.h"
 #include "sensorlib/i2cm_drv.h"
 #include "sensorlib/tmp006.h"
+#include "sensorlib/bmp180.h"
 #include "board.h"
 
 #define TMP006_I2C_ADDRESS      0x41
+#define BMP180_I2C_ADDRESS      0x77
 
 P_EVENT_HANDLER        pIrqEventHandler = 0;
 
 _u8 IntIsMasked;
-_u32 g_SysClock;
+_u32 g_SysClock=120000000;
 //*****************************************************************************
 //
 // Global instance structure for the I2C master driver.
@@ -78,17 +83,12 @@ tTMP006 g_sTMP006Inst;
 
 //*****************************************************************************
 //
-// Global new data flag to alert main that TMP006 data is ready.
+// Global instance structure for the BMP180 sensor driver.
 //
 //*****************************************************************************
-volatile uint_fast8_t g_vui8DataFlag;
+tBMP180 g_sBMP180Inst;
 
-//*****************************************************************************
-//
-// Global new error flag to store the error condition if encountered.
-//
-//*****************************************************************************
-volatile uint_fast8_t g_vui8ErrorFlag;
+int sensorTurn=0;
 
 
 void initClk()
@@ -144,48 +144,171 @@ void initI2C(void)
     TMP006Init(&g_sTMP006Inst, &g_sI2CInst, TMP006_I2C_ADDRESS,
                TMP006AppCallback, &g_sTMP006Inst);
 		
-		
-		if(g_vui8ErrorFlag)
-    {
-        TMP006AppErrorHandler(__FILE__, __LINE__);
-    }
-		
-		g_vui8DataFlag = 0;
 		SysCtlDelay(g_SysClock / (100 * 3));
 		
-		TMP006ReadModifyWrite(&g_sTMP006Inst, TMP006_O_CONFIG,
-                          ~TMP006_CONFIG_EN_DRDY_PIN_M,
-                          TMP006_CONFIG_EN_DRDY_PIN, TMP006AppCallback,
-                          &g_sTMP006Inst);
+		//
+    // Initialize the BMP180.
+    //
+    BMP180Init(&g_sBMP180Inst, &g_sI2CInst, BMP180_I2C_ADDRESS,
+               BMP180AppCallback, &g_sBMP180Inst);
+					 
 		SysCtlDelay(g_SysClock / (100 * 3));
 		
 }
 
-void
-IntHandlerGPIOPortH(void)
+void initSystick(void)
 {
-    uint32_t ui32Status;
+		sensorTurn=0;
+		SysTickPeriodSet(g_SysClock);
+    SysTickIntEnable();
+    SysTickEnable();
+}
 
-    ui32Status = GPIOIntStatus(GPIO_PORTH_BASE, 1);
+void SysTickIntHandler(void)
+{
+	
+	if(GPIOPinRead(GPIO_PORTF_BASE,GPIO_PIN_0))
+	{
+		GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_0, PIN_LOW);
+	}
+	else
+	{
+		GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_0, PIN_HIGH);
+	}
+	switch(sensorTurn)
+	{
+		case 0:
+		{
+				TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
+				SysTickDisable();
+				break;
+		}
+		case 1:
+		{
+				BMP180DataRead(&g_sBMP180Inst, BMP180AppCallback, &g_sBMP180Inst);
+				SysTickDisable();
+				break;
+		}	
+	}
+		
+			
+}
 
-    //
-    // Clear all the pin interrupts that are set
-    //
-    GPIOIntClear(GPIO_PORTH_BASE, ui32Status);
+//void
+//IntHandlerGPIOPortH(void)
+//{
+//    uint32_t ui32Status;
 
-    if(ui32Status & GPIO_PIN_2)
+//    ui32Status = GPIOIntStatus(GPIO_PORTH_BASE, 1);
+
+//    //
+//    // Clear all the pin interrupts that are set
+//    //
+//    GPIOIntClear(GPIO_PORTH_BASE, ui32Status);
+
+//    if(ui32Status & GPIO_PIN_2)
+//    {
+//        //
+//        // This interrupt indicates a conversion is complete and ready to be
+//        // fetched.  So we start the process of getting the data.
+//        //
+//				
+//        TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
+//    }
+//}
+
+void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
+{
+	
+		float fTemperature, fPressure, fAltitude;
+    int_fast32_t i32IntegerPart;
+    int_fast32_t i32FractionPart;
+		unsigned char tempString[30]={0};
+		
+		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==1)
     {
+				//
+        // Get a local copy of the latest temperature and pressure data in
+        // float format.
         //
-        // This interrupt indicates a conversion is complete and ready to be
-        // fetched.  So we start the process of getting the data.
+        BMP180DataTemperatureGetFloat(&g_sBMP180Inst, &fTemperature);
+        BMP180DataPressureGetFloat(&g_sBMP180Inst, &fPressure);
+
         //
+        // Convert the temperature to an integer part and fraction part for
+        // easy print.
+        //
+        i32IntegerPart = (int32_t) fTemperature;
+        i32FractionPart =(int32_t) (fTemperature * 1000.0f);
+        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+        if(i32FractionPart < 0)
+        {
+            i32FractionPart *= -1;
+        }
+
+        //
+        // Print temperature with three digits of decimal precision.
+        //
+        sprintf(tempString,"Temperature %3d.%03d\t", i32IntegerPart,
+                   i32FractionPart);
+				CLI_Write(tempString);
 				
-        TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
-    }
+
+        //
+        // Convert the pressure to an integer part and fraction part for
+        // easy print.
+        //
+        i32IntegerPart = (int32_t) fPressure;
+        i32FractionPart =(int32_t) (fPressure * 1000.0f);
+        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+        if(i32FractionPart < 0)
+        {
+            i32FractionPart *= -1;
+        }
+				
+				 //
+        // Print Pressure with three digits of decimal precision.
+        //
+        sprintf(tempString,"Pressure %3d.%03d\t", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
+
+        //
+        // Calculate the altitude.
+        //
+        fAltitude = 44330.0f * (1.0f - powf(fPressure / 101325.0f,
+                                            1.0f / 5.255f));
+
+        //
+        // Convert the altitude to an integer part and fraction part for easy
+        // print.
+        //
+        i32IntegerPart = (int32_t) fAltitude;
+        i32FractionPart =(int32_t) (fAltitude * 1000.0f);
+        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+        if(i32FractionPart < 0)
+        {
+            i32FractionPart *= -1;
+        }
+
+        //
+        // Print altitude with three digits of decimal precision.
+        //
+        sprintf(tempString,"Altitude %3d.%03d", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
+
+        //
+        // Print new line.
+        //
+        CLI_Write("\n\r");
+				sensorTurn=(sensorTurn+1)%2;
+				sprintf(tempString,"Systick Value: %ld\n\r",SysTickValueGet());
+				CLI_Write(tempString);
+				SysTickEnable();
+			}
 }
 
 void
-TMP006I2CIntHandler(void)
+I2CIntHandler(void)
 {
 		
     //
@@ -209,20 +332,8 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
     // If the transaction succeeded set the data flag to indicate to
     // application that this transaction is complete and data may be ready.
     //
-    if(ui8Status == I2CM_STATUS_SUCCESS)
+    if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==0)
     {
-        g_vui8DataFlag = 1;
-    
-
-				//
-				// Store the most recent status in case it was an error condition
-				//
-					
-					
-				//g_vui8ErrorFlag = ui8Status;
-				
-				g_vui8DataFlag = 0;
-
 				//
 				// Get a local copy of the latest data in float format.
 				//
@@ -254,13 +365,10 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
 				}
 				sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
 				CLI_Write(tempString);
-		}
-}
-
-void
-TMP006AppErrorHandler(char *pcFilename, unsigned     int ui32Line)
-{
+				sensorTurn=(sensorTurn+1)%2;
 		
+				SysTickEnable();
+		}
 }
 	
 

@@ -80,8 +80,8 @@ __heap_limit
 ;******************************************************************************
         EXTERN  GPIOM_intHandler
 		EXTERN  Timer0IntHandler
-		EXTERN  IntHandlerGPIOPortH
-        EXTERN  TMP006I2CIntHandler
+		EXTERN  SysTickIntHandler
+        EXTERN  I2CIntHandler
 
 ;******************************************************************************
 ;
@@ -105,7 +105,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Debug monitor handler
         DCD     0                           ; Reserved
         DCD     IntDefaultHandler           ; The PendSV handler
-        DCD     IntDefaultHandler           ; The SysTick handler
+        DCD     SysTickIntHandler          ; The SysTick handler
         DCD     IntDefaultHandler           ; GPIO Port A
         DCD     IntDefaultHandler           ; GPIO Port B
         DCD     IntDefaultHandler           ; GPIO Port C
@@ -138,7 +138,7 @@ __Vectors
         DCD     IntDefaultHandler           ; FLASH Control
         DCD     IntDefaultHandler           ; GPIO Port F
         DCD     IntDefaultHandler           ; GPIO Port G
-        DCD     IntHandlerGPIOPortH           ; GPIO Port H
+        DCD     IntDefaultHandler           ; GPIO Port H
         DCD     IntDefaultHandler           ; UART2 Rx and Tx
         DCD     IntDefaultHandler           ; SSI1 Rx and Tx
         DCD     IntDefaultHandler           ; Timer 3 subtimer A
@@ -209,7 +209,7 @@ __Vectors
         DCD     IntDefaultHandler           ; Timer 7 subtimer A
         DCD     IntDefaultHandler           ; Timer 7 subtimer B
         DCD     IntDefaultHandler           ; I2C6 Master and Slave
-        DCD     TMP006I2CIntHandler          ; I2C7 Master and Slave
+        DCD     I2CIntHandler          ; I2C7 Master and Slave
         DCD     IntDefaultHandler           ; HIM Scan Matrix Keyboard 0
         DCD     IntDefaultHandler           ; One Wire 0
         DCD     IntDefaultHandler           ; HIM PS/2 0

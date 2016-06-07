@@ -445,7 +445,12 @@ int main(int argc, char** argv)
 		
     initLEDs();
 		
+		initSystick();
+		
 		initI2C();
+		
+		
+		
     
 
     /*

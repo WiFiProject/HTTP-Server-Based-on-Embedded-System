@@ -157,17 +157,30 @@ void initClk();
 void initTimer();
 void
 Timer0IntHandler(void);
+
+void
+SysTickIntHandler();
+
 void DisableTimer0(void);
 void EnableTimer0(void);
+
 void initI2C(void);
-void
-IntHandlerGPIOPortH(void);
-void
-TMP006I2CIntHandler(void);
-void
-TMP006AppCallback(void *pvCallbackData, unsigned     int ui8Status);
-void
-TMP006AppErrorHandler(char *pcFilename, unsigned     int ui32Line);
+
+void I2CIntHandler(void);
+
+void initSystick(void);
+
+void SysTickIntHandler(void);
+
+void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status);
+
+
+
+//the function related to the tmp006
+//void IntHandlerGPIOPortH(void);
+
+void TMP006AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+
 /*!
     \brief      Masks the Host IRQ
 

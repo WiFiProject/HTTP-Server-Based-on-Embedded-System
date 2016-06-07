@@ -1,6 +1,7 @@
 .\rvmdk\board.o: board.c
 .\rvmdk\board.o: C:\software\keil5\ARM\ARMCC\bin\..\include\stdint.h
 .\rvmdk\board.o: C:\software\keil5\ARM\ARMCC\bin\..\include\stdio.h
+.\rvmdk\board.o: C:\software\keil5\ARM\ARMCC\bin\..\include\math.h
 .\rvmdk\board.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h
 .\rvmdk\board.o: ..\HTTP-Server-Based-on-Embedded-System\user.h
 .\rvmdk\board.o: C:\software\keil5\ARM\ARMCC\bin\..\include\string.h
@@ -27,10 +28,13 @@
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/gpio.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/rom.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/sysctl.h
+.\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/systick.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/fpu.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/uart.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/timer.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib/interrupt.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_tmp006.h
+.\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_bmp180.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/i2cm_drv.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/tmp006.h
+.\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/bmp180.h
