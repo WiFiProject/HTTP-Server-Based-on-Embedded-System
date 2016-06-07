@@ -1,0 +1,23 @@
+--cpu Cortex-M4
+".\rvmdk\board.o"
+".\rvmdk\cli_uart.o"
+".\rvmdk\main.o"
+".\rvmdk\spi.o"
+".\rvmdk\startup_rvmdk.o"
+"C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rvmdk\driverlib.lib"
+".\rvmdk\device.o"
+".\rvmdk\driver.o"
+".\rvmdk\flowcont.o"
+".\rvmdk\fs.o"
+".\rvmdk\netapp.o"
+".\rvmdk\netcfg.o"
+".\rvmdk\nonos.o"
+".\rvmdk\socket.o"
+".\rvmdk\spawn.o"
+".\rvmdk\wlan.o"
+"C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\rvmdk\sensorlib.lib"
+--library_type=microlib --strict --scatter "blinky.sct"
+
+--entry Reset_Handler --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\rvmdk\test.map" -o .\rvmdk\test.axf
