@@ -55,18 +55,40 @@
 #include "driverlib/interrupt.h"
 #include "sensorlib/hw_tmp006.h"
 #include "sensorlib/hw_bmp180.h"
+#include "sensorlib/hw_isl29023.h"
 #include "sensorlib/i2cm_drv.h"
 #include "sensorlib/tmp006.h"
 #include "sensorlib/bmp180.h"
+#include "sensorlib/isl29023.h"
 #include "board.h"
 
 #define TMP006_I2C_ADDRESS      0x41
+#define ISL29023_I2C_ADDRESS    0x44
 #define BMP180_I2C_ADDRESS      0x77
+
+#define NumberOfSensor 3
 
 P_EVENT_HANDLER        pIrqEventHandler = 0;
 
 _u8 IntIsMasked;
 _u32 g_SysClock=120000000;
+
+//*****************************************************************************
+//
+// Constants to hold the floating point version of the thresholds for each
+// range setting. Numbers represent an 81% and 19 % threshold levels. This
+// creates a +/- 1% hysteresis band between range adjustments.
+//
+//*****************************************************************************
+const float g_fThresholdHigh[4] =
+{
+    810.0f, 3240.0f, 12960.0f, 64000.0f
+};
+const float g_fThresholdLow[4] =
+{
+    0.0f, 760.0f, 3040.0f, 12160.0f
+};
+
 //*****************************************************************************
 //
 // Global instance structure for the I2C master driver.
@@ -87,6 +109,15 @@ tTMP006 g_sTMP006Inst;
 //
 //*****************************************************************************
 tBMP180 g_sBMP180Inst;
+
+//*****************************************************************************
+//
+// Global instance structure for the ISL29023 sensor driver.
+//
+//*****************************************************************************
+tISL29023 g_sISL29023Inst;
+
+volatile unsigned long g_vui8IntensityFlag;
 
 int sensorTurn=0;
 
@@ -115,7 +146,11 @@ void initClk()
 
 void initI2C(void)
 {
+		uint8_t ui8Mask;
+	
+	
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOD);
+		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
 		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOH);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_I2C7);
 		
@@ -127,14 +162,16 @@ void initI2C(void)
 	
 		GPIOPinTypeI2CSCL(GPIO_PORTD_BASE, GPIO_PIN_0);
     GPIOPinTypeI2C(GPIO_PORTD_BASE, GPIO_PIN_1);
-		
-		
+		//
+    // Configure and Enable the GPIO interrupt. Used for INT signal from the
+    // ISL29023
+    //
 	
-		GPIOPinTypeGPIOInput(GPIO_PORTH_BASE, GPIO_PIN_2);
-    GPIOIntEnable(GPIO_PORTH_BASE, GPIO_PIN_2);
-    GPIOIntTypeSet(GPIO_PORTH_BASE, GPIO_PIN_2, GPIO_FALLING_EDGE);
-    IntEnable(INT_GPIOH);
-	
+		
+		GPIOPinTypeGPIOInput(GPIO_PORTE_BASE, GPIO_PIN_5);
+    GPIOIntEnable(GPIO_PORTE_BASE, GPIO_PIN_5);
+    GPIOIntTypeSet(GPIO_PORTE_BASE, GPIO_PIN_5, GPIO_FALLING_EDGE);
+    IntEnable(INT_GPIOE);
 		
 		I2CMInit(&g_sI2CInst, I2C7_BASE, INT_I2C7, 0xff, 0xff, g_SysClock);
 	
@@ -153,6 +190,61 @@ void initI2C(void)
                BMP180AppCallback, &g_sBMP180Inst);
 					 
 		SysCtlDelay(g_SysClock / (100 * 3));
+		
+		IntPrioritySet(INT_I2C7, 0x00);
+		IntPrioritySet(INT_GPIOM, 0x00);
+		IntPrioritySet(INT_TIMER0A, 0x80);
+		IntPrioritySet(INT_TIMER1A, 0x40);
+    IntPrioritySet(INT_GPIOE, 0x80);
+    IntPrioritySet(INT_UART0, 0x80);
+		
+		//
+    // Initialize the ISL29023 Driver.
+    //
+    ISL29023Init(&g_sISL29023Inst, &g_sI2CInst, ISL29023_I2C_ADDRESS,
+                 ISL29023AppCallback, &g_sISL29023Inst);
+								 
+		SysCtlDelay(g_SysClock / (100 * 3));
+		
+		//
+    // Configure the ISL29023 to measure ambient light continuously. Set a 8
+    // sample persistence before the INT pin is asserted. Clears the INT flag.
+    // Persistence setting of 8 is sufficient to ignore camera flashes.
+    //
+    ui8Mask = (ISL29023_CMD_I_OP_MODE_M | ISL29023_CMD_I_INT_PERSIST_M |
+               ISL29023_CMD_I_INT_FLAG_M);
+    ISL29023ReadModifyWrite(&g_sISL29023Inst, ISL29023_O_CMD_I, ~ui8Mask,
+                            (ISL29023_CMD_I_OP_MODE_ALS_CONT |
+                             ISL29023_CMD_I_INT_PERSIST_8),
+                            ISL29023AppCallback, &g_sISL29023Inst);
+														
+		//
+    // Configure the upper threshold to 80% of maximum value
+    //
+    g_sISL29023Inst.pui8Data[1] = 0xCC;
+    g_sISL29023Inst.pui8Data[2] = 0xCC;
+    ISL29023Write(&g_sISL29023Inst, ISL29023_O_INT_HT_LSB,
+                  g_sISL29023Inst.pui8Data, 2, ISL29023AppCallback,
+                  &g_sISL29023Inst);
+
+    //
+    // Wait for transaction to complete
+    //
+    SysCtlDelay(g_SysClock / (100 * 3));
+
+    //
+    // Configure the lower threshold to 20% of maximum value
+    //
+    g_sISL29023Inst.pui8Data[1] = 0x33;
+    g_sISL29023Inst.pui8Data[2] = 0x33;
+    ISL29023Write(&g_sISL29023Inst, ISL29023_O_INT_LT_LSB,
+                  g_sISL29023Inst.pui8Data, 2, ISL29023AppCallback,
+                  &g_sISL29023Inst);
+    //
+    // Wait for transaction to complete
+    //
+    SysCtlDelay(g_SysClock / (100 * 3));
+
 		
 }
 
@@ -197,9 +289,38 @@ void Timer1IntHandler(void)
 				
 				break;
 		}
+		case 2:
+		{
+				ISL29023DataRead(&g_sISL29023Inst, ISL29023AppCallback, &g_sISL29023Inst);
+				TimerDisable(TIMER1_BASE, TIMER_A);
+				
+				break;
+		}
 	}
 		
 			
+}
+
+void
+GPIOPortEIntHandler(void)
+{
+    unsigned long ulStatus;
+
+    ulStatus = GPIOIntStatus(GPIO_PORTE_BASE, 1);
+
+    //
+    // Clear all the pin interrupts that are set
+    //
+    GPIOIntClear(GPIO_PORTE_BASE, ulStatus);
+
+    if(ulStatus & GPIO_PIN_5)
+    {
+        //
+        // ISL29023 has indicated that the light level has crossed outside of
+        // the intensity threshold levels set in INT_LT and INT_HT registers.
+        //
+        g_vui8IntensityFlag = 1;
+    }
 }
 
 //void
@@ -224,6 +345,124 @@ void Timer1IntHandler(void)
 //        TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
 //    }
 //}
+
+void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
+{
+	
+		float fAmbient;
+    int32_t i32IntegerPart, i32FractionPart;
+		unsigned char tempString[30]={0};
+		
+		float tempfAmbient;
+		uint8_t ui8NewRange;
+		
+		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==2)
+		{
+				//
+				// Get a local floating point copy of the latest light data
+				//
+				ISL29023DataLightVisibleGetFloat(&g_sISL29023Inst, &fAmbient);
+			
+				//
+				// Perform the conversion from float to a printable set of integers
+				//
+				i32IntegerPart = (int32_t)fAmbient;
+				i32FractionPart = (int32_t)(fAmbient * 1000.0f);
+				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+				if(i32FractionPart < 0)
+				{
+						i32FractionPart *= -1;
+				}
+
+				//
+				// Print the temperature as integer and fraction parts.
+				//
+				sprintf(tempString,"Visible Lux: %3ld.%03ld\n\r", i32IntegerPart,i32FractionPart);
+				CLI_Write(tempString);
+
+				if(g_vui8IntensityFlag)
+				{
+					ROM_IntPriorityMaskSet(0x40);
+					//
+					// Reset the intensity trigger flag.
+					//
+					g_vui8IntensityFlag = 0;
+
+					//
+					// Adjust the lux range.
+					//
+					
+					ui8NewRange = g_sISL29023Inst.ui8Range;
+
+					//
+					// Get a local floating point copy of the latest light data
+					//
+					ISL29023DataLightVisibleGetFloat(&g_sISL29023Inst, &tempfAmbient);
+
+					//
+					// Check if we crossed the upper threshold.
+					//
+					if(tempfAmbient > g_fThresholdHigh[g_sISL29023Inst.ui8Range])
+					{
+							//
+							// The current intensity is over our threshold so adjsut the range
+							// accordingly
+							//
+							if(g_sISL29023Inst.ui8Range < ISL29023_CMD_II_RANGE_64K)
+							{
+									ui8NewRange = g_sISL29023Inst.ui8Range + 1;
+							}
+					}
+
+					//
+					// Check if we crossed the lower threshold
+					//
+					if(tempfAmbient < g_fThresholdLow[g_sISL29023Inst.ui8Range])
+					{
+							//
+							// If possible go to the next lower range setting and reconfig the
+							// thresholds.
+							//
+							if(g_sISL29023Inst.ui8Range > ISL29023_CMD_II_RANGE_1K)
+							{
+									ui8NewRange = g_sISL29023Inst.ui8Range - 1;
+							}
+					}
+
+					//
+					// If the desired range value changed then send the new range to the sensor
+					//
+					if(ui8NewRange != g_sISL29023Inst.ui8Range)
+					{
+							ISL29023ReadModifyWrite(&g_sISL29023Inst, ISL29023_O_CMD_II,
+																			~ISL29023_CMD_II_RANGE_M, ui8NewRange,
+																			ISL29023AppCallback, &g_sISL29023Inst);
+					}
+					
+					SysCtlDelay(g_SysClock / (100 * 3));
+					//
+					// Now we must manually clear the flag in the ISL29023
+					// register.
+					//
+					ISL29023Read(&g_sISL29023Inst, ISL29023_O_CMD_I,
+											 g_sISL29023Inst.pui8Data, 1, ISL29023AppCallback,
+											 &g_sISL29023Inst);
+
+					//
+					// Wait for transaction to complete
+					//
+					SysCtlDelay(g_SysClock / (100 * 3));
+					
+					//
+					// Disable priority masking so all interrupts are enabled.
+					//
+					IntPriorityMaskSet(0);
+				}
+				sensorTurn=(sensorTurn+1)%NumberOfSensor;
+				TimerEnable(TIMER1_BASE, TIMER_A);
+		}
+		
+}
 
 void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
 {
@@ -309,7 +548,7 @@ void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
         //
         CLI_Write("\n\r");
 				//sensorTurn=3;
-				sensorTurn=(sensorTurn+1)%2;
+				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				TimerEnable(TIMER1_BASE, TIMER_A);
 			}
 }
@@ -372,7 +611,7 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
 				}
 				sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
 				CLI_Write(tempString);
-				sensorTurn=(sensorTurn+1)%2;
+				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				//sensorTurn=4;
 				TimerEnable(TIMER1_BASE, TIMER_A);
 		}

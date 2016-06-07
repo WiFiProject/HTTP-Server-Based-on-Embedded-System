@@ -172,9 +172,11 @@ void initTimer1(void);
 
 void Timer1IntHandler(void);
 
+void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+
+void GPIOPortEIntHandler(void);
+
 void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status);
-
-
 
 //the function related to the tmp006
 //void IntHandlerGPIOPortH(void);
