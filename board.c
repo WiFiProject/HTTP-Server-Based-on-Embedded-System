@@ -151,11 +151,14 @@ void initI2C(void)
     }
 		
 		g_vui8DataFlag = 0;
+		SysCtlDelay(g_SysClock / (100 * 3));
 		
 		TMP006ReadModifyWrite(&g_sTMP006Inst, TMP006_O_CONFIG,
                           ~TMP006_CONFIG_EN_DRDY_PIN_M,
                           TMP006_CONFIG_EN_DRDY_PIN, TMP006AppCallback,
                           &g_sTMP006Inst);
+		SysCtlDelay(g_SysClock / (100 * 3));
+		
 }
 
 void
@@ -202,9 +205,6 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
     int_fast32_t i32FractionPart;
 		unsigned char tempString[20]={0};
 		
-	  
-		
-		
     //
     // If the transaction succeeded set the data flag to indicate to
     // application that this transaction is complete and data may be ready.
@@ -212,47 +212,49 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
     if(ui8Status == I2CM_STATUS_SUCCESS)
     {
         g_vui8DataFlag = 1;
-    }
+    
 
-    //
-    // Store the most recent status in case it was an error condition
-    //
-    g_vui8ErrorFlag = ui8Status;
-		
-		g_vui8DataFlag = 0;
+				//
+				// Store the most recent status in case it was an error condition
+				//
+					
+					
+				//g_vui8ErrorFlag = ui8Status;
+				
+				g_vui8DataFlag = 0;
 
-		//
-		// Get a local copy of the latest data in float format.
-		//
-		TMP006DataTemperatureGetFloat(&g_sTMP006Inst, &fAmbient, &fObject);
+				//
+				// Get a local copy of the latest data in float format.
+				//
+				TMP006DataTemperatureGetFloat(&g_sTMP006Inst, &fAmbient, &fObject);
 
-		//
-		// Convert the floating point ambient temperature  to an integer part
-		// and fraction part for easy printing.
-		//
-		i32IntegerPart = (int32_t)fAmbient;
-		i32FractionPart = (int32_t)(fAmbient * 1000.0f);
-		i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-		if(i32FractionPart < 0)
-		{
-				i32FractionPart *= -1;
+				//
+				// Convert the floating point ambient temperature  to an integer part
+				// and fraction part for easy printing.
+				//
+				i32IntegerPart = (int32_t)fAmbient;
+				i32FractionPart = (int32_t)(fAmbient * 1000.0f);
+				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+				if(i32FractionPart < 0)
+				{
+						i32FractionPart *= -1;
+				}
+				sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
+				//
+				// Convert the floating point ambient temperature  to an integer part
+				// and fraction part for easy printing.
+				//
+				i32IntegerPart = (int32_t)fObject;
+				i32FractionPart = (int32_t)(fObject * 1000.0f);
+				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+				if(i32FractionPart < 0)
+				{
+						i32FractionPart *= -1;
+				}
+				sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
 		}
-		sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
-		CLI_Write(tempString);
-		//
-		// Convert the floating point ambient temperature  to an integer part
-		// and fraction part for easy printing.
-		//
-		i32IntegerPart = (int32_t)fObject;
-		i32FractionPart = (int32_t)(fObject * 1000.0f);
-		i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-		if(i32FractionPart < 0)
-		{
-				i32FractionPart *= -1;
-		}
-		sprintf(tempString,"Object %3d.%03d\n", i32IntegerPart, i32FractionPart);
-		CLI_Write(tempString);
-		
 }
 
 void

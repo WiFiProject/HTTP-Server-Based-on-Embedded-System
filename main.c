@@ -461,7 +461,7 @@ int main(int argc, char** argv)
      */
 		 
 		
-		while(1);
+		
     retVal = configureSimpleLinkToDefaultState();
 		
     if(retVal < 0)
