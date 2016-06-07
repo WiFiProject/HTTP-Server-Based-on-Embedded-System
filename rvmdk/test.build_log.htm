@@ -27,29 +27,33 @@ compiling board.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
-board.c(381): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(419): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                sprintf(tempString,"Humidity %3ld.%03ld\t", i32IntegerPart, i32FractionPart);
+board.c(435): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                sprintf(tempString,"Temperature %3ld.%03ld\n", i32IntegerPart, i32FractionPart);
+board.c(483): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
                                 sprintf(tempString,"Visible Lux: %3ld.%03ld\n\r", i32IntegerPart,i32FractionPart);
-board.c(500): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(602): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
           sprintf(tempString,"Temperature %3d.%03d\t", i32IntegerPart,
-board.c(520): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(622): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
           sprintf(tempString,"Pressure %3d.%03d\t", i32IntegerPart, i32FractionPart);
-board.c(544): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(646): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
           sprintf(tempString,"Altitude %3d.%03d", i32IntegerPart, i32FractionPart);
-board.c(600): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(702): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
                                 sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
-board.c(613): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+board.c(715): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
                                 sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
-board.c: 20 warnings, 0 errors
+board.c: 22 warnings, 0 errors
 compiling cli_uart.c...
 board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
@@ -69,15 +73,15 @@ board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg typ
   void initTimer();
 board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 cli_uart.c: 14 warnings, 0 errors
 compiling main.c...
@@ -99,15 +103,15 @@ compiling main.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 main.c(98): warning:  #1295-D: Deprecated declaration configureSimpleLinkToDefaultState - give arg types
   static _i32 configureSimpleLinkToDefaultState();
@@ -135,15 +139,15 @@ compiling spi.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 spi.c: 14 warnings, 0 errors
 assembling startup_rvmdk.S...
@@ -166,15 +170,15 @@ compiling device.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c: 14 warnings, 0 errors
 compiling driver.c...
@@ -196,15 +200,15 @@ compiling driver.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c: 14 warnings, 0 errors
 compiling flowcont.c...
@@ -226,15 +230,15 @@ compiling flowcont.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c: 14 warnings, 0 errors
 compiling fs.c...
@@ -256,15 +260,15 @@ compiling fs.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c: 14 warnings, 0 errors
 compiling netapp.c...
@@ -286,15 +290,15 @@ compiling netapp.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c: 14 warnings, 0 errors
 compiling netcfg.c...
@@ -316,15 +320,15 @@ compiling netcfg.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c: 14 warnings, 0 errors
 compiling nonos.c...
@@ -346,15 +350,15 @@ compiling nonos.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c: 14 warnings, 0 errors
 compiling socket.c...
@@ -376,15 +380,15 @@ compiling socket.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c: 14 warnings, 0 errors
 compiling spawn.c...
@@ -406,15 +410,15 @@ compiling spawn.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c: 14 warnings, 0 errors
 compiling wlan.c...
@@ -436,35 +440,18 @@ compiling wlan.c...
   void initTimer();
 ..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(195): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(197): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(206): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(208): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(220): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(222): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(240): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(242): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(292): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(294): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
   unsigned char GetLEDStatus();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 14 warnings, 0 errors
 linking...
-Program Size: Code=22740 RO-data=2056 RW-data=80 ZI-data=1488  
+Program Size: Code=23460 RO-data=2056 RW-data=80 ZI-data=1536  
 After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
-".\rvmdk\test.axf" - 0 Error(s), 205 Warning(s).
-Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-</pre>
-</body>
-</html>
-ng: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
+".\rvmdk\test.axf" - 0 Error(s), 207 Warning(s).

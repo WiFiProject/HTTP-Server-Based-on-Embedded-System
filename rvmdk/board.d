@@ -36,7 +36,9 @@
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_tmp006.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_bmp180.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_isl29023.h
+.\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/hw_sht21.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/i2cm_drv.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/tmp006.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/bmp180.h
 .\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/isl29023.h
+.\rvmdk\board.o: C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib/sht21.h

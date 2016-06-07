@@ -56,17 +56,26 @@
 #include "sensorlib/hw_tmp006.h"
 #include "sensorlib/hw_bmp180.h"
 #include "sensorlib/hw_isl29023.h"
+#include "sensorlib/hw_sht21.h"
+#include "sensorlib/hw_mpu9150.h"
+#include "sensorlib/hw_ak8975.h"
 #include "sensorlib/i2cm_drv.h"
 #include "sensorlib/tmp006.h"
 #include "sensorlib/bmp180.h"
 #include "sensorlib/isl29023.h"
+#include "sensorlib/sht21.h"
+#include "sensorlib/ak8975.h"
+#include "sensorlib/mpu9150.h"
+#include "sensorlib/comp_dcm.h"
 #include "board.h"
 
+#define SHT21_I2C_ADDRESS  0x40
 #define TMP006_I2C_ADDRESS      0x41
 #define ISL29023_I2C_ADDRESS    0x44
+#define MPU9150_I2C_ADDRESS     0x68
 #define BMP180_I2C_ADDRESS      0x77
 
-#define NumberOfSensor 3
+#define NumberOfSensor 4
 
 P_EVENT_HANDLER        pIrqEventHandler = 0;
 
@@ -116,6 +125,27 @@ tBMP180 g_sBMP180Inst;
 //
 //*****************************************************************************
 tISL29023 g_sISL29023Inst;
+
+//*****************************************************************************
+//
+// Global instance structure for the SHT21 sensor driver.
+//
+//*****************************************************************************
+tSHT21 g_sSHT21Inst;
+
+//*****************************************************************************
+//
+// Global instance structure for the ISL29023 sensor driver.
+//
+//*****************************************************************************
+tMPU9150 g_sMPU9150Inst;
+
+//*****************************************************************************
+//
+// Global Instance structure to manage the DCM state.
+//
+//*****************************************************************************
+tCompDCM g_sCompDCMInst;
 
 volatile unsigned long g_vui8IntensityFlag;
 
@@ -174,6 +204,14 @@ void initI2C(void)
     IntEnable(INT_GPIOE);
 		
 		I2CMInit(&g_sI2CInst, I2C7_BASE, INT_I2C7, 0xff, 0xff, g_SysClock);
+		
+		//
+    // Initialize the SHT21.
+    //
+    SHT21Init(&g_sSHT21Inst, &g_sI2CInst, SHT21_I2C_ADDRESS,
+            SHT21AppCallback, &g_sSHT21Inst);
+						
+		SysCtlDelay(g_SysClock / (100 * 3));
 	
 		//
     // Initialize the TMP006
@@ -244,6 +282,25 @@ void initI2C(void)
     // Wait for transaction to complete
     //
     SysCtlDelay(g_SysClock / (100 * 3));
+		
+		//
+		// Write the command to start a humidity measurement.
+		//
+		SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
+						SHT21AppCallback, &g_sSHT21Inst);
+						
+		//
+    // Wait for transaction to complete
+    //
+    SysCtlDelay(g_SysClock / (100 * 3));
+		
+		//
+    // Initialize the MPU9150 Driver.
+    //
+    MPU9150Init(&g_sMPU9150Inst, &g_sI2CInst, MPU9150_I2C_ADDRESS,
+                MPU9150AppCallback, &g_sMPU9150Inst);
+		
+		
 
 		
 }
@@ -292,6 +349,20 @@ void Timer1IntHandler(void)
 		case 2:
 		{
 				ISL29023DataRead(&g_sISL29023Inst, ISL29023AppCallback, &g_sISL29023Inst);
+				TimerDisable(TIMER1_BASE, TIMER_A);
+				
+				break;
+		}
+		case 3:
+		{
+				SHT21DataRead(&g_sSHT21Inst, SHT21AppCallback, &g_sSHT21Inst);
+				TimerDisable(TIMER1_BASE, TIMER_A);
+				
+				break;
+		}
+		case 4:
+		{
+				MPU9150DataRead(&g_sMPU9150Inst, MPU9150AppCallback, &g_sMPU9150Inst);
 				TimerDisable(TIMER1_BASE, TIMER_A);
 				
 				break;
@@ -345,6 +416,71 @@ GPIOPortEIntHandler(void)
 //        TMP006DataRead(&g_sTMP006Inst, TMP006AppCallback, &g_sTMP006Inst);
 //    }
 //}
+
+void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
+{
+	
+		float fTemperature, fHumidity;
+    int32_t i32IntegerPart;
+    int32_t i32FractionPart;
+		unsigned char tempString[30]={0};
+		
+		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==3)
+		{
+				//
+				// Get the most recent temperature result as a float in celcius.
+				//
+				SHT21DataTemperatureGetFloat(&g_sSHT21Inst, &fTemperature);
+
+				//
+				// Convert the floats to an integer part and fraction part for easy
+				// print. Humidity is returned as 0.0 to 1.0 so multiply by 100 to get
+				// percent humidity.
+				//
+				fHumidity *= 100.0f;
+				i32IntegerPart = (int32_t) fHumidity;
+				i32FractionPart = (int32_t) (fHumidity * 1000.0f);
+				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+				if(i32FractionPart < 0)
+				{
+						i32FractionPart *= -1;
+				}
+
+				//
+				// Print the humidity value using the integers we just created.
+				//
+				sprintf(tempString,"Humidity %3ld.%03ld\t", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
+				//
+				// Perform the conversion from float to a printable set of integers.
+				//
+				i32IntegerPart = (int32_t) fTemperature;
+				i32FractionPart = (int32_t) (fTemperature * 1000.0f);
+				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
+				if(i32FractionPart < 0)
+				{
+						i32FractionPart *= -1;
+				}
+
+				//
+				// Print the temperature as integer and fraction parts.
+				//
+				sprintf(tempString,"Temperature %3ld.%03ld\n", i32IntegerPart, i32FractionPart);
+				CLI_Write(tempString);
+				
+				sensorTurn=(sensorTurn+1)%NumberOfSensor;
+				TimerEnable(TIMER1_BASE, TIMER_A);
+				
+				//
+				// Write the command to start a humidity measurement.
+				//
+				SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
+								SHT21AppCallback, &g_sSHT21Inst);
+		}
+}
+
+
+
 
 void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
@@ -428,7 +564,7 @@ void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 									ui8NewRange = g_sISL29023Inst.ui8Range - 1;
 							}
 					}
-
+					
 					//
 					// If the desired range value changed then send the new range to the sensor
 					//
