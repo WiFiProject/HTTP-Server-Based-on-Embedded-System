@@ -63,10 +63,12 @@
 
 #define SL_STOP_TIMEOUT        0xFF
 
-_u8 POST_token[] = "__SL_P_ULD";
+_u8 POST_token[] = "__SL_P_U01";
 _u8 POST_token1[] = "__SL_P_UT1";
 _u8 POST_token2[] = "__SL_P_UT2";
 _u8 GET_token[]  = "__SL_G_ULD";
+
+//_u8 POST_token3[] = "__SL_P_LDN";
 
 
 /* Application specific status/error codes */
@@ -280,7 +282,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 
                 ptr += 3;
                 led = *ptr;
-                ptr += 2;
+                ptr += 1;
                 if(led == '1')
                 {
                     if(pal_Memcmp(ptr, "ON", 2) == 0)
@@ -466,8 +468,8 @@ int main(int argc, char** argv)
 		 
 		
 		
-    retVal = configureSimpleLinkToDefaultState();
-		
+    //retVal = configureSimpleLinkToDefaultState();
+		retVal=0;
     if(retVal < 0)
     {
         if (DEVICE_NOT_IN_STATION_MODE == retVal)
@@ -846,7 +848,7 @@ static _i32 configureSimpleLinkToDefaultState()
             ASSERT_ON_ERROR(DEVICE_NOT_IN_STATION_MODE);
         }
     }
-
+		
     /* Get the device's version-information */
     configOpt = SL_DEVICE_GENERAL_VERSION;
     configLen = sizeof(ver);
@@ -895,16 +897,16 @@ static _i32 configureSimpleLinkToDefaultState()
     /* Unregister mDNS services */
     retVal = sl_NetAppMDNSUnRegisterService(0, 0);
     ASSERT_ON_ERROR(retVal);
-
+		
     /* Remove  all 64 filters (8*8) */
     pal_Memset(RxFilterIdMask.FilterIdMask, 0xFF, 8);
     retVal = sl_WlanRxFilterSet(SL_REMOVE_RX_FILTER, (_u8 *)&RxFilterIdMask,
                        sizeof(_WlanRxFilterOperationCommandBuff_t));
     ASSERT_ON_ERROR(retVal);
-
+		
     retVal = sl_Stop(SL_STOP_TIMEOUT);
     ASSERT_ON_ERROR(retVal);
-
+		
     retVal = initializeAppVariables();
     ASSERT_ON_ERROR(retVal);
 

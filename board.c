@@ -331,18 +331,19 @@ void initI2C(void)
     // Print the basic outline of our data table. Done once and then kept as we
     // print only the data.
     //
-    CLI_Write("\033[2J\033[H");
-    CLI_Write("MPU9150 9-Axis Simple Data Application Example\n\r\n\r");
-    CLI_Write("\033[20GX\033[31G|\033[43GY\033[54G|\033[66GZ\n\r\n\r");
-    CLI_Write("Accel\033[8G|\033[31G|\033[54G|\n\r\n\r");
-    CLI_Write("Gyro\033[8G|\033[31G|\033[54G|\n\r\n\r");
-    CLI_Write("Mag\033[8G|\033[31G|\033[54G|\n\r\n\r");
-    CLI_Write("\n\033[20GRoll\033[31G|\033[43GPitch\033[54G|\033[66GYaw\n\r\n\r");
-    CLI_Write("Eulers\033[8G|\033[31G|\033[54G|\n\r\n\r");
+		
+//    CLI_Write("\033[2J\033[H");
+//    CLI_Write("MPU9150 9-Axis Simple Data Application Example\n\r\n\r");
+//    CLI_Write("\033[20GX\033[31G|\033[43GY\033[54G|\033[66GZ\n\r\n\r");
+//    CLI_Write("Accel\033[8G|\033[31G|\033[54G|\n\r\n\r");
+//    CLI_Write("Gyro\033[8G|\033[31G|\033[54G|\n\r\n\r");
+//    CLI_Write("Mag\033[8G|\033[31G|\033[54G|\n\r\n\r");
+//    CLI_Write("\n\033[20GRoll\033[31G|\033[43GPitch\033[54G|\033[66GYaw\n\r\n\r");
+//    CLI_Write("Eulers\033[8G|\033[31G|\033[54G|\n\r\n\r");
 
-    CLI_Write("\n\033[17GQ1\033[26G|\033[35GQ2\033[44G|\033[53GQ3\033[62G|"
-               "\033[71GQ4\n\r\n\r");
-    CLI_Write("Q\033[8G|\033[26G|\033[44G|\033[62G|\n\r\n\r");
+//    CLI_Write("\n\033[17GQ1\033[26G|\033[35GQ2\033[44G|\033[53GQ3\033[62G|"
+//               "\033[71GQ4\n\r\n\r");
+//    CLI_Write("Q\033[8G|\033[26G|\033[44G|\033[62G|\n\r\n\r");
 		
 		TimerEnable(TIMER1_BASE, TIMER_A);
 }
@@ -595,58 +596,58 @@ void MPU9150AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 						}
 				}
 
-				//
-				// Print the acceleration numbers in the table.
-				//
-				sprintf(tempString,"\033[5;17H%3d.%03d", i32IPart[0], i32FPart[0]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[5;40H%3d.%03d", i32IPart[1], i32FPart[1]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[5;63H%3d.%03d", i32IPart[2], i32FPart[2]);
-				CLI_Write(tempString);
+//				//
+//				// Print the acceleration numbers in the table.
+//				//
+//				sprintf(tempString,"\033[5;17H%3d.%03d", i32IPart[0], i32FPart[0]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[5;40H%3d.%03d", i32IPart[1], i32FPart[1]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[5;63H%3d.%03d", i32IPart[2], i32FPart[2]);
+//				CLI_Write(tempString);
 
-				//
-				// Print the angular velocities in the table.
-				//
-				sprintf(tempString,"\033[7;17H%3d.%03d", i32IPart[3], i32FPart[3]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[7;40H%3d.%03d", i32IPart[4], i32FPart[4]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[7;63H%3d.%03d", i32IPart[5], i32FPart[5]);
-				CLI_Write(tempString);
+//				//
+//				// Print the angular velocities in the table.
+//				//
+//				sprintf(tempString,"\033[7;17H%3d.%03d", i32IPart[3], i32FPart[3]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[7;40H%3d.%03d", i32IPart[4], i32FPart[4]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[7;63H%3d.%03d", i32IPart[5], i32FPart[5]);
+//				CLI_Write(tempString);
 
-				//
-				// Print the magnetic data in the table.
-				//
-				sprintf(tempString,"\033[9;17H%3d.%03d", i32IPart[6], i32FPart[6]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[9;40H%3d.%03d", i32IPart[7], i32FPart[7]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[9;63H%3d.%03d", i32IPart[8], i32FPart[8]);
-				CLI_Write(tempString);
+//				//
+//				// Print the magnetic data in the table.
+//				//
+//				sprintf(tempString,"\033[9;17H%3d.%03d", i32IPart[6], i32FPart[6]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[9;40H%3d.%03d", i32IPart[7], i32FPart[7]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[9;63H%3d.%03d", i32IPart[8], i32FPart[8]);
+//				CLI_Write(tempString);
 
-				//
-				// Print the Eulers in a table.
-				//
-				sprintf(tempString,"\033[14;17H%3d.%03d", i32IPart[9], i32FPart[9]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[14;40H%3d.%03d", i32IPart[10], i32FPart[10]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[14;63H%3d.%03d", i32IPart[11], i32FPart[11]);
-				CLI_Write(tempString);
+//				//
+//				// Print the Eulers in a table.
+//				//
+//				sprintf(tempString,"\033[14;17H%3d.%03d", i32IPart[9], i32FPart[9]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[14;40H%3d.%03d", i32IPart[10], i32FPart[10]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[14;63H%3d.%03d", i32IPart[11], i32FPart[11]);
+//				CLI_Write(tempString);
 
-				//
-				// Print the quaternions in a table format.
-				//
-				sprintf(tempString,"\033[19;14H%3d.%03d", i32IPart[12], i32FPart[12]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[19;32H%3d.%03d", i32IPart[13], i32FPart[13]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[19;50H%3d.%03d", i32IPart[14], i32FPart[14]);
-				CLI_Write(tempString);
-				sprintf(tempString,"\033[19;68H%3d.%03d", i32IPart[15], i32FPart[15]);
-				CLI_Write(tempString);
-				CLI_Write("\n\r");
+//				//
+//				// Print the quaternions in a table format.
+//				//
+//				sprintf(tempString,"\033[19;14H%3d.%03d", i32IPart[12], i32FPart[12]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[19;32H%3d.%03d", i32IPart[13], i32FPart[13]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[19;50H%3d.%03d", i32IPart[14], i32FPart[14]);
+//				CLI_Write(tempString);
+//				sprintf(tempString,"\033[19;68H%3d.%03d", i32IPart[15], i32FPart[15]);
+//				CLI_Write(tempString);
+//				CLI_Write("\n\r");
 				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				TimerEnable(TIMER1_BASE, TIMER_A);
 	 }
@@ -713,6 +714,8 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 				//
 				SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
 								SHT21AppCallback, &g_sSHT21Inst);
+				
+				SysCtlDelay(g_SysClock / (100 * 3));
 		}
 }
 
@@ -755,7 +758,7 @@ void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 
 				if(g_vui8IntensityFlag)
 				{
-					ROM_IntPriorityMaskSet(0x40);
+					IntPriorityMaskSet(0x40);
 					//
 					// Reset the intensity trigger flag.
 					//
@@ -829,6 +832,7 @@ void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 					//
 					// Disable priority masking so all interrupts are enabled.
 					//
+					
 					IntPriorityMaskSet(0);
 				}
 				sensorTurn=(sensorTurn+1)%NumberOfSensor;
