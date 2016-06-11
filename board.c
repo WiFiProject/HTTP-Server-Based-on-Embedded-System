@@ -81,6 +81,29 @@ P_EVENT_HANDLER        pIrqEventHandler = 0;
 
 _u8 IntIsMasked;
 _u32 g_SysClock=120000000;
+_u8 timer0_status=0;
+
+
+int_fast32_t i32IPart[16], i32FPart[16];
+
+int_fast32_t SHT21_i32IntegerPart1;
+int_fast32_t SHT21_i32FractionPart1;
+int_fast32_t SHT21_i32IntegerPart2;
+int_fast32_t SHT21_i32FractionPart2;
+
+int_fast32_t ISL290_i32IntegerPart, ISL290_i32FractionPart;
+
+int_fast32_t BMP180_i32IntegerPart1;
+int_fast32_t BMP180_i32FractionPart1;
+int_fast32_t BMP180_i32IntegerPart2;
+int_fast32_t BMP180_i32FractionPart2;
+int_fast32_t BMP180_i32IntegerPart3;
+int_fast32_t BMP180_i32FractionPart3;
+
+int_fast32_t TMP006_i32IntegerPart1;
+int_fast32_t TMP006_i32FractionPart1;
+int_fast32_t TMP006_i32IntegerPart2;
+int_fast32_t TMP006_i32FractionPart2;
 
 //*****************************************************************************
 //
@@ -462,11 +485,11 @@ GPIOPortEIntHandler(void)
 
 void MPU9150AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
-		int_fast32_t i32IPart[16], i32FPart[16];
+		
     uint_fast32_t ui32Idx, ui32CompDCMStarted;
     float pfData[16];
     float *pfAccel, *pfGyro, *pfMag, *pfEulers, *pfQuaternion;
-		unsigned char tempString[30]={0};
+		//unsigned char tempString[30]={0};
 		
 		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==4)
 		{
@@ -659,8 +682,7 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
 	
 		float fTemperature, fHumidity;
-    int32_t i32IntegerPart;
-    int32_t i32FractionPart;
+    
 		unsigned char tempString[30]={0};
 		
 		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==3)
@@ -676,35 +698,35 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 				// percent humidity.
 				//
 				fHumidity *= 100.0f;
-				i32IntegerPart = (int32_t) fHumidity;
-				i32FractionPart = (int32_t) (fHumidity * 1000.0f);
-				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-				if(i32FractionPart < 0)
+				SHT21_i32IntegerPart1 = (int32_t) fHumidity;
+				SHT21_i32FractionPart1 = (int32_t) (fHumidity * 1000.0f);
+				SHT21_i32FractionPart1 = SHT21_i32FractionPart1 - (SHT21_i32IntegerPart1 * 1000);
+				if(SHT21_i32FractionPart1 < 0)
 				{
-						i32FractionPart *= -1;
+						SHT21_i32FractionPart1 *= -1;
 				}
 
 				//
 				// Print the humidity value using the integers we just created.
 				//
-				sprintf(tempString,"Humidity %3ld.%03ld\t", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+				//sprintf(tempString,"Humidity %3d.%03d\t", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
+				//CLI_Write(tempString);
 				//
 				// Perform the conversion from float to a printable set of integers.
 				//
-				i32IntegerPart = (int32_t) fTemperature;
-				i32FractionPart = (int32_t) (fTemperature * 1000.0f);
-				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-				if(i32FractionPart < 0)
+				SHT21_i32IntegerPart2 = (int32_t) fTemperature;
+				SHT21_i32FractionPart2 = (int32_t) (fTemperature * 1000.0f);
+				SHT21_i32FractionPart2 = SHT21_i32FractionPart2 - (SHT21_i32IntegerPart2 * 1000);
+				if(SHT21_i32FractionPart2 < 0)
 				{
-						i32FractionPart *= -1;
+						SHT21_i32FractionPart2 *= -1;
 				}
 
 				//
 				// Print the temperature as integer and fraction parts.
 				//
-				sprintf(tempString,"Temperature %3ld.%03ld\n\r", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+				//sprintf(tempString,"Temperature %3d.%03d\n\r", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
+				//CLI_Write(tempString);
 				
 				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				TimerEnable(TIMER1_BASE, TIMER_A);
@@ -726,7 +748,7 @@ void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
 	
 		float fAmbient;
-    int32_t i32IntegerPart, i32FractionPart;
+    
 		unsigned char tempString[30]={0};
 		
 		float tempfAmbient;
@@ -742,19 +764,19 @@ void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 				//
 				// Perform the conversion from float to a printable set of integers
 				//
-				i32IntegerPart = (int32_t)fAmbient;
-				i32FractionPart = (int32_t)(fAmbient * 1000.0f);
-				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-				if(i32FractionPart < 0)
+				ISL290_i32IntegerPart = (int32_t)fAmbient;
+				ISL290_i32FractionPart = (int32_t)(fAmbient * 1000.0f);
+				ISL290_i32FractionPart = ISL290_i32FractionPart - (ISL290_i32IntegerPart * 1000);
+				if(ISL290_i32FractionPart < 0)
 				{
-						i32FractionPart *= -1;
+						ISL290_i32FractionPart *= -1;
 				}
 
 				//
 				// Print the temperature as integer and fraction parts.
 				//
-				sprintf(tempString,"Visible Lux: %3ld.%03ld\n\r", i32IntegerPart,i32FractionPart);
-				CLI_Write(tempString);
+				//sprintf(tempString,"Visible Lux: %3d.%03d\n\r", ISL290_i32IntegerPart,ISL290_i32FractionPart);
+				//CLI_Write(tempString);
 
 				if(g_vui8IntensityFlag)
 				{
@@ -845,8 +867,7 @@ void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
 {
 	
 		float fTemperature, fPressure, fAltitude;
-    int_fast32_t i32IntegerPart;
-    int_fast32_t i32FractionPart;
+    
 		unsigned char tempString[30]={0};
 		
 		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==1)
@@ -862,39 +883,39 @@ void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
         // Convert the temperature to an integer part and fraction part for
         // easy print.
         //
-        i32IntegerPart = (int32_t) fTemperature;
-        i32FractionPart =(int32_t) (fTemperature * 1000.0f);
-        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-        if(i32FractionPart < 0)
+        BMP180_i32IntegerPart1 = (int32_t) fTemperature;
+        BMP180_i32FractionPart1 =(int32_t) (fTemperature * 1000.0f);
+        BMP180_i32FractionPart1 = BMP180_i32FractionPart1 - (BMP180_i32IntegerPart1 * 1000);
+        if(BMP180_i32FractionPart1 < 0)
         {
-            i32FractionPart *= -1;
+            BMP180_i32FractionPart1 *= -1;
         }
 
         //
         // Print temperature with three digits of decimal precision.
         //
-        sprintf(tempString,"Temperature %3d.%03d\t", i32IntegerPart,
-                   i32FractionPart);
-				CLI_Write(tempString);
+        //sprintf(tempString,"Temperature %3d.%03d\t", BMP180_i32IntegerPart1,
+         //          BMP180_i32FractionPart1);
+				//CLI_Write(tempString);
 				
 
         //
         // Convert the pressure to an integer part and fraction part for
         // easy print.
         //
-        i32IntegerPart = (int32_t) fPressure;
-        i32FractionPart =(int32_t) (fPressure * 1000.0f);
-        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-        if(i32FractionPart < 0)
+        BMP180_i32IntegerPart2 = (int32_t) fPressure;
+        BMP180_i32FractionPart2 =(int32_t) (fPressure * 1000.0f);
+        BMP180_i32FractionPart2 = BMP180_i32FractionPart2 - (BMP180_i32IntegerPart2 * 1000);
+        if(BMP180_i32FractionPart2 < 0)
         {
-            i32FractionPart *= -1;
+            BMP180_i32FractionPart2 *= -1;
         }
 				
 				 //
         // Print Pressure with three digits of decimal precision.
         //
-        sprintf(tempString,"Pressure %3d.%03d\t", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+        //sprintf(tempString,"Pressure %3d.%03d\t", BMP180_i32IntegerPart2, BMP180_i32FractionPart2);
+				//CLI_Write(tempString);
 
         //
         // Calculate the altitude.
@@ -906,24 +927,24 @@ void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status)
         // Convert the altitude to an integer part and fraction part for easy
         // print.
         //
-        i32IntegerPart = (int32_t) fAltitude;
-        i32FractionPart =(int32_t) (fAltitude * 1000.0f);
-        i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-        if(i32FractionPart < 0)
+        BMP180_i32IntegerPart3 = (int32_t) fAltitude;
+        BMP180_i32FractionPart3 =(int32_t) (fAltitude * 1000.0f);
+        BMP180_i32FractionPart3 = BMP180_i32FractionPart3 - (BMP180_i32IntegerPart3 * 1000);
+        if(BMP180_i32FractionPart3 < 0)
         {
-            i32FractionPart *= -1;
+            BMP180_i32FractionPart3 *= -1;
         }
 
         //
         // Print altitude with three digits of decimal precision.
         //
-        sprintf(tempString,"Altitude %3d.%03d", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+        //sprintf(tempString,"Altitude %3d.%03d", BMP180_i32IntegerPart3, BMP180_i32FractionPart3);
+				//CLI_Write(tempString);
 
         //
         // Print new line.
         //
-        CLI_Write("\n\r");
+        //CLI_Write("\n\r");
 				//sensorTurn=3;
 				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				TimerEnable(TIMER1_BASE, TIMER_A);
@@ -947,8 +968,7 @@ void
 TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
 {
 		float fAmbient, fObject;
-    int_fast32_t i32IntegerPart;
-    int_fast32_t i32FractionPart;
+    
 		unsigned char tempString[20]={0};
 		
     //
@@ -966,28 +986,28 @@ TMP006AppCallback(void *pvCallbackData, uint_fast8_t ui8Status)
 				// Convert the floating point ambient temperature  to an integer part
 				// and fraction part for easy printing.
 				//
-				i32IntegerPart = (int32_t)fAmbient;
-				i32FractionPart = (int32_t)(fAmbient * 1000.0f);
-				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-				if(i32FractionPart < 0)
+				TMP006_i32IntegerPart1 = (int32_t)fAmbient;
+				TMP006_i32FractionPart1 = (int32_t)(fAmbient * 1000.0f);
+				TMP006_i32FractionPart1 = TMP006_i32FractionPart1 - (TMP006_i32IntegerPart1 * 1000);
+				if(TMP006_i32FractionPart1 < 0)
 				{
-						i32FractionPart *= -1;
+						TMP006_i32FractionPart1 *= -1;
 				}
-				sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+				//sprintf(tempString,"Ambient %3d.%03d\t", TMP006_i32IntegerPart1, TMP006_i32FractionPart1);
+				//CLI_Write(tempString);
 				//
 				// Convert the floating point ambient temperature  to an integer part
 				// and fraction part for easy printing.
 				//
-				i32IntegerPart = (int32_t)fObject;
-				i32FractionPart = (int32_t)(fObject * 1000.0f);
-				i32FractionPart = i32FractionPart - (i32IntegerPart * 1000);
-				if(i32FractionPart < 0)
+				TMP006_i32IntegerPart2 = (int32_t)fObject;
+				TMP006_i32FractionPart2 = (int32_t)(fObject * 1000.0f);
+				TMP006_i32FractionPart2= TMP006_i32FractionPart2 - (TMP006_i32IntegerPart2 * 1000);
+				if(TMP006_i32FractionPart2 < 0)
 				{
-						i32FractionPart *= -1;
+						TMP006_i32FractionPart2 *= -1;
 				}
-				sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
-				CLI_Write(tempString);
+				//sprintf(tempString,"Object %3d.%03d\n\r", TMP006_i32IntegerPart2, TMP006_i32FractionPart2);
+				//CLI_Write(tempString);
 				sensorTurn=(sensorTurn+1)%NumberOfSensor;
 				//sensorTurn=4;
 				TimerEnable(TIMER1_BASE, TIMER_A);
@@ -1006,6 +1026,7 @@ void initTimer()
 		IntEnable(INT_TIMER0A);
 		TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
 		TimerEnable(TIMER0_BASE, TIMER_A);
+		timer0_status=1;
 }
 void
 Timer0IntHandler(void)
@@ -1023,11 +1044,13 @@ Timer0IntHandler(void)
 void DisableTimer0(void)
 {
 		TimerDisable(TIMER0_BASE, TIMER_A);
+		timer0_status=0;
 }
 
 void EnableTimer0(void)
 {
 		TimerEnable(TIMER0_BASE, TIMER_A);
+		timer0_status=1;
 }
 
 void stopWDT()
@@ -1157,6 +1180,18 @@ void toggleLed(char ledNum)
 
 }
 
+unsigned char ToggleTimer0()
+{
+		if(timer0_status==1)
+		{
+			DisableTimer0();
+		}
+		else
+		{
+			EnableTimer0();
+		}
+}
+
 unsigned char GetLEDStatus()
 {
   unsigned char status = 0;
@@ -1168,5 +1203,13 @@ unsigned char GetLEDStatus()
 
   return status;
 }
+
+unsigned char GetTimer0Status()
+{
+		return timer0_status;
+}
+
+
+
 
 

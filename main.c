@@ -44,6 +44,7 @@
  *                          doc\examples\http_server.pdf
  */
 
+#include <stdio.h>
 #include "simplelink.h"
 #include "protocol.h"
 #include "sl_common.h"
@@ -63,12 +64,67 @@
 
 #define SL_STOP_TIMEOUT        0xFF
 
-_u8 POST_token[] = "__SL_P_U01";
-_u8 POST_token1[] = "__SL_P_UT1";
-_u8 POST_token2[] = "__SL_P_UT2";
-_u8 GET_token[]  = "__SL_G_ULD";
+//_u8 POST_token[] = "__SL_P_U01";
+//_u8 POST_token1[] = "__SL_P_UT1";
+//_u8 POST_token2[] = "__SL_P_UT2";
+//_u8 GET_token[]  = "__SL_G_ULD";
+
+_u8 LED_token[] = "__SL_P_UL1";
+_u8 FTP1_token[] = "__SL_P_UF1";
+_u8 FTP2_token[] = "__SL_P_UF2";
+
+_u8 FTPINFO_token[]  = "__SL_G_UFT";
+_u8 LED1_token[]  = "__SL_G_UL1";
+_u8 LED2_token[]  = "__SL_G_UL2";
+_u8 LED3_token[]  = "__SL_G_UL3";
+_u8 LED4_token[]  = "__SL_G_UL4";
+_u8 TMP1_token[]  = "__SL_G_UT1";
+_u8 TMP2_token[]  = "__SL_G_UT2";
+_u8 BMP1_token[]  = "__SL_G_UB1";
+_u8 BMP2_token[]  = "__SL_G_UB2";
+_u8 BMP3_token[]  = "__SL_G_UB3";
+_u8 ISL_token[]  = "__SL_G_UIS";
+_u8 SHT1_token[]  = "__SL_G_US1";
+_u8 SHT2_token[]  = "__SL_G_US2";
+_u8 AX_token[]  = "__SL_G_UAX";
+_u8 AY_token[]  = "__SL_G_UAY";
+_u8 AZ_token[]  = "__SL_G_UAZ";
+_u8 GX_token[]  = "__SL_G_UGX";
+_u8 GY_token[]  = "__SL_G_UGY";
+_u8 GZ_token[]  = "__SL_G_UGZ";
+_u8 MX_token[]  = "__SL_G_UMX";
+_u8 MY_token[]  = "__SL_G_UMY";
+_u8 MZ_token[]  = "__SL_G_UMZ";
+_u8 ER_token[]  = "__SL_G_UER";
+_u8 EP_token[]  = "__SL_G_UEP";
+_u8 EY_token[]  = "__SL_G_UEY";
+_u8 Q1_token[]  = "__SL_G_UQ1";
+_u8 Q2_token[]  = "__SL_G_UQ2";
+_u8 Q3_token[]  = "__SL_G_UQ3";
+_u8 Q4_token[]  = "__SL_G_UQ4";
 
 //_u8 POST_token3[] = "__SL_P_LDN";
+
+extern signed int i32IPart[16], i32FPart[16];
+
+extern signed int SHT21_i32IntegerPart1;
+extern signed int SHT21_i32FractionPart1;
+extern signed int SHT21_i32IntegerPart2;
+extern signed int SHT21_i32FractionPart2;
+
+extern signed int ISL290_i32IntegerPart, ISL290_i32FractionPart;
+
+extern signed int BMP180_i32IntegerPart1;
+extern signed int BMP180_i32FractionPart1;
+extern signed int BMP180_i32IntegerPart2;
+extern signed int BMP180_i32FractionPart2;
+extern signed int BMP180_i32IntegerPart3;
+extern signed int BMP180_i32FractionPart3;
+
+extern signed int TMP006_i32IntegerPart1;
+extern signed int TMP006_i32FractionPart1;
+extern signed int TMP006_i32IntegerPart2;
+extern signed int TMP006_i32FractionPart2;
 
 
 /* Application specific status/error codes */
@@ -224,47 +280,276 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
         {
             _u8 status = 0;
             _u8 *ptr = 0;
+						unsigned char tempString[30]={0};
 
             ptr = pResponse->ResponseData.token_value.data;
             pResponse->ResponseData.token_value.len = 0;
-            if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GET_token,
-                                         pal_Strlen(GET_token)) == 0)
+            if(pal_Memcmp(pEvent->EventData.httpTokenName.data, LED1_token,
+                                         pal_Strlen(LED1_token)) == 0)
             {
                 status = GetLEDStatus();
-                pal_Memcpy(ptr, "LED1_", pal_Strlen("LED1_"));
-                ptr += 5;
-                pResponse->ResponseData.token_value.len += 5;
+//                pal_Memcpy(ptr, "LED1_", pal_Strlen("LED1_"));
+//                ptr += 5;
+//                pResponse->ResponseData.token_value.len += 5;
                 if(status & 0x01)
                 {
-                    pal_Memcpy(ptr, "ON", pal_Strlen("ON"));
+                    pal_Memcpy(ptr, "On", pal_Strlen("On"));
                     ptr += 2;
                     pResponse->ResponseData.token_value.len += 2;
                 }
                 else
                 {
-                    pal_Memcpy(ptr, "OFF", pal_Strlen("OFF"));
+                    pal_Memcpy(ptr, "Off", pal_Strlen("Off"));
                     ptr += 3;
                     pResponse->ResponseData.token_value.len += 3;
                 }
-                pal_Memcpy(ptr,",LED2_", pal_Strlen(",LED2_"));
-                ptr += 6;
-                pResponse->ResponseData.token_value.len += 6;
+                
+
+                
+            }else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, LED2_token,
+                                         pal_Strlen(LED2_token)) == 0)
+						{
+								status = GetLEDStatus();
                 if(status & 0x02)
                 {
-                    pal_Memcpy(ptr, "ON", pal_Strlen("ON"));
+                    pal_Memcpy(ptr, "On", pal_Strlen("On"));
                     ptr += 2;
                     pResponse->ResponseData.token_value.len += 2;
                 }
                 else
                 {
-                    pal_Memcpy(ptr, "OFF", pal_Strlen("OFF"));
+                    pal_Memcpy(ptr, "Off", pal_Strlen("Off"));
                     ptr += 3;
                     pResponse->ResponseData.token_value.len += 3;
                 }
-
-                *ptr = '\0';
-            }
-
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, LED3_token,
+                                         pal_Strlen(LED3_token)) == 0)
+						{
+								status=GetTimer0Status();
+								if(status==1)
+								{
+										pal_Memcpy(ptr, "Toggle On", pal_Strlen("Toggle On"));
+                    ptr += 9;
+                    pResponse->ResponseData.token_value.len += 9;
+								}
+								else
+								{
+										pal_Memcpy(ptr, "Toggle Off", pal_Strlen("Toggle Off"));
+                    ptr += 10;
+                    pResponse->ResponseData.token_value.len += 10;
+								}
+						
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, LED4_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								pal_Memcpy(ptr, "valid", pal_Strlen("valid"));
+                ptr += 5;
+                pResponse->ResponseData.token_value.len += 5;
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, TMP1_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart1, TMP006_i32FractionPart1);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, TMP2_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart2, TMP006_i32FractionPart2);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP1_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart1,BMP180_i32FractionPart1);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP2_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart2, BMP180_i32FractionPart2);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP3_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart3, BMP180_i32FractionPart3);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, ISL_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", ISL290_i32IntegerPart,ISL290_i32FractionPart);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);              
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT1_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);      
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT2_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AX_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[0], i32FPart[0]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AY_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[1], i32FPart[1]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AZ_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[2], i32FPart[2]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GX_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[3], i32FPart[3]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GY_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[4], i32FPart[4]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GZ_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[5], i32FPart[5]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+								ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MX_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[6], i32FPart[6]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MY_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[7], i32FPart[7]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MZ_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[8], i32FPart[8]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, ER_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[9], i32FPart[9]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, EP_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[10], i32FPart[10]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, EY_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[11], i32FPart[11]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q1_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[12], i32FPart[12]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q2_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[13], i32FPart[13]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q3_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[14], i32FPart[14]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q4_token,
+                                         pal_Strlen(LED4_token)) == 0)
+						{
+								sprintf(tempString,"%3d.%03d", i32IPart[15], i32FPart[15]);
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+						}
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, FTPINFO_token,
+                                         pal_Strlen(FTPINFO_token)) == 0)
+						{
+								//tempString=?
+								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+                ptr += pal_Strlen(tempString);
+                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+								tempString[0]='\0';
+						}
+						*ptr = '\0';
         }
         break;
 
@@ -274,7 +559,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
             _u8 led = 0;
             _u8 *ptr = pEvent->EventData.httpPostData.token_name.data;
 
-            if(pal_Memcmp(ptr, POST_token, pal_Strlen(POST_token)) == 0)
+            if(pal_Memcmp(ptr, LED_token, pal_Strlen(LED_token)) == 0)
             {
                 ptr = pEvent->EventData.httpPostData.token_value.data;
                 if(pal_Memcmp(ptr, "LED", 3) != 0)
@@ -305,20 +590,91 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                         turnLedOff(LED2);
                     }
                 }
+								else if(led == '3')
+								{
+										if(pal_Memcmp(ptr, "TOGGLE_ON", 9) == 0)
+                    {
+                        ToggleTimer0();
+                    }
+								}
             }
-						else if(pal_Memcmp(ptr, POST_token1, pal_Strlen(POST_token1)) == 0)
+						else if(pal_Memcmp(ptr, FTP1_token, pal_Strlen(FTP1_token)) == 0)
 						{
-								
-								if(g_Toggle==1)
+								ptr = pEvent->EventData.httpPostData.token_value.data;
+								//get FTP IP
+								_u8 IPlen=0;
+								unsigned char strbuf[8];
+								_u16 buf=0;
+								_u32 IPAddress=0;
+								_u16 port=0;
+								while((*(ptr+IPlen))!='.') IPlen++;
+								for(int i=0;i<IPlen;i++)
 								{
-									DisableTimer0();
-									g_Toggle=0;
+									strbuf[i]=(*(ptr+i));
 								}
-								else
+								strbuf[IPlen]='\0';
+
+								sscanf(strbuf,"%d",&buf);
+								IPAddress+=buf;
+								IPAddress=IPAddress<<8;
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								while((*(ptr+IPlen))!='.') IPlen++;
+								for(int i=0;i<IPlen;i++)
 								{
-									EnableTimer0();
-									g_Toggle=1;
+									strbuf[i]=(*(ptr+i));
 								}
+								strbuf[IPlen]='\0';
+								sscanf(strbuf,"%d",&buf);
+								IPAddress+=buf;
+								IPAddress=IPAddress<<8;
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								while((*(ptr+IPlen))!='.') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									strbuf[i]=(*(ptr+i));
+								}
+								strbuf[IPlen]='\0';
+								sscanf(strbuf,"%d",&buf);
+								IPAddress+=buf;
+								IPAddress=IPAddress<<8;
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								while((*(ptr+IPlen))!=':') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									strbuf[i]=(*(ptr+i));
+								}
+								strbuf[IPlen]='\0';
+								sscanf(strbuf,"%d",&buf);
+								IPAddress+=buf;
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								//get FTP Port
+								while((*(ptr+IPlen))!='\0') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									strbuf[i]=(*(ptr+i));
+								}
+								strbuf[IPlen]='\0';
+								sscanf(strbuf,"%d",&port);
+						}
+						else if(pal_Memcmp(ptr, FTP2_token, pal_Strlen(FTP2_token)) == 0)
+						{
+								ptr = pEvent->EventData.httpPostData.token_value.data;
+								_u8 IPlen=0;
+								unsigned char filename[20];
+								while((*(ptr+IPlen))!='\0') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									filename[i]=(*(ptr+i));
+								}
+								filename[IPlen]='\0';
 						}
 						
         }
@@ -466,7 +822,7 @@ int main(int argc, char** argv)
      * device will be lost
      */
 		 
-		
+
 		
     //retVal = configureSimpleLinkToDefaultState();
 		retVal=0;

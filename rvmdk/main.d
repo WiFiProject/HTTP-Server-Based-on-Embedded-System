@@ -1,4 +1,5 @@
 .\rvmdk\main.o: main.c
+.\rvmdk\main.o: C:\software\keil5\ARM\ARMCC\bin\..\include\stdio.h
 .\rvmdk\main.o: C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h
 .\rvmdk\main.o: ..\HTTP-Server-Based-on-Embedded-System\user.h
 .\rvmdk\main.o: C:\software\keil5\ARM\ARMCC\bin\..\include\string.h
