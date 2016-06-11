@@ -177,7 +177,9 @@ main.c(665): warning:  #181-D: argument is incompatible with corresponding forma
                                                                 sscanf(strbuf,"%d",&port);
 main.c(671): warning:  #550-D: variable "filename" was set but never used
                                                                 unsigned char filename[20];
-main.c: 51 warnings, 0 errors
+main.c(1164): warning:  #177-D: function "configureSimpleLinkToDefaultState" was declared but never referenced
+  static _i32 configureSimpleLinkToDefaultState()
+main.c: 52 warnings, 0 errors
 compiling spi.c...
 ..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
@@ -488,36 +490,9 @@ compiling wlan.c...
   void initLEDs();
 C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 13 warnings, 0 errors
 linking...
-Program Size: Code=31004 RO-data=2152 RW-data=460 ZI-data=1860  
+Program Size: Code=29940 RO-data=2144 RW-data=460 ZI-data=1860  
 After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
-".\rvmdk\test.axf" - 0 Error(s), 225 Warning(s).
-Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Failed!
-Error: Flash Download failed  -  "Cortex-M4"
-Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Connection failed!, error code=&d
-Error: Flash Download failed  -  Target DLL has been cancelled
-Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-\HTTP-Server-Based-on-Embedded-System\board.h(221): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
-  void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(232): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
-  void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(246): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
-  void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(266): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
-  void initLEDs();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 13 warnings, 0 errors
-linking...
-Program Size: Code=30268 RO-data=2144 RW-data=460 ZI-data=1860  
-After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
-".\rvmdk\test.axf" - 0 Error(s), 230 Warning(s).
+".\rvmdk\test.axf" - 0 Error(s), 226 Warning(s).
 Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.

@@ -680,64 +680,89 @@ void MPU9150AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 
 void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
-	
+		static unsigned char flag=0;
 		float fTemperature, fHumidity;
     
 		unsigned char tempString[30]={0};
 		
 		if(ui8Status == I2CM_STATUS_SUCCESS&&sensorTurn==3)
 		{
-				//
-				// Get the most recent temperature result as a float in celcius.
-				//
-				SHT21DataTemperatureGetFloat(&g_sSHT21Inst, &fTemperature);
-
-				//
-				// Convert the floats to an integer part and fraction part for easy
-				// print. Humidity is returned as 0.0 to 1.0 so multiply by 100 to get
-				// percent humidity.
-				//
-				fHumidity *= 100.0f;
-				SHT21_i32IntegerPart1 = (int32_t) fHumidity;
-				SHT21_i32FractionPart1 = (int32_t) (fHumidity * 1000.0f);
-				SHT21_i32FractionPart1 = SHT21_i32FractionPart1 - (SHT21_i32IntegerPart1 * 1000);
-				if(SHT21_i32FractionPart1 < 0)
+			
+				if(flag==0)
 				{
-						SHT21_i32FractionPart1 *= -1;
+						//
+						// Get a copy of the most recent raw data in floating point format.
+						//
+						SHT21DataHumidityGetFloat(&g_sSHT21Inst, &fHumidity);
+							
+						//
+						// Write the command to start a temperature measurement.
+						//
+						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_T, g_sSHT21Inst.pui8Data, 0,
+										SHT21AppCallback, &g_sSHT21Inst);
+						
+						SysCtlDelay(g_SysClock / (100 * 3));	
+						//
+						// Print the humidity value using the integers we just created.
+						//
+						sprintf(tempString,"Humidity %3d.%03d\t", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
+						CLI_Write(tempString);
+						//
+						// Perform the conversion from float to a printable set of integers.
+						//
+						SHT21_i32IntegerPart2 = (int32_t) fTemperature;
+						SHT21_i32FractionPart2 = (int32_t) (fTemperature * 1000.0f);
+						SHT21_i32FractionPart2 = SHT21_i32FractionPart2 - (SHT21_i32IntegerPart2 * 1000);
+						if(SHT21_i32FractionPart2 < 0)
+						{
+								SHT21_i32FractionPart2 *= -1;
+						}
+						flag=(flag+1)%3;
 				}
-
-				//
-				// Print the humidity value using the integers we just created.
-				//
-				//sprintf(tempString,"Humidity %3d.%03d\t", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
-				//CLI_Write(tempString);
-				//
-				// Perform the conversion from float to a printable set of integers.
-				//
-				SHT21_i32IntegerPart2 = (int32_t) fTemperature;
-				SHT21_i32FractionPart2 = (int32_t) (fTemperature * 1000.0f);
-				SHT21_i32FractionPart2 = SHT21_i32FractionPart2 - (SHT21_i32IntegerPart2 * 1000);
-				if(SHT21_i32FractionPart2 < 0)
+				else if(flag==1)
 				{
-						SHT21_i32FractionPart2 *= -1;
+						SHT21DataRead(&g_sSHT21Inst, SHT21AppCallback, &g_sSHT21Inst);
+						flag=(flag+1)%3;
 				}
+				else
+				{
+						//
+						// Get the most recent temperature result as a float in celcius.
+						//
+						SHT21DataTemperatureGetFloat(&g_sSHT21Inst, &fTemperature);
 
-				//
-				// Print the temperature as integer and fraction parts.
-				//
-				//sprintf(tempString,"Temperature %3d.%03d\n\r", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
-				//CLI_Write(tempString);
-				
-				sensorTurn=(sensorTurn+1)%NumberOfSensor;
-				TimerEnable(TIMER1_BASE, TIMER_A);
-				
-				//
-				// Write the command to start a humidity measurement.
-				//
-				SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
-								SHT21AppCallback, &g_sSHT21Inst);
-				
-				SysCtlDelay(g_SysClock / (100 * 3));
+						//
+						// Convert the floats to an integer part and fraction part for easy
+						// print. Humidity is returned as 0.0 to 1.0 so multiply by 100 to get
+						// percent humidity.
+						//
+						fHumidity *= 100.0f;
+						SHT21_i32IntegerPart1 = (int32_t) fHumidity;
+						SHT21_i32FractionPart1 = (int32_t) (fHumidity * 1000.0f);
+						SHT21_i32FractionPart1 = SHT21_i32FractionPart1 - (SHT21_i32IntegerPart1 * 1000);
+						if(SHT21_i32FractionPart1 < 0)
+						{
+								SHT21_i32FractionPart1 *= -1;
+						}
+
+						
+						//
+						// Print the temperature as integer and fraction parts.
+						//
+						sprintf(tempString,"Temperature %3d.%03d\n\r", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
+						CLI_Write(tempString);
+						
+						sensorTurn=(sensorTurn+1)%NumberOfSensor;
+						TimerEnable(TIMER1_BASE, TIMER_A);
+						flag=(flag+1)%3;
+						//
+						// Write the command to start a humidity measurement.
+						//
+						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
+										SHT21AppCallback, &g_sSHT21Inst);
+						
+						SysCtlDelay(g_SysClock / (100 * 3));
+			}
 		}
 }
 
