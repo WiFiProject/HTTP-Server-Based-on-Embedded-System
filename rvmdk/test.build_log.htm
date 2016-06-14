@@ -9,448 +9,633 @@ Project File Date:  06/05/2016
 <h2>Output:</h2>
 Rebuild target 'test'
 compiling board.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-board.c(252): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-          sprintf(tempString,"Temperature %3d.%03d\t", i32IntegerPart,
-board.c(272): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-          sprintf(tempString,"Pressure %3d.%03d\t", i32IntegerPart, i32FractionPart);
-board.c(296): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-          sprintf(tempString,"Altitude %3d.%03d", i32IntegerPart, i32FractionPart);
-board.c(304): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-                                sprintf(tempString,"Systick Value: %ld\n\r",SysTickValueGet());
-board.c(353): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-                                sprintf(tempString,"Ambient %3d.%03d\t", i32IntegerPart, i32FractionPart);
-board.c(366): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
-                                sprintf(tempString,"Object %3d.%03d\n\r", i32IntegerPart, i32FractionPart);
-board.c: 20 warnings, 0 errors
+board.c(685): warning:  #177-D: variable "tempString" was declared but never referenced
+                unsigned char tempString[30]={0};
+board.c(783): warning:  #177-D: variable "tempString" was declared but never referenced
+                unsigned char tempString[30]={0};
+board.c(902): warning:  #177-D: variable "tempString" was declared but never referenced
+                unsigned char tempString[30]={0};
+board.c(1003): warning:  #177-D: variable "tempString" was declared but never referenced
+                unsigned char tempString[20]={0};
+board.c(1234): warning:  #940-D: missing return statement at end of non-void function "ToggleTimer0"
+  }
+board.c: 18 warnings, 0 errors
 compiling cli_uart.c...
-board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-cli_uart.c: 14 warnings, 0 errors
+cli_uart.c: 13 warnings, 0 errors
 compiling main.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-main.c(98): warning:  #1295-D: Deprecated declaration configureSimpleLinkToDefaultState - give arg types
+main.c(199): warning:  #1295-D: Deprecated declaration configureSimpleLinkToDefaultState - give arg types
   static _i32 configureSimpleLinkToDefaultState();
-main.c(99): warning:  #1295-D: Deprecated declaration initializeAppVariables - give arg types
+main.c(200): warning:  #1295-D: Deprecated declaration establishConnectionWithAP - give arg types
+  static _i32 establishConnectionWithAP();
+main.c(201): warning:  #1295-D: Deprecated declaration initializeAppVariables - give arg types
   static _i32 initializeAppVariables();
-main.c(100): warning:  #1295-D: Deprecated declaration displayBanner - give arg types
+main.c(202): warning:  #1295-D: Deprecated declaration displayBanner - give arg types
   static void displayBanner();
-main.c: 17 warnings, 0 errors
+main.c(203): warning:  #1295-D: Deprecated declaration establishConnectionWithFTP - give arg types
+  static void establishConnectionWithFTP();
+main.c(204): warning:  #1295-D: Deprecated declaration UDPServerRoute - give arg types
+  static void UDPServerRoute();
+main.c(393): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart1, TMP006_i32FractionPart1);
+main.c(401): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart2, TMP006_i32FractionPart2);
+main.c(409): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart1,BMP180_i32FractionPart1);
+main.c(417): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart2, BMP180_i32FractionPart2);
+main.c(425): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart3, BMP180_i32FractionPart3);
+main.c(433): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", ISL290_i32IntegerPart,ISL290_i32FractionPart);
+main.c(441): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
+main.c(449): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
+main.c(457): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[0], i32FPart[0]);
+main.c(465): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[1], i32FPart[1]);
+main.c(473): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[2], i32FPart[2]);
+main.c(481): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[3], i32FPart[3]);
+main.c(489): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[4], i32FPart[4]);
+main.c(497): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[5], i32FPart[5]);
+main.c(505): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[6], i32FPart[6]);
+main.c(513): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[7], i32FPart[7]);
+main.c(521): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[8], i32FPart[8]);
+main.c(529): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[9], i32FPart[9]);
+main.c(537): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[10], i32FPart[10]);
+main.c(545): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[11], i32FPart[11]);
+main.c(553): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[12], i32FPart[12]);
+main.c(561): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[13], i32FPart[13]);
+main.c(569): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[14], i32FPart[14]);
+main.c(577): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                sprintf(tempString,"%3d.%03d", i32IPart[15], i32FPart[15]);
+main.c(589): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                                sprintf(tempString,"waiting...");
+main.c(596): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
+                                                                                if(FTPLinkStatus==3 || FTPLinkStatus==-3)
+main.c(600): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                                                        sprintf(tempString,"END With Success\n");       
+main.c(607): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                                                                        sprintf(tempString,"END With Error\n"); 
+main.c(622): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
+                                                                                                else if(FTPLinkStatus==-1) 
+main.c(626): warning:  #68-D: integer conversion resulted in a change of sign
+                                                                                                        FTPLinkStatus=-2;
+main.c(653): warning:  #514-D: pointless comparison of unsigned integer with a negative constant
+                                                                                                        else if(FTPLinkStatus==-2) FTPLinkStatus=-3;
+main.c(653): warning:  #68-D: integer conversion resulted in a change of sign
+                                                                                                        else if(FTPLinkStatus==-2) FTPLinkStatus=-3;
+main.c(723): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(723): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(735): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(735): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(747): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(747): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(759): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(759): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                                                                sscanf(strbuf,"%d",&buf);
+main.c(771): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                                                                sscanf(strbuf,"%d",&port);
+main.c(771): warning:  #181-D: argument is incompatible with corresponding format string conversion
+                                                                sscanf(strbuf,"%d",&port);
+main.c(938): warning:  #177-D: variable "SecType" was declared but never referenced
+      _u8   SecType = 0;
+main.c(940): warning:  #177-D: variable "mode" was declared but never referenced
+      _i32   mode = ROLE_STA;
+main.c(1040): warning:  #550-D: variable "retVal" was set but never used
+                _i32   retVal = -1;
+main.c(1105): warning:  #186-D: pointless comparison of unsigned integer with zero
+      for (d = pal_Strlen(buf)-1; d>=0; d--)
+main.c(1115): warning:  #186-D: pointless comparison of unsigned integer with zero
+      for (d = pal_Strlen(buf)-1; d>=0; d--)
+main.c(1125): warning:  #111-D: statement is unreachable
+                sprintf(tempString,"%d %d",port1,port2);
+main.c(1125): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(tempString,"%d %d",port1,port2);
+main.c(1140): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+      strcpy(uBuf.BsdBuf,"whatever");
+main.c(1153): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
+main.c(1154): warning:  #68-D: integer conversion resulted in a change of sign
+                                FTPLinkStatus=-1;
+main.c(1165): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                strcat(FTPInfoBuff," [FTP Client]  FTP connection Error \n");
+main.c(1166): warning:  #68-D: integer conversion resulted in a change of sign
+                                FTPLinkStatus=-1;
+main.c(1180): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                strcat(FTPInfoBuff," [FTP Server] Data recv Error \n");
+main.c(1181): warning:  #68-D: integer conversion resulted in a change of sign
+                                FTPLinkStatus=-1;
+main.c(1192): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1192): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1194): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(uBuf.BsdBuf,"USER %s\r\n",FTPUsername);
+main.c(1199): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1199): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1200): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(uBuf.BsdBuf,"PASS %s\r\n",FTPPassword);
+main.c(1206): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1206): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1215): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1215): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1217): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "signed char *"
+      getPortNum(uBuf.BsdBuf);
+main.c(1219): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,"Data port received\n");
+main.c(1234): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
+main.c(1235): warning:  #68-D: integer conversion resulted in a change of sign
+                                FTPLinkStatus=-1;
+main.c(1241): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(uBuf.BsdBuf,"SIZE %s\r\n",filename);
+main.c(1247): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1247): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1249): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(uBuf.BsdBuf,"RETR %s\r\n",filename);
+main.c(1258): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1258): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1263): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1263): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1276): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+              sscanf(&(filterdata[i]),"%f", p);
+main.c(1298): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                                strcat(FTPInfoBuff,"now");
+main.c(1337): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,"Wave data receiving OK\n");
+main.c(1350): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1350): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1353): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "signed char *"
+      getPortNum(uBuf.BsdBuf);
+main.c(1355): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,"Data port received\n");
+main.c(1370): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                                strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
+main.c(1371): warning:  #68-D: integer conversion resulted in a change of sign
+                                FTPLinkStatus=-1;
+main.c(1377): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                sprintf(uBuf.BsdBuf,"STOR %s\r\n",filename);
+main.c(1390): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1390): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1402): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1402): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "const char *restrict"
+                strcat(FTPInfoBuff,uBuf.BsdBuf);
+main.c(1407): warning:  #167-D: argument of type "unsigned char *" is incompatible with parameter of type "char *restrict"
+                strcat(FTPInfoBuff,"All is done\n");
+main.c(1136): warning:  #177-D: variable "idx" was declared but never referenced
+      _u16          idx = 0;
+main.c(1139): warning:  #177-D: variable "LoopCount" was declared but never referenced
+      _u16          LoopCount = 0;
+main.c(1436): warning:  #177-D: variable "LoopCount" was declared but never referenced
+      _u16          LoopCount = 0;
+main.c(1468): warning:  #177-D: variable "cnt" was declared but never referenced
+      int i,cnt = 0;
+main.c(1627): warning:  #177-D: function "configureSimpleLinkToDefaultState" was declared but never referenced
+  static _i32 configureSimpleLinkToDefaultState()
+main.c: 117 warnings, 0 errors
 compiling spi.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-spi.c: 14 warnings, 0 errors
+spi.c: 13 warnings, 0 errors
 assembling startup_rvmdk.S...
 compiling device.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c: 13 warnings, 0 errors
 compiling driver.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c: 13 warnings, 0 errors
 compiling flowcont.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c: 13 warnings, 0 errors
 compiling fs.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c: 13 warnings, 0 errors
 compiling netapp.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c: 13 warnings, 0 errors
 compiling netcfg.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c: 13 warnings, 0 errors
 compiling nonos.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c: 13 warnings, 0 errors
 compiling socket.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c: 13 warnings, 0 errors
 compiling spawn.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c: 13 warnings, 0 errors
 compiling wlan.c...
-..\HTTP-Server-Based-on-Embedded-System\board.h(78): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(100): warning:  #1295-D: Deprecated declaration GPIOM_intHandler - give arg types
   void GPIOM_intHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(91): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(113): warning:  #1295-D: Deprecated declaration CC3100_enable - give arg types
   void CC3100_enable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(104): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(126): warning:  #1295-D: Deprecated declaration CC3100_disable - give arg types
   void CC3100_disable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(117): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(139): warning:  #1295-D: Deprecated declaration CC3100_InterruptEnable - give arg types
   void CC3100_InterruptEnable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(130): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(152): warning:  #1295-D: Deprecated declaration CC3100_InterruptDisable - give arg types
   void CC3100_InterruptDisable();
-..\HTTP-Server-Based-on-Embedded-System\board.h(143): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(165): warning:  #1295-D: Deprecated declaration stopWDT - give arg types
   void stopWDT();
-..\HTTP-Server-Based-on-Embedded-System\board.h(156): warning:  #1295-D: Deprecated declaration initClk - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(178): warning:  #1295-D: Deprecated declaration initClk - give arg types
   void initClk();
-..\HTTP-Server-Based-on-Embedded-System\board.h(157): warning:  #1295-D: Deprecated declaration initTimer - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(179): warning:  #1295-D: Deprecated declaration initTimer - give arg types
   void initTimer();
-..\HTTP-Server-Based-on-Embedded-System\board.h(162): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(184): warning:  #1295-D: Deprecated declaration SysTickIntHandler - give arg types
   SysTickIntHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(193): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(223): warning:  #1295-D: Deprecated declaration MaskIntHdlr - give arg types
   void MaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(204): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(234): warning:  #1295-D: Deprecated declaration UnMaskIntHdlr - give arg types
   void UnMaskIntHdlr();
-..\HTTP-Server-Based-on-Embedded-System\board.h(218): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(248): warning:  #1295-D: Deprecated declaration UARTRxTxHandler - give arg types
   void UARTRxTxHandler();
-..\HTTP-Server-Based-on-Embedded-System\board.h(238): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
+..\HTTP-Server-Based-on-Embedded-System\board.h(268): warning:  #1295-D: Deprecated declaration initLEDs - give arg types
   void initLEDs();
-..\HTTP-Server-Based-on-Embedded-System\board.h(290): warning:  #1295-D: Deprecated declaration GetLEDStatus - give arg types
-  unsigned char GetLEDStatus();
-C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 14 warnings, 0 errors
+C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c: 13 warnings, 0 errors
 linking...
-Program Size: Code=21116 RO-data=1976 RW-data=76 ZI-data=1444  
+Program Size: Code=36304 RO-data=2244 RW-data=500 ZI-data=10484  
 After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
-".\rvmdk\test.axf" - 0 Error(s), 205 Warning(s).
+".\rvmdk\test.axf" - 0 Error(s), 291 Warning(s).
+Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+</pre>
+</body>
+</html>
+gs, 0 errors
+linking...
+Program Size: Code=36296 RO-data=2244 RW-data=500 ZI-data=10484  
+After Build - User command #1: fromelf --bin --output .\rvmdk\blinky.bin .\rvmdk\blinky.axf
+".\rvmdk\test.axf" - 0 Error(s), 293 Warning(s).
 Load "C:\\selfData\\myGit\\HTTP-Server-Based-on-Embedded-System\\rvmdk\\test.axf" 
 Connecting: Mode=JTAG, Speed=1000000Hz
 Erase Done.

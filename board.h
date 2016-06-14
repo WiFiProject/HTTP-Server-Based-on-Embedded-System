@@ -42,6 +42,28 @@
 #define PIN_LOW                              (!PIN_HIGH)
 
 
+extern signed int i32IPart[16], i32FPart[16];
+
+extern signed int SHT21_i32IntegerPart1;
+extern signed int SHT21_i32FractionPart1;
+extern signed int SHT21_i32IntegerPart2;
+extern signed int SHT21_i32FractionPart2;
+
+extern signed int ISL290_i32IntegerPart, ISL290_i32FractionPart;
+
+extern signed int BMP180_i32IntegerPart1;
+extern signed int BMP180_i32FractionPart1;
+extern signed int BMP180_i32IntegerPart2;
+extern signed int BMP180_i32FractionPart2;
+extern signed int BMP180_i32IntegerPart3;
+extern signed int BMP180_i32FractionPart3;
+
+extern signed int TMP006_i32IntegerPart1;
+extern signed int TMP006_i32FractionPart1;
+extern signed int TMP006_i32IntegerPart2;
+extern signed int TMP006_i32FractionPart2;
+
+
 
 typedef void (*P_EVENT_HANDLER)(void* pValue);
 
@@ -162,7 +184,9 @@ void
 SysTickIntHandler();
 
 void DisableTimer0(void);
+void DisableTimer1(void);
 void EnableTimer0(void);
+void EnableTimer1(void);
 
 void initI2C(void);
 
@@ -172,9 +196,15 @@ void initTimer1(void);
 
 void Timer1IntHandler(void);
 
+void MPU9150AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+
+void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+
+void ISL29023AppCallback(void *pvCallbackData, unsigned     int ui8Status);
+
+void GPIOPortEIntHandler(void);
+
 void BMP180AppCallback(void* pvCallbackData, unsigned     int ui8Status);
-
-
 
 //the function related to the tmp006
 //void IntHandlerGPIOPortH(void);
@@ -287,6 +317,12 @@ void toggleLed(char ledNum);
 
     \warning
 */
-unsigned char GetLEDStatus();
+
+unsigned char ToggleTimer0(void);
+	
+unsigned char GetLEDStatus(void);
+
+unsigned char GetTimer0Status(void);
+
 
 #endif

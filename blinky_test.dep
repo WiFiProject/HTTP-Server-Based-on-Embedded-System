@@ -1,12 +1,12 @@
 Dependencies for Project 'blinky', Target 'test': (DO NOT MODIFY !)
-F (.\board.c)(0x57563E85)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\board.o --omf_browse .\rvmdk\board.crf --depend .\rvmdk\board.d)
+F (.\board.c)(0x575FAED2)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\board.o --omf_browse .\rvmdk\board.crf --depend .\rvmdk\board.d)
 I (C:\software\keil5\ARM\ARMCC\include\stdint.h)(0x53463A44)
 I (C:\software\keil5\ARM\ARMCC\include\stdio.h)(0x53463A44)
 I (C:\software\keil5\ARM\ARMCC\include\math.h)(0x53463A44)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -35,10 +35,19 @@ I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\timer.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\interrupt.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_tmp006.h)(0x5746F593)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_bmp180.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_isl29023.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_sht21.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_mpu9150.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\hw_ak8975.h)(0x5746F593)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\i2cm_drv.h)(0x5746F593)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\tmp006.h)(0x5746F593)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\bmp180.h)(0x5746F593)
-F (.\cli_uart.c)(0x574EA1A1)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\cli_uart.o --omf_browse .\rvmdk\cli_uart.crf --depend .\rvmdk\cli_uart.d)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\isl29023.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\sht21.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\ak8975.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\mpu9150.h)(0x5746F593)
+I (C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\comp_dcm.h)(0x5746F593)
+F (.\cli_uart.c)(0x574EA1A1)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\cli_uart.o --omf_browse .\rvmdk\cli_uart.crf --depend .\rvmdk\cli_uart.d)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
 I (C:\software\keil5\ARM\ARMCC\include\stdint.h)(0x53463A44)
 I (C:\software\keil5\ARM\ARMCC\include\stdbool.h)(0x53463A44)
@@ -55,13 +64,14 @@ I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rom.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rom_map.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\sysctl.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\uart.h)(0x5746F56B)
-I (board.h)(0x5756393E)
+I (board.h)(0x575EC90E)
 I (cli_uart.h)(0x574C35B9)
-F (.\main.c)(0x57563B98)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\main.o --omf_browse .\rvmdk\main.crf --depend .\rvmdk\main.d)
+F (.\main.c)(0x575FB094)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\main.o --omf_browse .\rvmdk\main.crf --depend .\rvmdk\main.d)
+I (C:\software\keil5\ARM\ARMCC\include\stdio.h)(0x53463A44)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -75,7 +85,7 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\netcfg.h)(0x56D
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
-I (sl_common.h)(0x5753898C)
+I (sl_common.h)(0x575C1C54)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\inc\tm4c1294ncpdt.h)(0x5746F592)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\inc\hw_memmap.h)(0x5746F592)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\inc\hw_ssi.h)(0x5746F592)
@@ -86,11 +96,11 @@ I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rom.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\sysctl.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\fpu.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\uart.h)(0x5746F56B)
-F (.\spi.c)(0x574BEBB3)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\spi.o --omf_browse .\rvmdk\spi.crf --depend .\rvmdk\spi.d)
+F (.\spi.c)(0x574BEBB3)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\spi.o --omf_browse .\rvmdk\spi.crf --depend .\rvmdk\spi.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -114,14 +124,14 @@ I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\gpio.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\sysctl.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\interrupt.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\pin_map.h)(0x5746F56B)
-F (.\startup_rvmdk.S)(0x57563967)(--cpu Cortex-M4 --li --pd "__EVAL SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-o .\rvmdk\startup_rvmdk.o --depend .\rvmdk\startup_rvmdk.d)
+F (.\startup_rvmdk.S)(0x5756792F)(--cpu Cortex-M4 --li -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-o .\rvmdk\startup_rvmdk.o --depend .\rvmdk\startup_rvmdk.d)
 F (.\user.h)(0x56D4A398)()
 F (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rvmdk\driverlib.lib)(0x5746F56B)()
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c)(0x575389C4)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\device.o --omf_browse .\rvmdk\device.crf --depend .\rvmdk\device.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\device.c)(0x575ADB30)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\device.o --omf_browse .\rvmdk\device.crf --depend .\rvmdk\device.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -147,11 +157,11 @@ I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\rom.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\sysctl.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\fpu.h)(0x5746F56B)
 I (C:\software\tii\TivaWare_C_Series-2.1.2.111\driverlib\uart.h)(0x5746F56B)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\driver.o --omf_browse .\rvmdk\driver.crf --depend .\rvmdk\driver.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\driver.o --omf_browse .\rvmdk\driver.crf --depend .\rvmdk\driver.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -167,11 +177,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\flowcont.o --omf_browse .\rvmdk\flowcont.crf --depend .\rvmdk\flowcont.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\flowcont.o --omf_browse .\rvmdk\flowcont.crf --depend .\rvmdk\flowcont.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -187,11 +197,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\flowcont.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\fs.o --omf_browse .\rvmdk\fs.crf --depend .\rvmdk\fs.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\fs.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\fs.o --omf_browse .\rvmdk\fs.crf --depend .\rvmdk\fs.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -206,11 +216,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\netapp.o --omf_browse .\rvmdk\netapp.crf --depend .\rvmdk\netapp.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netapp.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\netapp.o --omf_browse .\rvmdk\netapp.crf --depend .\rvmdk\netapp.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -225,11 +235,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\netcfg.o --omf_browse .\rvmdk\netcfg.crf --depend .\rvmdk\netcfg.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\netcfg.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\netcfg.o --omf_browse .\rvmdk\netcfg.crf --depend .\rvmdk\netcfg.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -244,11 +254,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c)(0x5753DC23)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\nonos.o --omf_browse .\rvmdk\nonos.crf --depend .\rvmdk\nonos.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.c)(0x5753DC23)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\nonos.o --omf_browse .\rvmdk\nonos.crf --depend .\rvmdk\nonos.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -263,11 +273,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\socket.o --omf_browse .\rvmdk\socket.crf --depend .\rvmdk\socket.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\socket.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\socket.o --omf_browse .\rvmdk\socket.crf --depend .\rvmdk\socket.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -282,11 +292,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\spawn.o --omf_browse .\rvmdk\spawn.crf --depend .\rvmdk\spawn.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\spawn.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\spawn.o --omf_browse .\rvmdk\spawn.crf --depend .\rvmdk\spawn.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
@@ -301,11 +311,11 @@ I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\wlan_rx_filters
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\nonos.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\protocol.h)(0x56D4A398)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\driver.h)(0x56D4A398)
-F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__EVAL -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\wlan.o --omf_browse .\rvmdk\wlan.crf --depend .\rvmdk\wlan.d)
+F (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c)(0x56D4A398)(-c --cpu Cortex-M4 -D__MICROLIB --li -g -O2 --apcs=interwork --split_sections -I..\..\..\.. -IC:\software\tii\TivaWare_C_Series-2.1.2.111 -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include -IC:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source -I..\HTTP-Server-Based-on-Embedded-System --c99-I C:\software\keil5\ARM\RV31\INC-I C:\software\keil5\ARM\PACK\ARM\CMSIS\4.1.0\CMSIS\Include-I C:\software\keil5\ARM\Inc\Luminary-Drvmdk -DPART_TM4C1294NCPDT -DTARGET_IS_TM4C129_RA1-o .\rvmdk\wlan.o --omf_browse .\rvmdk\wlan.crf --depend .\rvmdk\wlan.d)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\include\simplelink.h)(0x56D4A398)
 I (..\HTTP-Server-Based-on-Embedded-System\user.h)(0x56D4A398)
 I (C:\software\keil5\ARM\ARMCC\include\string.h)(0x53463A44)
-I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x5756393E)
+I (..\HTTP-Server-Based-on-Embedded-System\board.h)(0x575EC90E)
 I (..\HTTP-Server-Based-on-Embedded-System\cli_uart.h)(0x574C35B9)
 I (..\HTTP-Server-Based-on-Embedded-System\spi.h)(0x56D4A397)
 I (C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\objInclusion.h)(0x56D4A398)
