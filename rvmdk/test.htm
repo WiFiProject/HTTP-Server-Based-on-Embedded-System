@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\rvmdk\test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\rvmdk\test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Mon Jun 13 22:56:21 2016
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Tue Jun 14 15:22:06 2016
 <BR><P>
 <H3>Maximum Stack Usage =        456 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -203,9 +203,9 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
-<P><STRONG><a name="[65]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
+<P><STRONG><a name="[66]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkHttpServerCallback
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPortNum
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPortNum
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLI_Write
 </UL>
@@ -217,7 +217,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[5b]"></a>strcpy</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, strcpy.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
@@ -574,7 +574,7 @@ Global Symbols
 <P><STRONG><a name="[5f]"></a>CLI_Write</STRONG> (Thumb, 58 bytes, Stack size 24 bytes, cli_uart.o(i.CLI_Write))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = CLI_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkWlanEventHandler
@@ -583,7 +583,7 @@ Global Symbols
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkHttpServerCallback
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkGeneralEventHandler
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UDPServerRoute
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
@@ -803,6 +803,7 @@ Global Symbols
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLedOn
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnLedOff
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initLEDs
+<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ToggleTimer0
 <LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer1IntHandler
 <LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Timer0IntHandler
 </UL>
@@ -1226,7 +1227,7 @@ Global Symbols
 <LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDeviceEventHandler
 </UL>
 
-<P><STRONG><a name="[b9]"></a>SimpleLinkHttpServerCallback</STRONG> (Thumb, 2208 bytes, Stack size 72 bytes, main.o(i.SimpleLinkHttpServerCallback))
+<P><STRONG><a name="[b9]"></a>SimpleLinkHttpServerCallback</STRONG> (Thumb, 2212 bytes, Stack size 72 bytes, main.o(i.SimpleLinkHttpServerCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336<LI>Call Chain = SimpleLinkHttpServerCallback &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLI_Write
@@ -1236,11 +1237,11 @@ Global Symbols
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetTimer0Status
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetLEDStatus
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memcmp
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 <LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDispatchHttpServerEvents
 </UL>
@@ -1386,10 +1387,11 @@ Global Symbols
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initTimer
 </UL>
 
-<P><STRONG><a name="[bd]"></a>ToggleTimer0</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, board.o(i.ToggleTimer0))
+<P><STRONG><a name="[bd]"></a>ToggleTimer0</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, board.o(i.ToggleTimer0))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ToggleTimer0 &rArr; EnableTimer0
 </UL>
-<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableTimer0
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableTimer0
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableTimer0
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkHttpServerCallback
@@ -1430,17 +1432,17 @@ Global Symbols
 <P><STRONG><a name="[c9]"></a>_SlDrvCmdOp</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, driver.o(i._SlDrvCmdOp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjGlobalLockWaitForever
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjGlobalLockWaitForever
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgWrite
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgReadCmdCtx
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_WlanConnect
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Socket
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_NetCfgSet
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Connect
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Close
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
 </UL>
 
 <P><STRONG><a name="[ce]"></a>_SlDrvCmdSend</STRONG> (Thumb, 74 bytes, Stack size 56 bytes, driver.o(i._SlDrvCmdSend))
@@ -1455,8 +1457,7 @@ Global Symbols
 <P><STRONG><a name="[d0]"></a>_SlDrvDataReadOp</STRONG> (Thumb, 286 bytes, Stack size 48 bytes, driver.o(i._SlDrvDataReadOp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = _SlDrvDataReadOp &rArr; _SlDrvWaitForPoolObj &rArr; _SlDrvSyncObjWaitForever &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvWaitForPoolObj
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjWaitForever
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjUnLock
@@ -1467,34 +1468,35 @@ Global Symbols
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvReleasePoolObj
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjUnLock
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjLockWaitForever
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
+<BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Recv
 </UL>
 
 <P><STRONG><a name="[da]"></a>_SlDrvDataWriteOp</STRONG> (Thumb, 206 bytes, Stack size 32 bytes, driver.o(i._SlDrvDataWriteOp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = _SlDrvDataWriteOp &rArr; _SlDrvMsgWrite &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjWaitForever
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjUnLock
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjLockWaitForever
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjGlobalLockWaitForever
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgWrite
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
+<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
 </UL>
 
 <P><STRONG><a name="[25]"></a>_SlDrvDeviceEventHandler</STRONG> (Thumb, 98 bytes, Stack size 24 bytes, device.o(i._SlDrvDeviceEventHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = _SlDrvDeviceEventHandler &rArr; _sl_HandleAsync_InitComplete &rArr; _SlDrvReleasePoolObj &rArr; _SlDrvProtectionObjLockWaitForever &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
 <LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Stop
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_InitComplete
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkGeneralEventHandler
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> driver.o(.constdata)
 </UL>
@@ -1541,10 +1543,10 @@ Global Symbols
 <P><STRONG><a name="[1c]"></a>_SlDrvMsgReadSpawnCtx</STRONG> (Thumb, 106 bytes, Stack size 8 bytes, driver.o(i._SlDrvMsgReadSpawnCtx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = _SlDrvMsgReadSpawnCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjGlobalLockWaitForever
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjGlobalLockWaitForever
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgRead
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlAsyncEventGenericHandler
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
 <BR>[Address Reference Count : 2]<UL><LI> driver.o(i._SlDrvMsgReadCmdCtx)
 <LI> driver.o(i._SlDrvRxIrqHandler)
@@ -1592,8 +1594,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
-<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Stop
+<BR>[Called By]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Stop
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_InitComplete
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Select
 <LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_PingResponse
@@ -1604,13 +1605,13 @@ Global Symbols
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataReadOp
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgRead
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvReleasePoolObj
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
 </UL>
 
 <P><STRONG><a name="[d3]"></a>_SlDrvProtectionObjUnLock</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, driver.o(i._SlDrvProtectionObjUnLock))
 <BR><BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
-<LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Stop
+<BR>[Called By]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Stop
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_InitComplete
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_Select
 <LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_HandleAsync_PingResponse
@@ -1621,6 +1622,7 @@ Global Symbols
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataReadOp
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgRead
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvReleasePoolObj
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
 </UL>
 
 <P><STRONG><a name="[d9]"></a>_SlDrvReleasePoolObj</STRONG> (Thumb, 194 bytes, Stack size 24 bytes, driver.o(i._SlDrvReleasePoolObj))
@@ -1640,9 +1642,9 @@ Global Symbols
 <P><STRONG><a name="[ea]"></a>_SlDrvResetCmdExt</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, driver.o(i._SlDrvResetCmdExt))
 <BR><BR>[Calls]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMemZero
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
+<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Recv
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_NetCfgSet
 </UL>
@@ -1700,8 +1702,8 @@ Global Symbols
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjUnLock
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjLockWaitForever
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataReadOp
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataReadOp
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
 </UL>
 
 <P><STRONG><a name="[eb]"></a>_SlNonOsMainLoopTask</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, nonos.o(i._SlNonOsMainLoopTask))
@@ -1728,13 +1730,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c7]"></a>_SlNonOsSemSet</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, nonos.o(i._SlNonOsSemSet))
-<BR><BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDriverCBInit
+<BR><BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDriverCBInit
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvObjUnLock
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjSignal
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvRxIrqHandler
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjUnLock
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
 
 <P><STRONG><a name="[e5]"></a>_SlNonOsSpawn</STRONG> (Thumb, 40 bytes, Stack size 12 bytes, nonos.o(i._SlNonOsSpawn))
@@ -1751,11 +1753,12 @@ Global Symbols
 
 <P><STRONG><a name="[12f]"></a>__1sprintf$6</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6), UNUSED)
 
-<P><STRONG><a name="[6d]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6))
+<P><STRONG><a name="[65]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf6.o(i.__0sprintf$6))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SimpleLinkHttpServerCallback
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
 <P><STRONG><a name="[ef]"></a>__ARM_fpclassifyf</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, fpclassifyf.o(i.__ARM_fpclassifyf))
@@ -2008,7 +2011,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9]"></a>main</STRONG> (Thumb, 262 bytes, Stack size 48 bytes, main.o(i.main))
+<P><STRONG><a name="[9]"></a>main</STRONG> (Thumb, 260 bytes, Stack size 48 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 456<LI>Call Chain = main &rArr; sl_WlanConnect &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_WlanConnect
@@ -2040,13 +2043,13 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Start
 </UL>
 
-<P><STRONG><a name="[6a]"></a>sl_Bind</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, socket.o(i.sl_Bind))
+<P><STRONG><a name="[6b]"></a>sl_Bind</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, socket.o(i.sl_Bind))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = sl_Bind &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_BuildAddress
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 </UL>
 
 <P><STRONG><a name="[62]"></a>sl_Close</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, socket.o(i.sl_Close))
@@ -2054,19 +2057,19 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
 <P><STRONG><a name="[61]"></a>sl_Connect</STRONG> (Thumb, 220 bytes, Stack size 48 bytes, socket.o(i.sl_Connect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = sl_Connect &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_BuildAddress
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjWaitForever
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjWaitTimeout
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvReleasePoolObj
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
@@ -2080,7 +2083,7 @@ Global Symbols
 <P><STRONG><a name="[5c]"></a>sl_Htons</STRONG> (Thumb, 48 bytes, Stack size 12 bytes, socket.o(i.sl_Htons))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = sl_Htons
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
@@ -2102,16 +2105,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
-<P><STRONG><a name="[6b]"></a>sl_RecvFrom</STRONG> (Thumb, 188 bytes, Stack size 56 bytes, socket.o(i.sl_RecvFrom))
+<P><STRONG><a name="[6c]"></a>sl_RecvFrom</STRONG> (Thumb, 188 bytes, Stack size 56 bytes, socket.o(i.sl_RecvFrom))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = sl_RecvFrom &rArr; _SlDrvDataReadOp &rArr; _SlDrvWaitForPoolObj &rArr; _SlDrvSyncObjWaitForever &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataReadOp
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvResetCmdExt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 </UL>
 
-<P><STRONG><a name="[66]"></a>sl_Send</STRONG> (Thumb, 174 bytes, Stack size 56 bytes, socket.o(i.sl_Send))
+<P><STRONG><a name="[67]"></a>sl_Send</STRONG> (Thumb, 174 bytes, Stack size 56 bytes, socket.o(i.sl_Send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = sl_Send &rArr; _SlDrvDataWriteOp &rArr; _SlDrvMsgWrite &rArr; spi_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_TruncatePayloadByProtocol
@@ -2121,7 +2124,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
-<P><STRONG><a name="[6c]"></a>sl_SendTo</STRONG> (Thumb, 184 bytes, Stack size 64 bytes, socket.o(i.sl_SendTo))
+<P><STRONG><a name="[6d]"></a>sl_SendTo</STRONG> (Thumb, 184 bytes, Stack size 64 bytes, socket.o(i.sl_SendTo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = sl_SendTo &rArr; _SlDrvDataWriteOp &rArr; _SlDrvMsgWrite &rArr; spi_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_TruncatePayloadByProtocol
@@ -2129,7 +2132,7 @@ Global Symbols
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDataWriteOp
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvResetCmdExt
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 </UL>
 
 <P><STRONG><a name="[5e]"></a>sl_Socket</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, socket.o(i.sl_Socket))
@@ -2137,15 +2140,14 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
 </UL>
-<BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
 <P><STRONG><a name="[109]"></a>sl_Start</STRONG> (Thumb, 142 bytes, Stack size 32 bytes, device.o(i.sl_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = sl_Start &rArr; _SlDrvProtectAsyncRespSetting &rArr; _SlDrvWaitForPoolObj &rArr; _SlDrvSyncObjWaitForever &rArr; _SlNonOsSemGet &rArr; _SlNonOsMainLoopTask
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDriverCBInit
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvDriverCBInit
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sl_GetStartResponseConvert
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_Open
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;registerInterruptHandler
@@ -2153,6 +2155,7 @@ Global Symbols
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CC3100_disable
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjWaitTimeout
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvReleasePoolObj
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectAsyncRespSetting
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2241,18 +2244,18 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[5a]"></a>BsdTcpClient</STRONG> (Thumb, 1844 bytes, Stack size 56 bytes, main.o(i.BsdTcpClient))
+<P><STRONG><a name="[5a]"></a>BsdTcpClient</STRONG> (Thumb, 1966 bytes, Stack size 56 bytes, main.o(i.BsdTcpClient))
 <BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = BsdTcpClient &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Socket
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Recv
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Htons
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Htonl
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Connect
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Close
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPortNum
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getPortNum
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bufclean
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLI_Write
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
@@ -2260,26 +2263,27 @@ Local Symbols
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fadd
 <LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcat
 <LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[69]"></a>BsdUdpServer</STRONG> (Thumb, 520 bytes, Stack size 80 bytes, main.o(i.BsdUdpServer))
+<P><STRONG><a name="[6a]"></a>BsdUdpServer</STRONG> (Thumb, 520 bytes, Stack size 80 bytes, main.o(i.BsdUdpServer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = BsdUdpServer &rArr; sl_Bind &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
 <BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Socket
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_RecvFrom
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Htons
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Close
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLI_Write
 <LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcpy
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UDPServerRoute
 </UL>
@@ -2287,7 +2291,7 @@ Local Symbols
 <P><STRONG><a name="[c5]"></a>UDPServerRoute</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, main.o(i.UDPServerRoute))
 <BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = UDPServerRoute &rArr; BsdUdpServer &rArr; sl_Bind &rArr; _SlDrvCmdOp &rArr; _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CLI_Write
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableTimer1
 <LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableTimer0
@@ -2301,15 +2305,15 @@ Local Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
-<P><STRONG><a name="[68]"></a>delay</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, main.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
+<P><STRONG><a name="[69]"></a>delay</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, main.o(i.delay))
+<BR><BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdUdpServer
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
 
-<P><STRONG><a name="[67]"></a>getPortNum</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, main.o(i.getPortNum))
+<P><STRONG><a name="[68]"></a>getPortNum</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, main.o(i.getPortNum))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = getPortNum
 </UL>
-<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BsdTcpClient
 </UL>
@@ -2354,8 +2358,7 @@ Local Symbols
 <P><STRONG><a name="[df]"></a>_SlDrvMsgRead</STRONG> (Thumb, 808 bytes, Stack size 56 bytes, driver.o(i._SlDrvMsgRead))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spi_Read
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMemZero
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlFindAndSetActiveObj
@@ -2364,6 +2367,7 @@ Local Symbols
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvSyncObjSignal
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjUnLock
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvProtectionObjLockWaitForever
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgReadSpawnCtx
@@ -2373,12 +2377,12 @@ Local Symbols
 <P><STRONG><a name="[cd]"></a>_SlDrvMsgReadCmdCtx</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, driver.o(i._SlDrvMsgReadCmdCtx))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = _SlDrvMsgReadCmdCtx &rArr; _SlDrvMsgRead &rArr; _SlDrvRxHdrRead &rArr; spi_Write
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
+<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDriverHandleError
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSpawn
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlNonOsSemGet
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvMsgRead
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlAsyncEventGenericHandler
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvGlobalObjUnLock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_SlDrvCmdOp
 </UL>
@@ -2431,14 +2435,14 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[10c]"></a>_sl_BuildAddress</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, socket.o(i._sl_BuildAddress))
-<BR><BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
+<BR><BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Connect
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Bind
 </UL>
 
 <P><STRONG><a name="[10d]"></a>_sl_TruncatePayloadByProtocol</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, socket.o(i._sl_TruncatePayloadByProtocol))
-<BR><BR>[Called By]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
+<BR><BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_SendTo
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sl_Send
 </UL>
 
 <P><STRONG><a name="[e]"></a>BMP180Callback</STRONG> (Thumb, 500 bytes, Stack size 40 bytes, bmp180.o(i.BMP180Callback))

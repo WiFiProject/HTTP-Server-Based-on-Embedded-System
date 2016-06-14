@@ -1225,6 +1225,7 @@ unsigned char ToggleTimer0()
 		if(timer0_status==1)
 		{
 			DisableTimer0();
+			GPIOPinWrite(GPIO_PORTF_BASE,GPIO_PIN_4, PIN_LOW);
 		}
 		else
 		{

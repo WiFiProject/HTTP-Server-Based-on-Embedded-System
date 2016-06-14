@@ -73,7 +73,6 @@
 
 _u8 LED_token[] = "__SL_P_UL1";
 _u8 FTP1_token[] = "__SL_P_UF1";
-_u8 FTP2_token[] = "__SL_P_UF2";
 _u8 UDP_token[] = "__SL_P_UUS";
 
 _u8 FTPINFO_token[]  = "__SL_G_UFT";
@@ -169,6 +168,9 @@ float data[200], temp, tdata[200];
 _u32 IP_ADDR=         0xc0a8017e;
 _u16 PORT_NUM=        21;           /* Port number to be used */
 _u16 PORT_NUM_UDP=        5001; 
+unsigned char filename[20];
+unsigned char FTPPassword[20];
+unsigned char FTPUsername[20];
 
 unsigned long IP_ADDR_1 = 0;
 unsigned long IP_ADDR_2 = 0;
@@ -591,56 +593,65 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 								}
 								else
 								{		
-										if(FTPLinkStatus==1)
+										if(FTPLinkStatus==3 || FTPLinkStatus==-3)
 										{
-											sprintf(tempString,"SU CCESS\n");
-											InfoLen=pal_Strlen(FTPInfoBuff);
-											FTPLinkStatus=2;
-											//InfoPointer=FTPInfoBuff;
-										}
-										else if(FTPLinkStatus==-1) 
-										{
-											sprintf(tempString,"ER ROR\n");
-											InfoLen=pal_Strlen(FTPInfoBuff);
-											//InfoPointer=FTPInfoBuff;
-										}
-										else if(FTPLinkStatus=2)
-										{
-											sprintf(tempString,"SUC CESS\n");	
+											if(FTPLinkStatus==3)
+											{
+													sprintf(tempString,"END With Success\n");	
+													pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+													ptr += pal_Strlen(tempString);
+													pResponse->ResponseData.token_value.len += pal_Strlen(tempString);	
+											}	
+											else
+											{
+													sprintf(tempString,"END With Error\n");	
+													pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+													ptr += pal_Strlen(tempString);
+													pResponse->ResponseData.token_value.len += pal_Strlen(tempString);	
+											}
 										}
 										else
 										{
-											sprintf(tempString,"SUCCESS\n");		
-										}
-										
-										pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
-										ptr += pal_Strlen(tempString);
-										pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
-										
-										if(InfoLen>50)
-										{
-											for(int i=0;i<50;i++)
-											{
-												InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
-											}
-											InfoPointer[50]='\0';
-											pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
-											ptr  +=pal_Strlen(InfoPointer);
-											pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
-											InfoLen-=50;
-										}
-										else
-										{
-											for(int i=0;i<InfoLen+1;i++)
-											{
-												InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
-											}
-											InfoPointer[InfoLen+1]='\0';
-											pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
-											ptr  +=pal_Strlen(InfoPointer);
-											pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
-											FTPInfoBuff[0]='\0';
-											FTPLinkStatus=3;
+												if(FTPLinkStatus==1)
+												{
+													//sprintf(tempString,"SU CCESS\n");
+													InfoLen=pal_Strlen(FTPInfoBuff);
+													FTPLinkStatus=2;
+													//InfoPointer=FTPInfoBuff;
+												}
+												else if(FTPLinkStatus==-1) 
+												{
+													//sprintf(tempString,"ER ROR\n");
+													InfoLen=pal_Strlen(FTPInfoBuff);
+													FTPLinkStatus=-2;
+													//InfoPointer=FTPInfoBuff;
+												}
+												if(InfoLen>50)
+												{
+													for(int i=0;i<50;i++)
+													{
+														InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
+													}
+													InfoPointer[50]='\0';
+													pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
+													ptr  +=pal_Strlen(InfoPointer);
+													pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
+													InfoLen-=50;
+												}
+												else
+												{
+													for(int i=0;i<InfoLen+1;i++)
+													{
+														InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
+													}
+													InfoPointer[InfoLen+1]='\0';
+													pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
+													ptr  +=pal_Strlen(InfoPointer);
+													pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
+													FTPInfoBuff[0]='\0';
+													if(FTPLinkStatus==2) FTPLinkStatus=3;
+													else if(FTPLinkStatus==-2) FTPLinkStatus=-3;
+												}		
 										}											
 								}
 						}
@@ -688,7 +699,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 }
 								else if(led == '3')
 								{
-										if(pal_Memcmp(ptr, "TOGGLE_ON", 9) == 0)
+										if(pal_Memcmp(ptr, "TO", 2) == 0)
                     {
                         ToggleTimer0();
                     }
@@ -751,34 +762,47 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 								IPlen=0;
 								buf=0;
 								//get FTP Port
-								while((*(ptr+IPlen))!='\0') IPlen++;
+								while((*(ptr+IPlen))!=',') IPlen++;
 								for(int i=0;i<IPlen;i++)
 								{
 									strbuf[i]=(*(ptr+i));
 								}
 								strbuf[IPlen]='\0';
 								sscanf(strbuf,"%d",&port);
-								
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
 								IP_ADDR=IPAddress;
 								PORT_NUM= port;
-								//if IP Port valid
-								EventSelector=1;
-								
-								//FTPLinkStatus=1;
-								
-						}
-						else if(pal_Memcmp(ptr, FTP2_token, pal_Strlen(FTP2_token)) == 0)
-						{
-								ptr = pEvent->EventData.httpPostData.token_value.data;
-								_u8 IPlen=0;
-								unsigned char filename[20];
-								while((*(ptr+IPlen))!='\0') IPlen++;
+								//getFileName
+								while((*(ptr+IPlen))!=',') IPlen++;
 								for(int i=0;i<IPlen;i++)
 								{
 									filename[i]=(*(ptr+i));
 								}
 								filename[IPlen]='\0';
-								
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								//getUsername
+								while((*(ptr+IPlen))!=',') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									FTPUsername[i]=(*(ptr+i));
+								}
+								FTPUsername[IPlen]='\0';
+								ptr+=IPlen+1;
+								IPlen=0;
+								buf=0;
+								//getPassword
+								while((*(ptr+IPlen))!='\0') IPlen++;
+								for(int i=0;i<IPlen;i++)
+								{
+									FTPPassword[i]=(*(ptr+i));
+								}
+								FTPPassword[IPlen]='\0';
+								//if IP Port valid
+								EventSelector=1;
 								
 						}
 						else if(pal_Memcmp(ptr, UDP_token, pal_Strlen(UDP_token)) == 0)
@@ -1002,7 +1026,6 @@ int main(int argc, char** argv)
     }
 
     CLI_Write(" Connection established w/ AP and IP is configured \n\r");
-		EventSelector=2;
     /* Process the async events from the NWP */
     while(1)
     {
@@ -1127,7 +1150,7 @@ static _i32 BsdTcpClient(_u16 Port)
     if( SockCliCID < 0 )
     {		
         CLI_Write(" [FTP Client] Create socket Error \n\r");
-				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
 				FTPLinkStatus=-1;
 				EventSelector=0;
         ASSERT_ON_ERROR(SockCliCID);
@@ -1139,7 +1162,7 @@ static _i32 BsdTcpClient(_u16 Port)
     {
         sl_Close(SockCliCID);
         CLI_Write(" [FTP Client]  FTP connection Error \n\r");
-				strcat(FTPInfoBuff," [FTP Client]  FTP connection Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client]  FTP connection Error \n");
 				FTPLinkStatus=-1;
 				EventSelector=0;
         ASSERT_ON_ERROR(Status);
@@ -1154,7 +1177,7 @@ static _i32 BsdTcpClient(_u16 Port)
     {
         sl_Close(SockCliCID);
         CLI_Write(" [FTP Server] Data recv Error \n\r");
-				strcat(FTPInfoBuff," [FTP Server] Data recv Error \n\r");
+				strcat(FTPInfoBuff," [FTP Server] Data recv Error \n");
 				FTPLinkStatus=-1;
 				EventSelector=0;
         ASSERT_ON_ERROR(TCP_RECV_ERROR);
@@ -1168,12 +1191,14 @@ static _i32 BsdTcpClient(_u16 Port)
     CLI_Write(uBuf.BsdBuf);
 		strcat(FTPInfoBuff,uBuf.BsdBuf);
     //send User name and password
-    pal_Strcpy(uBuf.BsdBuf,"USER hyacinth\r\n");
+		sprintf(uBuf.BsdBuf,"USER %s\r\n",FTPUsername);
+    //pal_Strcpy(uBuf.BsdBuf,"USER hyacinth\r\n");
     Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );;
 		Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
 		CLI_Write(uBuf.BsdBuf);
 		strcat(FTPInfoBuff,uBuf.BsdBuf);
-    pal_Strcpy(uBuf.BsdBuf,"PASS 123\r\n");
+		sprintf(uBuf.BsdBuf,"PASS %s\r\n",FTPPassword);
+    //pal_Strcpy(uBuf.BsdBuf,"PASS 123\r\n");
     Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
     bufclean();
 		Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
@@ -1191,7 +1216,7 @@ static _i32 BsdTcpClient(_u16 Port)
     //get the Port number
     getPortNum(uBuf.BsdBuf);
     CLI_Write("Data port received\n\r");
-		strcat(FTPInfoBuff,"Data port received\n\r");
+		strcat(FTPInfoBuff,"Data port received\n");
     //create data socket
     PortD = 256 * port1 + port2;
     Addr.sin_family = SL_AF_INET;
@@ -1206,22 +1231,23 @@ static _i32 BsdTcpClient(_u16 Port)
     if( SockCliDID < 0 )
     {
         CLI_Write(" [FTP Client] Create socket Error \n\r");
-				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
 				FTPLinkStatus=-1;
 				EventSelector=0;
         ASSERT_ON_ERROR(SockCliDID);
     }
 
     //check file size
-		//sprintf(uBuf.BsdBuf,"SIZE %s\r\n",);
-    pal_Strcpy(uBuf.BsdBuf,"SIZE wave.txt\r\n");
+		sprintf(uBuf.BsdBuf,"SIZE %s\r\n",filename);
+    //pal_Strcpy(uBuf.BsdBuf,"SIZE wave.txt\r\n");
     Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
     bufclean();
     Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
     CLI_Write(uBuf.BsdBuf);
 		strcat(FTPInfoBuff,uBuf.BsdBuf);
     //download file
-    pal_Strcpy(uBuf.BsdBuf,"RETR wave.txt\r\n");
+		sprintf(uBuf.BsdBuf,"RETR %s\r\n",filename);
+    //pal_Strcpy(uBuf.BsdBuf,"RETR wave.txt\r\n");
     Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
     bufclean();
     Status = sl_Recv(SockCliDID, uBuf.BsdBuf, recvSize, 0);
@@ -1308,7 +1334,7 @@ static _i32 BsdTcpClient(_u16 Port)
         pal_Strcat(filterdata, " ");
     }
     CLI_Write("Wave data receiving OK\n\r");
-		strcat(FTPInfoBuff,"Wave data receiving OK\n\r");
+		strcat(FTPInfoBuff,"Wave data receiving OK\n");
     CLI_Write(filterdata);
 		//strcat(FTPInfoBuff,filterdata);
 
@@ -1326,7 +1352,7 @@ static _i32 BsdTcpClient(_u16 Port)
     //get the Port number
     getPortNum(uBuf.BsdBuf);
     CLI_Write("Data port received\r\n");
-		strcat(FTPInfoBuff,"Data port received\r\n");
+		strcat(FTPInfoBuff,"Data port received\n");
     //create data socket
     PortD = 256 * port1 + port2;
     Addr.sin_family = SL_AF_INET;
@@ -1341,20 +1367,21 @@ static _i32 BsdTcpClient(_u16 Port)
     if( SockCliDID < 0 )
     {
         CLI_Write(" [FTP Client] Create socket Error \n\r");
-				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n");
 				FTPLinkStatus=-1;
 				EventSelector=0;
         ASSERT_ON_ERROR(SockCliDID);
     }
 
     //upload file
-    pal_Strcpy(uBuf.BsdBuf,"STOR wave.txt\r\n");
+		sprintf(uBuf.BsdBuf,"STOR %s\r\n",filename);
+    //pal_Strcpy(uBuf.BsdBuf,"STOR wave.txt\r\n");
     Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
     //delay(50000);
 
     for (i=0; i<BUF_SIZE; i++) uBuf.BsdBuf[i] = '\0';
     pal_Strcpy(uBuf.BsdBuf,filterdata);
-    pal_Strcat(uBuf.BsdBuf,"\r\n");
+    pal_Strcat(uBuf.BsdBuf,"\n");
 
     Status = sl_Send(SockCliDID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
     bufclean();
@@ -1377,7 +1404,7 @@ static _i32 BsdTcpClient(_u16 Port)
     Status = sl_Close(SockCliCID);  
 
     CLI_Write("All is done\n\r");
-		strcat(FTPInfoBuff,"All is done\n\r");
+		strcat(FTPInfoBuff,"All is done\n");
 		
     return 0;
     //connect to the new data socket
@@ -1729,7 +1756,7 @@ static _i32 initializeAppVariables()
 static void displayBanner()
 {
     CLI_Write("\n\r\n\r");
-    CLI_Write(" HTTP Server application - Version ");
+    CLI_Write(" HTTP Server application - By Guyao and cxy ");
     CLI_Write(APPLICATION_VERSION);
     CLI_Write("\n\r*******************************************************************************\n\r");
 }
