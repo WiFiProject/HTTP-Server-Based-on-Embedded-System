@@ -64,6 +64,8 @@
 
 #define SL_STOP_TIMEOUT        0xFF
 
+#define BUF_SIZE        2000
+
 //_u8 POST_token[] = "__SL_P_U01";
 //_u8 POST_token1[] = "__SL_P_UT1";
 //_u8 POST_token2[] = "__SL_P_UT2";
@@ -72,6 +74,7 @@
 _u8 LED_token[] = "__SL_P_UL1";
 _u8 FTP1_token[] = "__SL_P_UF1";
 _u8 FTP2_token[] = "__SL_P_UF2";
+_u8 UDP_token[] = "__SL_P_UUS";
 
 _u8 FTPINFO_token[]  = "__SL_G_UFT";
 _u8 LED1_token[]  = "__SL_G_UL1";
@@ -103,7 +106,7 @@ _u8 Q2_token[]  = "__SL_G_UQ2";
 _u8 Q3_token[]  = "__SL_G_UQ3";
 _u8 Q4_token[]  = "__SL_G_UQ4";
 
-//_u8 POST_token3[] = "__SL_P_LDN";
+
 
 extern signed int i32IPart[16], i32FPart[16];
 
@@ -127,24 +130,56 @@ extern signed int TMP006_i32IntegerPart2;
 extern signed int TMP006_i32FractionPart2;
 
 
+#define CONFIG_IP       SL_IPV4_VAL(192,168,1,45)       /* Static IP to be configured */
+#define AP_MASK         SL_IPV4_VAL(255,255,255,0)      /* Subnet Mask for the station */
+#define AP_GATEWAY      SL_IPV4_VAL(192,168,1,1)        /* Default Gateway address */
+#define AP_DNS          SL_IPV4_VAL(202,120,2,101)            /* DNS Server Address */
+
 /* Application specific status/error codes */
 typedef enum{
-    DEVICE_NOT_IN_STATION_MODE = -0x7D0,        /* Choosing this number to avoid overlap w/ host-driver's error codes */
+    LAN_CONNECTION_FAILED = -0x7D0,        /* Choosing this number to avoid overlap w/ host-driver's error codes */
+    INTERNET_CONNECTION_FAILED = LAN_CONNECTION_FAILED - 1,
+    DEVICE_NOT_IN_STATION_MODE = INTERNET_CONNECTION_FAILED - 1,
+		TCP_SEND_ERROR = DEVICE_NOT_IN_STATION_MODE - 1,
+    TCP_RECV_ERROR = TCP_SEND_ERROR -1,
+		BSD_UDP_CLIENT_FAILED = DEVICE_NOT_IN_STATION_MODE - 1,
 
     STATUS_CODE_MAX = -0xBB8
 }e_AppStatusCodes;
-
 /*
  * GLOBAL VARIABLES -- Start
  */
 _u32  g_Status = 0;
-_u8		g_Toggle=0;
-_u8 g_auth_name[MAX_AUTH_NAME_LEN+1];
-_u8 g_auth_password[MAX_AUTH_PASSWORD_LEN+1];
-_u8 g_auth_realm[MAX_AUTH_REALM_LEN+1];
+char tempc[1000];
+union
+{
+    _u8 BsdBuf[BUF_SIZE];
+    _u32 demobuf[BUF_SIZE/4];
+} uBuf;
+char s[10] = {0}, temps[10] = {0};
 
-_u8 g_domain_name[MAX_DOMAIN_NAME_LEN];
-_u8 g_device_urn[MAX_DEVICE_URN_LEN];
+_u32 port1,port2;
+_i16          SockCliCID = 0;
+_i16          SockCliDID = 0;
+int count, N;
+float data[200], temp, tdata[200];
+
+/* IP addressed of server side socket. Should be in long format,
+ * E.g: 0xc0a8010a == 192.168.1.10 */
+_u32 IP_ADDR=         0xc0a8017e;
+_u16 PORT_NUM=        21;           /* Port number to be used */
+_u16 PORT_NUM_UDP=        5001; 
+
+unsigned long IP_ADDR_1 = 0;
+unsigned long IP_ADDR_2 = 0;
+
+unsigned char FTPInfoBuff[2000]={0};
+unsigned char InfoPointer[51]={0};
+_u32 InfoLen=0;
+_u8 FTPLinkStatus=0;
+
+_u8 EventSelector=0;
+
 /*
  * GLOBAL VARIABLES -- End
  */
@@ -153,21 +188,36 @@ _u8 g_device_urn[MAX_DEVICE_URN_LEN];
 /*
  * STATIC FUNCTION DEFINITIONS -- Start
  */
+
+_u8 filterdata[BUF_SIZE];
+
+static _i32 BsdTcpClient(_u16 Port);
+static _i32 BsdUdpServer(_u16 Port);
+
 static _i32 configureSimpleLinkToDefaultState();
+static _i32 establishConnectionWithAP();
 static _i32 initializeAppVariables();
 static void displayBanner();
-
-static _i32 set_authentication_check (_u8 enable);
-static _i32 get_auth_name (_u8 *auth_name);
-static _i32 get_auth_password (_u8 *auth_password);
-static _i32 get_auth_realm (_u8 *auth_realm);
-static _i32 get_device_urn (_u8 *device_urn);
-static _i32 get_domain_name (_u8 *domain_name);
-
+static void establishConnectionWithFTP();
+static void UDPServerRoute();
 _i32 set_port_number(_u16 num);
 /*
  * STATIC FUNCTION DEFINITIONS -- End
  */
+ 
+ 
+ 
+ static void bufclean()
+{
+    int i;
+    for (i=0; i<BUF_SIZE; i++)
+        uBuf.BsdBuf[i] = '\0';
+}
+static void delay(int time)
+{
+	int clock;
+    for (clock = time; clock>0; clock--);
+}
 
 /*
  * ASYNCHRONOUS EVENT HANDLERS -- Start
@@ -228,19 +278,6 @@ void SimpleLinkWlanEventHandler(SlWlanEvent_t *pWlanEvent)
             {
                 CLI_Write((_u8 *)" Device disconnected from the AP on an ERROR..!! \n\r");
             }
-        }
-        break;
-
-        case SL_WLAN_STA_CONNECTED_EVENT:
-        {
-            SET_STATUS_BIT(g_Status, STATUS_BIT_STA_CONNECTED);
-        }
-        break;
-
-        case SL_WLAN_STA_DISCONNECTED_EVENT:
-        {
-            CLR_STATUS_BIT(g_Status, STATUS_BIT_STA_CONNECTED);
-            CLR_STATUS_BIT(g_Status, STATUS_BIT_IP_LEASED);
         }
         break;
 
@@ -349,7 +386,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += 5;
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, TMP1_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(TMP1_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart1, TMP006_i32FractionPart1);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -357,7 +394,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, TMP2_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(TMP2_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", TMP006_i32IntegerPart2, TMP006_i32FractionPart2);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -365,7 +402,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP1_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(BMP1_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart1,BMP180_i32FractionPart1);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -373,7 +410,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP2_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(BMP2_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart2, BMP180_i32FractionPart2);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -381,7 +418,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, BMP3_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(BMP3_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", BMP180_i32IntegerPart3, BMP180_i32FractionPart3);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -389,23 +426,23 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, ISL_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(ISL_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", ISL290_i32IntegerPart,ISL290_i32FractionPart);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
                 ptr += pal_Strlen(tempString);
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);              
 						}
-						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT1_token,
-                                         pal_Strlen(LED4_token)) == 0)
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT2_token,
+                                         pal_Strlen(SHT2_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
                 ptr += pal_Strlen(tempString);
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);      
 						}
-						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT2_token,
-                                         pal_Strlen(LED4_token)) == 0)
+						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, SHT1_token,
+                                         pal_Strlen(SHT1_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -413,7 +450,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AX_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(AX_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[0], i32FPart[0]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -421,7 +458,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AY_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(AY_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[1], i32FPart[1]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -429,7 +466,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, AZ_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(AZ_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[2], i32FPart[2]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -437,7 +474,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GX_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(GX_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[3], i32FPart[3]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -445,7 +482,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GY_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(GY_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[4], i32FPart[4]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -453,7 +490,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, GZ_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(GZ_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[5], i32FPart[5]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -461,7 +498,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MX_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(MX_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[6], i32FPart[6]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -469,7 +506,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MY_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(MY_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[7], i32FPart[7]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -477,7 +514,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, MZ_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(MZ_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[8], i32FPart[8]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -485,7 +522,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, ER_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(ER_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[9], i32FPart[9]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -493,7 +530,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, EP_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(EP_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[10], i32FPart[10]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -501,7 +538,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, EY_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(EY_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[11], i32FPart[11]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -509,7 +546,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q1_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(Q1_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[12], i32FPart[12]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -517,7 +554,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q2_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(Q2_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[13], i32FPart[13]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -525,7 +562,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q3_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(Q3_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[14], i32FPart[14]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -533,7 +570,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                 pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
 						}
 						else if(pal_Memcmp(pEvent->EventData.httpTokenName.data, Q4_token,
-                                         pal_Strlen(LED4_token)) == 0)
+                                         pal_Strlen(Q4_token)) == 0)
 						{
 								sprintf(tempString,"%3d.%03d", i32IPart[15], i32FPart[15]);
 								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
@@ -544,10 +581,68 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
                                          pal_Strlen(FTPINFO_token)) == 0)
 						{
 								//tempString=?
-								pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
-                ptr += pal_Strlen(tempString);
-                pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
-								tempString[0]='\0';
+								
+								if(FTPLinkStatus==0)
+								{									
+										sprintf(tempString,"waiting...");
+										pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+										ptr += pal_Strlen(tempString);
+										pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+								}
+								else
+								{		
+										if(FTPLinkStatus==1)
+										{
+											sprintf(tempString,"SU CCESS\n");
+											InfoLen=pal_Strlen(FTPInfoBuff);
+											FTPLinkStatus=2;
+											//InfoPointer=FTPInfoBuff;
+										}
+										else if(FTPLinkStatus==-1) 
+										{
+											sprintf(tempString,"ER ROR\n");
+											InfoLen=pal_Strlen(FTPInfoBuff);
+											//InfoPointer=FTPInfoBuff;
+										}
+										else if(FTPLinkStatus=2)
+										{
+											sprintf(tempString,"SUC CESS\n");	
+										}
+										else
+										{
+											sprintf(tempString,"SUCCESS\n");		
+										}
+										
+										pal_Memcpy(ptr, tempString, pal_Strlen(tempString));
+										ptr += pal_Strlen(tempString);
+										pResponse->ResponseData.token_value.len += pal_Strlen(tempString);
+										
+										if(InfoLen>50)
+										{
+											for(int i=0;i<50;i++)
+											{
+												InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
+											}
+											InfoPointer[50]='\0';
+											pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
+											ptr  +=pal_Strlen(InfoPointer);
+											pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
+											InfoLen-=50;
+										}
+										else
+										{
+											for(int i=0;i<InfoLen+1;i++)
+											{
+												InfoPointer[i]=FTPInfoBuff[pal_Strlen(FTPInfoBuff)-InfoLen+i];
+											}
+											InfoPointer[InfoLen+1]='\0';
+											pal_Memcpy(ptr, InfoPointer,  pal_Strlen(InfoPointer));
+											ptr  +=pal_Strlen(InfoPointer);
+											pResponse->ResponseData.token_value.len += pal_Strlen(InfoPointer);
+											FTPInfoBuff[0]='\0';
+											FTPLinkStatus=3;
+										}											
+								}
 						}
 						*ptr = '\0';
         }
@@ -555,7 +650,8 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 
         case SL_NETAPP_HTTPPOSTTOKENVALUE_EVENT:
         {
-					
+						_u32 IPAddress=0;
+						_u16 port=0;
             _u8 led = 0;
             _u8 *ptr = pEvent->EventData.httpPostData.token_name.data;
 
@@ -605,8 +701,7 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 								_u8 IPlen=0;
 								unsigned char strbuf[8];
 								_u16 buf=0;
-								_u32 IPAddress=0;
-								_u16 port=0;
+								
 								while((*(ptr+IPlen))!='.') IPlen++;
 								for(int i=0;i<IPlen;i++)
 								{
@@ -663,6 +758,14 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 								}
 								strbuf[IPlen]='\0';
 								sscanf(strbuf,"%d",&port);
+								
+								IP_ADDR=IPAddress;
+								PORT_NUM= port;
+								//if IP Port valid
+								EventSelector=1;
+								
+								//FTPLinkStatus=1;
+								
 						}
 						else if(pal_Memcmp(ptr, FTP2_token, pal_Strlen(FTP2_token)) == 0)
 						{
@@ -675,6 +778,12 @@ void SimpleLinkHttpServerCallback(SlHttpServerEvent_t *pEvent,
 									filename[i]=(*(ptr+i));
 								}
 								filename[IPlen]='\0';
+								
+								
+						}
+						else if(pal_Memcmp(ptr, UDP_token, pal_Strlen(UDP_token)) == 0)
+						{
+								EventSelector=2;
 						}
 						
         }
@@ -724,12 +833,6 @@ void SimpleLinkNetAppEventHandler(SlNetAppEvent_t *pNetAppEvent)
         }
         break;
 
-        case SL_NETAPP_IP_LEASED_EVENT:
-        {
-            SET_STATUS_BIT(g_Status, STATUS_BIT_IP_LEASED);
-        }
-        break;
-
         default:
         {
             CLI_Write(" [NETAPP EVENT] Unexpected event \n\r");
@@ -761,13 +864,42 @@ void SimpleLinkGeneralEventHandler(SlDeviceEvent_t *pDevEvent)
 
     \return         None
 */
-void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)
+void SimpleLinkSockEventHandler(SlSockEvent_t *pSock)	
 {
-    /*
-     * This application doesn't work with socket - Hence these
-     * events are not handled here
-     */
-    CLI_Write(" [SOCK EVENT] Unexpected event \n\r");
+    if(pSock == NULL)
+    {
+        CLI_Write(" [SOCK EVENT] NULL Pointer Error \n\r");
+        return;
+    }
+    
+    switch( pSock->Event )
+    {
+        case SL_SOCKET_TX_FAILED_EVENT:
+            /*
+             * TX Failed
+             *
+             * Information about the socket descriptor and status will be
+             * available in 'SlSockEventData_t' - Applications can use it if
+             * required
+             *
+            * SlSockEventData_u *pEventData = NULL;
+            * pEventData = & pSock->socketAsyncEvent;
+             */
+            switch( pSock->socketAsyncEvent.SockTxFailData.status )
+            {
+                case SL_ECLOSE:
+                    CLI_Write(" [SOCK EVENT] Close socket operation, failed to transmit all queued packets\n\r");
+                    break;
+                default:
+                    CLI_Write(" [SOCK EVENT] Unexpected event \n\r");
+                    break;
+            }
+            break;
+
+        default:
+            CLI_Write(" [SOCK EVENT] Unexpected event \n\r");
+            break;
+    }
 }
 /*
  * ASYNCHRONOUS EVENT HANDLERS -- End
@@ -783,6 +915,8 @@ int main(int argc, char** argv)
     _i32   retVal = -1;
     _i32   mode = ROLE_STA;
 	
+		SlNetCfgIpV4Args_t ipV4;
+	
 		retVal = initializeAppVariables();
     ASSERT_ON_ERROR(retVal);
 	
@@ -791,10 +925,6 @@ int main(int argc, char** argv)
     initClk();
 		initTimer();
 		
-	
-		
-		
-	
 		/* Configure command line interface */
     CLI_Configure();
 		
@@ -830,131 +960,588 @@ int main(int argc, char** argv)
     {
         if (DEVICE_NOT_IN_STATION_MODE == retVal)
             CLI_Write(" Failed to configure the device in its default state \n\r");
-				
+
         LOOP_FOREVER();
     }
-		
+
     CLI_Write(" Device is configured in default state \n\r");
 
     /*
      * Assumption is that the device is configured in station mode already
      * and it is in its default state
      */
-    mode = sl_Start(0, 0, 0);
-    if(mode < 0)
+    retVal = sl_Start(0, 0, 0);
+    if ((retVal < 0) ||
+        (ROLE_STA != retVal) )
     {
-        LOOP_FOREVER();
-    }
-    else
-    {
-        if (ROLE_AP == mode)
-        {
-            /* If the device is in AP mode, we need to wait for this
-             * event before doing anything */
-            while(!IS_IP_ACQUIRED(g_Status)) { _SlNonOsMainLoopTask(); }
-        }
-        else
-        {
-            /* Configure CC3100 to start in AP mode */
-            retVal = sl_WlanSetMode(ROLE_AP);
-            if(retVal < 0)
-                LOOP_FOREVER();
-        }
-    }
-
-    /* Configure AP mode without security */
-    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SSID,
-               pal_Strlen(SSID_AP_MODE), (_u8 *)SSID_AP_MODE);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    SecType = SEC_TYPE_AP_MODE;
-    /* Configure the Security parameter in the AP mode */
-    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_SECURITY_TYPE, 1,
-            (_u8 *)&SecType);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    retVal = sl_WlanSet(SL_WLAN_CFG_AP_ID, WLAN_AP_OPT_PASSWORD, pal_Strlen(PASSWORD_AP_MODE),
-            (_u8 *)PASSWORD_AP_MODE);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    /* Restart the CC3100 */
-    retVal = sl_Stop(SL_STOP_TIMEOUT);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    g_Status = 0;
-
-    mode = sl_Start(0, 0, 0);
-    if (ROLE_AP == mode)
-    {
-        /* If the device is in AP mode, we need to wait for this event before doing anything */
-        while(!IS_IP_ACQUIRED(g_Status)) { _SlNonOsMainLoopTask(); }
-    }
-    else
-    {
-        CLI_Write(" Device couldn't come in AP mode \n\r");
+        CLI_Write(" Failed to start the device \n\r");
         LOOP_FOREVER();
     }
 
-    CLI_Write(" \r\n Device is configured in AP mode \n\r");
+    CLI_Write(" Device started as STATION \n\r");
 		
-    CLI_Write(" Waiting for client to connect\n\r");
-    /* wait for client to connect */
-    while((!IS_IP_LEASED(g_Status)) || (!IS_STA_CONNECTED(g_Status))) { _SlNonOsMainLoopTask(); }
+		ipV4.ipV4 = CONFIG_IP;
+    ipV4.ipV4Mask = AP_MASK;
+    ipV4.ipV4Gateway = AP_GATEWAY;
+    ipV4.ipV4DnsServer = AP_DNS;
 
-    CLI_Write(" Client connected\n\r");
+    CLI_Write(" Configuring device to connect using static IP \n\r");
 
-    /* Enable the HTTP Authentication */
-    retVal = set_authentication_check(TRUE);
+    /* After calling this API device will be configure for static IP address.*/
+    retVal = sl_NetCfgSet(SL_IPV4_STA_P2P_CL_STATIC_ENABLE,1,
+                    sizeof(SlNetCfgIpV4Args_t), (_u8 *)&ipV4);
     if(retVal < 0)
         LOOP_FOREVER();
-
-    /* Get authentication parameters */
-    retVal = get_auth_name(g_auth_name);
+		
+		/* Connecting to WLAN AP */
+    retVal = establishConnectionWithAP();
     if(retVal < 0)
+    {
+        CLI_Write(" Failed to establish connection w/ an AP \n\r");
         LOOP_FOREVER();
+    }
 
-    retVal = get_auth_password(g_auth_password);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    retVal = get_auth_realm(g_auth_realm);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    CLI_Write((_u8 *)"\r\n Authentication parameters: ");
-    CLI_Write((_u8 *)"\r\n Name = ");
-    CLI_Write(g_auth_name);
-    CLI_Write((_u8 *)"\r\n Password = ");
-    CLI_Write(g_auth_password);
-    CLI_Write((_u8 *)"\r\n Realm = ");
-    CLI_Write(g_auth_realm);
-
-    /* Get the domain name */
-    retVal = get_domain_name(g_domain_name);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    CLI_Write((_u8 *)"\r\n\r\n Domain name = ");
-    CLI_Write(g_domain_name);
-
-    /* Get URN */
-    retVal = get_device_urn(g_device_urn);
-    if(retVal < 0)
-        LOOP_FOREVER();
-
-    CLI_Write((_u8 *)"\r\n Device URN = ");
-    CLI_Write(g_device_urn);
-    CLI_Write((_u8 *)"\r\n");
-
+    CLI_Write(" Connection established w/ AP and IP is configured \n\r");
+		EventSelector=2;
     /* Process the async events from the NWP */
     while(1)
     {
         _SlNonOsMainLoopTask();
+				if(EventSelector==1) establishConnectionWithFTP();
+				if(EventSelector==2)	UDPServerRoute();
     }
+}
+
+static void establishConnectionWithFTP()
+{
+		_i32   retVal = -1;
+		
+		CLI_Write(" Establishing connection with FTP server \n\r");
+    /*Before proceeding, please make sure to have a server waiting on PORT_NUM*/
+		retVal = BsdTcpClient(PORT_NUM);
+	
+		FTPLinkStatus=1;
+		EventSelector=0;
+}
+
+static void UDPServerRoute()
+{
+		_i32 retVal = -1;
+		DisableTimer1();
+		DisableTimer0();
+		CLI_Write(" Turn to UDP server \n\r");
+		retVal = BsdUdpServer(PORT_NUM_UDP);
+    if(retVal < 0)
+        CLI_Write(" Failed to read data from the UDP client \n\r");
+    else
+        CLI_Write(" Successfully received data from UDP client \n\r");
+		EventSelector=0;
+		EnableTimer0();
+		EnableTimer1();
+}
+
+/*!
+    \brief Connecting to a WLAN Access point
+
+    This function connects to the required AP (SSID_NAME).
+    The function will return once we are connected and have acquired IP address
+
+    \param[in]  None
+
+    \return     0 on success, negative error-code on error
+
+    \note
+
+    \warning    If the WLAN connection fails or we don't acquire an IP address,
+                We will be stuck in this function forever.
+*/
+static _i32 establishConnectionWithAP()
+{
+    SlSecParams_t secParams = {0};
+    _i32 retVal = 0;
+
+    secParams.Key = PASSKEY;
+    secParams.KeyLen = pal_Strlen(PASSKEY);
+    secParams.Type = SEC_TYPE;
+
+    retVal = sl_WlanConnect(SSID_NAME, pal_Strlen(SSID_NAME), 0, &secParams, 0);
+    ASSERT_ON_ERROR(retVal);
+
+    /* Wait */
+    while((!IS_CONNECTED(g_Status)) || (!IS_IP_ACQUIRED(g_Status))) { _SlNonOsMainLoopTask(); }
+
+    return SUCCESS;
+}
+
+static _i32 getPortNum(_i8 *buf)
+{
+    _u32 i,d,dec = 1;
+		unsigned char tempString[20];
+    port1 = 0;
+    port2 = 0;
+    for (d = pal_Strlen(buf)-1; d>=0; d--)
+    {
+        if (buf[d] == ',') break;
+    }
+    for (i = d-1; buf[i] != ','; i--)
+    {
+        port1 += dec*(buf[i]-48);
+        dec *= 10;
+    }
+    dec = 1;
+    for (d = pal_Strlen(buf)-1; d>=0; d--)
+    {
+        if (buf[d] == ')') break;
+    }
+    for (i = d-1; buf[i] != ','; i--)
+    {
+        port2 += dec*(buf[i]-48);
+        dec *= 10;
+    }
+    return 0;
+		sprintf(tempString,"%d %d",port1,port2);
+    CLI_Write(tempString);
+}
+
+
+static _i32 BsdTcpClient(_u16 Port)
+{
+    int i = 0, j = 0;
+    //getwave(Port);
+    SlSockAddrIn_t  Addr;
+    _u16 PortD;
+    _u16          idx = 0;
+    _u16          AddrSize = 0;
+    _i16          Status = 0;
+    _u16          LoopCount = 0;
+    strcpy(uBuf.BsdBuf,"whatever");
+    
+    Addr.sin_family = SL_AF_INET;
+    Addr.sin_port = sl_Htons((_u16)Port);
+    Addr.sin_addr.s_addr = sl_Htonl((_u32)IP_ADDR);
+    AddrSize = sizeof(SlSockAddrIn_t);
+
+
+    //create Command Socket
+    SockCliCID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
+    if( SockCliCID < 0 )
+    {		
+        CLI_Write(" [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				FTPLinkStatus=-1;
+				EventSelector=0;
+        ASSERT_ON_ERROR(SockCliCID);
+    }
+
+    //Connect to the server
+    Status = sl_Connect(SockCliCID, ( SlSockAddr_t *)&Addr, AddrSize);
+    if( Status < 0 )
+    {
+        sl_Close(SockCliCID);
+        CLI_Write(" [FTP Client]  FTP connection Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client]  FTP connection Error \n\r");
+				FTPLinkStatus=-1;
+				EventSelector=0;
+        ASSERT_ON_ERROR(Status);
+    }
+
+    //Read welcome message
+    _u32 recvSize = BUF_SIZE;
+    _u16 len;
+    bufclean();
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    if( Status <= 0 )
+    {
+        sl_Close(SockCliCID);
+        CLI_Write(" [FTP Server] Data recv Error \n\r");
+				strcat(FTPInfoBuff," [FTP Server] Data recv Error \n\r");
+				FTPLinkStatus=-1;
+				EventSelector=0;
+        ASSERT_ON_ERROR(TCP_RECV_ERROR);
+    }
+    for (i=1; i<recvSize; i++)
+    {
+        if ((uBuf.BsdBuf[i] == '\n')&&(uBuf.BsdBuf[i-1]=='\r')) break;
+    }
+
+    //Print the welcome message
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //send User name and password
+    pal_Strcpy(uBuf.BsdBuf,"USER hyacinth\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );;
+		Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+		CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    pal_Strcpy(uBuf.BsdBuf,"PASS 123\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+		Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //send PASV
+    bufclean();
+    pal_Strcpy(uBuf.BsdBuf,"PASV\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    //delay(40000);
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //get the Port number
+    getPortNum(uBuf.BsdBuf);
+    CLI_Write("Data port received\n\r");
+		strcat(FTPInfoBuff,"Data port received\n\r");
+    //create data socket
+    PortD = 256 * port1 + port2;
+    Addr.sin_family = SL_AF_INET;
+    Addr.sin_port = sl_Htons((_u16)PortD);
+    Addr.sin_addr.s_addr = sl_Htonl((_u32)IP_ADDR);
+    AddrSize = sizeof(SlSockAddrIn_t);
+    SockCliDID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
+
+    //connect to server
+    Status = sl_Connect(SockCliDID, ( SlSockAddr_t *)&Addr, AddrSize);
+
+    if( SockCliDID < 0 )
+    {
+        CLI_Write(" [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				FTPLinkStatus=-1;
+				EventSelector=0;
+        ASSERT_ON_ERROR(SockCliDID);
+    }
+
+    //check file size
+		//sprintf(uBuf.BsdBuf,"SIZE %s\r\n",);
+    pal_Strcpy(uBuf.BsdBuf,"SIZE wave.txt\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //download file
+    pal_Strcpy(uBuf.BsdBuf,"RETR wave.txt\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    Status = sl_Recv(SockCliDID, uBuf.BsdBuf, recvSize, 0);
+    pal_Strcpy(filterdata,uBuf.BsdBuf);
+    bufclean();
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //close data socket
+    Status = sl_Close(SockCliDID);
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //delay(50000);
+
+
+    //CLI_Write(filterdata);
+    //waveFilter();
+    float *p;
+    int jj = 0;
+    for (i = 0; i <pal_Strlen(filterdata); i++)
+    {
+        if (((i == 0) || (filterdata[i - 1] == ' ')))
+        {
+            p = &(data[jj]);
+            sscanf(&(filterdata[i]),"%f", p);
+            jj++;
+        }
+    }
+
+    N = jj;
+
+    for (i=0; i<N; i++)
+    {
+        tdata[i] = data[i];
+        if ((i-2>=0)&&(i+2<N))
+        {
+            tdata[i] = (data[i-2]+data[i-1]+data[i]+data[i+1]+data[i+2])/5.0;
+        }
+    }
+
+    pal_Strcpy(filterdata, "");
+    for (i=0; i<N; i++)
+    {
+        if (i == 120)
+        {
+            CLI_Write("now");
+						strcat(FTPInfoBuff,"now");
+        }
+        int temp = 0;
+        if (tdata[i]<0)
+        {
+            tdata[i] = -tdata[i];
+            pal_Strcat(filterdata,"-");
+        }
+        temp = ((int)tdata[i]);
+        len = 0;
+        while (temp>0)
+        {
+            temps[len] = 48 + (temp % 10);
+            temp = temp / 10;
+            len++;
+        }
+        for (j = 0; j<len; j++) s[j] = temps[len - j - 1];
+        s[len] = '\0';
+        if (len == 0) pal_Strcpy(s,"0");
+        //CLI_Write(s);
+        pal_Strcat(filterdata, s);
+
+        pal_Strcat(filterdata, ".");
+        temp = (int)((tdata[i]*1000))%1000;
+        len = 0;
+        while (temp>0)
+        {
+            temps[len] = 48 + (temp % 10);
+            temp = temp / 10;
+            len++;
+        }
+        for (j = 0; j<len; j++) s[j] = temps[len - j - 1];
+        s[len] = '\0';
+        if (len == 0) pal_Strcpy(s,"0");
+        //CLI_Write(s);
+        pal_Strcat(filterdata, s);
+        pal_Strcat(filterdata, " ");
+    }
+    CLI_Write("Wave data receiving OK\n\r");
+		strcat(FTPInfoBuff,"Wave data receiving OK\n\r");
+    CLI_Write(filterdata);
+		//strcat(FTPInfoBuff,filterdata);
+
+    //send PASV
+    //delay(400000);
+		
+    pal_Strcpy(uBuf.BsdBuf,"PASV\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    delay(400000);
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+
+    //get the Port number
+    getPortNum(uBuf.BsdBuf);
+    CLI_Write("Data port received\r\n");
+		strcat(FTPInfoBuff,"Data port received\r\n");
+    //create data socket
+    PortD = 256 * port1 + port2;
+    Addr.sin_family = SL_AF_INET;
+    Addr.sin_port = sl_Htons((_u16)PortD);
+    Addr.sin_addr.s_addr = sl_Htonl((_u32)IP_ADDR);
+    AddrSize = sizeof(SlSockAddrIn_t);
+    SockCliDID = sl_Socket(SL_AF_INET,SL_SOCK_STREAM, 0);
+
+    //connect to server
+    Status = sl_Connect(SockCliDID, ( SlSockAddr_t *)&Addr, AddrSize);
+
+    if( SockCliDID < 0 )
+    {
+        CLI_Write(" [FTP Client] Create socket Error \n\r");
+				strcat(FTPInfoBuff," [FTP Client] Create socket Error \n\r");
+				FTPLinkStatus=-1;
+				EventSelector=0;
+        ASSERT_ON_ERROR(SockCliDID);
+    }
+
+    //upload file
+    pal_Strcpy(uBuf.BsdBuf,"STOR wave.txt\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    //delay(50000);
+
+    for (i=0; i<BUF_SIZE; i++) uBuf.BsdBuf[i] = '\0';
+    pal_Strcpy(uBuf.BsdBuf,filterdata);
+    pal_Strcat(uBuf.BsdBuf,"\r\n");
+
+    Status = sl_Send(SockCliDID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //close data socket
+    Status = sl_Close(SockCliDID);
+    //delay(50000);
+    
+    //send quit
+    pal_Strcpy(uBuf.BsdBuf,"QUIT\r\n");
+    Status = sl_Send(SockCliCID, uBuf.BsdBuf, pal_Strlen(uBuf.BsdBuf), 0 );
+    bufclean();
+    Status = sl_Recv(SockCliCID, uBuf.BsdBuf, recvSize, 0);
+    pal_Strcat(uBuf.BsdBuf,"");
+    CLI_Write(uBuf.BsdBuf);
+		strcat(FTPInfoBuff,uBuf.BsdBuf);
+    //close command socket
+    Status = sl_Close(SockCliCID);  
+
+    CLI_Write("All is done\n\r");
+		strcat(FTPInfoBuff,"All is done\n\r");
+		
+    return 0;
+    //connect to the new data socket
+}
+
+/*!
+    \brief Opening a UDP server side socket and receiving data
+
+    This function opens a UDP socket in Listen mode and waits for incoming
+    UDP packets from the connected client.
+
+    \param[in]      port number on which the server will be listening on
+
+    \return         0 on success, Negative value on Error.
+
+    \note
+
+    \warning
+*/
+static _i32 BsdUdpServer(_u16 Port)
+{
+    SlSockAddrIn_t  Addr;
+    SlSockAddrIn_t  LocalAddr;
+    _u16          idx = 0;
+    _u16          AddrSize = 0;
+    _i16          SockID = 0;
+    _i16          SockIDC = 0;
+    _i16          Status = 0;
+    _u16          LoopCount = 0;
+    _u16          recvSize = 0;
+
+    for (idx=0 ; idx<BUF_SIZE ; idx++)
+    {
+        uBuf.BsdBuf[idx] = (_u8)(idx % 10);
+    }
+
+    LocalAddr.sin_family = SL_AF_INET;
+    LocalAddr.sin_port = sl_Htons((_u16)Port);
+    LocalAddr.sin_addr.s_addr = 0;
+
+    AddrSize = sizeof(SlSockAddrIn_t);
+		CLI_Write("1\n\r");
+    SockID = sl_Socket(SL_AF_INET,SL_SOCK_DGRAM, 0);
+    //SockIDC = sl_Socket(SL_AF_INET,SL_SOCK_DGRAM, 0);
+    if( SockID < 0 )
+    {
+        ASSERT_ON_ERROR(SockID);
+    }
+    if( SockIDC < 0 )
+    {
+        ASSERT_ON_ERROR(SockIDC);
+    }
+
+    Status = sl_Bind(SockID, (SlSockAddr_t *)&LocalAddr, AddrSize);
+    if( Status < 0 )
+    {
+        Status = sl_Close(SockID);
+        ASSERT_ON_ERROR(Status);
+    }
+    recvSize = BUF_SIZE;
+    int i,cnt = 0;
+    do
+    {
+        //cleanbuf();
+				CLI_Write("2\n\r");
+        for (i=0 ; i<BUF_SIZE; i++){ uBuf.BsdBuf[i] = '\0'; }
+
+        Status = sl_RecvFrom(SockID, &uBuf.BsdBuf, recvSize, 0,
+                                (SlSockAddr_t *)&Addr, (SlSocklen_t*)&AddrSize );
+
+        if ((uBuf.BsdBuf[0] == '-')&&(uBuf.BsdBuf[1] == 'e')&&(uBuf.BsdBuf[2] == 'x'))
+        {
+            if (Addr.sin_addr.s_addr == IP_ADDR_1) pal_Strcpy(tempc,"Client 1 stops the chat...\n\r");
+            else if (Addr.sin_addr.s_addr == IP_ADDR_2) pal_Strcpy(tempc,"Client 2 stops the chat...\n\r");
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_1;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_2;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+            break;
+        }
+        if(Status < 0)
+        {
+            sl_Close(SockID);
+            ASSERT_ON_ERROR(Status);
+        }
+        if (Status > 50) continue;
+        if (IP_ADDR_1 == 0)
+        {
+            IP_ADDR_1 = Addr.sin_addr.s_addr;
+            //IP_ADDR_2 = Addr.sin_addr.s_addr;
+            CLI_Write("Client 1 connected\n\r");
+            //CLI_Write("Client 2 connected\n\r");
+            pal_Strcpy(tempc,"Client 1 comes in\n\r");
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_1;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_2;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+        }
+        else if ((IP_ADDR_2 == 0)&&(IP_ADDR_1 != Addr.sin_addr.s_addr))
+        {
+            IP_ADDR_2 = Addr.sin_addr.s_addr;
+            CLI_Write("Client 2 connected\n\r");
+            pal_Strcpy(tempc,"Client 2 comes in\n\r");
+
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_1;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+            Addr.sin_family = SL_AF_INET;
+            Addr.sin_port = sl_Htons((_u16)4001);
+            Addr.sin_addr.s_addr = IP_ADDR_2;
+            Status = sl_SendTo(SockID, tempc, 500, 0,
+                               (SlSockAddr_t *)&Addr, AddrSize);   
+        }
+        else if ((IP_ADDR_2 != 0)&&(IP_ADDR_1 != 0)){
+            //if (Addr.sin_addr.s_addr == IP_ADDR_1)
+            {
+
+                if (Addr.sin_addr.s_addr == IP_ADDR_1) sprintf(tempc,"Client_1 said: %s",uBuf.BsdBuf);
+                else if (Addr.sin_addr.s_addr == IP_ADDR_2) sprintf(tempc,"Client_2 said: %s",uBuf.BsdBuf);
+                if ((Addr.sin_addr.s_addr == IP_ADDR_1) || (Addr.sin_addr.s_addr == IP_ADDR_2)) 
+                {
+                    Addr.sin_family = SL_AF_INET;
+                    Addr.sin_port = sl_Htons((_u16)4001);
+                    Addr.sin_addr.s_addr = IP_ADDR_1;
+                    Status = sl_SendTo(SockID, tempc, 500, 0,
+                                       (SlSockAddr_t *)&Addr, AddrSize);   
+                    Addr.sin_family = SL_AF_INET;
+                    Addr.sin_port = sl_Htons((_u16)4001);
+                    Addr.sin_addr.s_addr = IP_ADDR_2;
+                    Status = sl_SendTo(SockID, tempc, 500, 0,
+                                       (SlSockAddr_t *)&Addr, AddrSize);   
+                }
+            }
+            /*else if (Addr.sin_addr.s_addr == IP_ADDR_2)
+            {
+                Addr.sin_addr.s_addr = IP_ADDR_1;
+                Addr.sin_family = SL_AF_INET;
+                Addr.sin_port = sl_Htons((_u16)4001);
+                sprintf(uBuf.BsdBuf,"Client_2 said: %s",uBuf.BsdBuf);
+                Status = sl_SendTo(SockID, uBuf.BsdBuf, 500, 0,
+                                   (SlSockAddr_t *)&Addr, AddrSize);      
+            }*/
+        }
+        delay(1600000);
+    } while(1);
+
+    Status = sl_Close(SockID);
+    ASSERT_ON_ERROR(Status);
+    CLI_Write("Chat exits successfully...\n\r");
+    return SUCCESS;
 }
 
 /*!
@@ -992,158 +1579,7 @@ _i32 set_port_number(_u16 num)
     return SUCCESS;
 }
 
-/*!
-    \brief Enable/Disable the authentication check for http server,
-           By default authentication is disabled.
 
-    \param[in]      enable - false to disable and true to enable the authentication
-
-    \return         None
-
-    \note
-
-    \warning
-*/
-static _i32 set_authentication_check (_u8 enable)
-{
-    _NetAppHttpServerGetSet_auth_enable_t auth_enable;
-    _i32 status = -1;
-
-    auth_enable.auth_enable = enable;
-    status = sl_NetAppSet(SL_NET_APP_HTTP_SERVER_ID, NETAPP_SET_GET_HTTP_OPT_AUTH_CHECK,
-                 sizeof(_NetAppHttpServerGetSet_auth_enable_t), (_u8 *)&auth_enable);
-    ASSERT_ON_ERROR(status);
-
-    return SUCCESS;
-}
-
-/*!
-    \brief Get the authentication user name
-
-    \param[in]      auth_name - Pointer to the string to store authentication
-                    name
-
-    \return         None
-
-    \note
-
-    \warning
-*/
-static _i32 get_auth_name (_u8 *auth_name)
-{
-    _u8 len = MAX_AUTH_NAME_LEN;
-    _i32 status = -1;
-
-    status = sl_NetAppGet(SL_NET_APP_HTTP_SERVER_ID, NETAPP_SET_GET_HTTP_OPT_AUTH_NAME,
-                 &len, (_u8 *) auth_name);
-    ASSERT_ON_ERROR(status);
-
-    auth_name[len] = '\0';
-
-    return SUCCESS;
-}
-
-/*!
-    \brief Get the authentication password
-
-    \param[in]      auth_password - Pointer to the string to store
-                    authentication password
-
-    \return         None
-
-    \note
-
-    \warning
-*/
-static _i32 get_auth_password (_u8 *auth_password)
-{
-    _u8 len = MAX_AUTH_PASSWORD_LEN;
-    _i32 status = -1;
-
-    status = sl_NetAppGet(SL_NET_APP_HTTP_SERVER_ID, NETAPP_SET_GET_HTTP_OPT_AUTH_PASSWORD,
-                                                &len, (_u8 *) auth_password);
-    ASSERT_ON_ERROR(status);
-
-    auth_password[len] = '\0';
-
-    return SUCCESS;
-}
-
-/*!
-    \brief Get the authentication realm
-
-    \param[in]      auth_realm - Pointer to the string to store authentication
-                    realm
-
-    \return         None
-
-    \note
-
-    \warning
-*/
-static _i32 get_auth_realm (_u8 *auth_realm)
-{
-    _u8 len = MAX_AUTH_REALM_LEN;
-    _i32 status = -1;
-
-    status = sl_NetAppGet(SL_NET_APP_HTTP_SERVER_ID, NETAPP_SET_GET_HTTP_OPT_AUTH_REALM,
-                 &len, (_u8 *) auth_realm);
-    ASSERT_ON_ERROR(status);
-
-    auth_realm[len] = '\0';
-
-    return SUCCESS;
-}
-
-/*!
-    \brief Get the device URN
-
-    \param[in]      device_urn - Pointer to the string to store device urn
-
-    \return         None
-
-    \note
-
-    \warning
-*/
-static _i32 get_device_urn (_u8 *device_urn)
-{
-    _u8 len = MAX_DEVICE_URN_LEN;
-    _i32 status = -1;
-
-    status = sl_NetAppGet(SL_NET_APP_DEVICE_CONFIG_ID, NETAPP_SET_GET_DEV_CONF_OPT_DEVICE_URN,
-                 &len, (_u8 *) device_urn);
-    ASSERT_ON_ERROR(status);
-
-    device_urn[len] = '\0';
-
-    return SUCCESS;
-}
-
-/*!
-    \brief Get the domain Name
-
-    \param[in]      domain_name - Pointer to the string to store domain name
-
-    \return         None
-
-    \note
-
-    \warning        Domain name is used only in AP mode.
-*/
-static _i32 get_domain_name (_u8 *domain_name)
-{
-    _u8 len = MAX_DOMAIN_NAME_LEN;
-    _i32 status = -1;
-
-    status = sl_NetAppGet(SL_NET_APP_DEVICE_CONFIG_ID, NETAPP_SET_GET_DEV_CONF_OPT_DOMAIN_NAME,
-                 &len, (_u8 *)domain_name);
-    ASSERT_ON_ERROR(status);
-
-    domain_name[len] = '\0';
-
-    return SUCCESS;
-}
 
 /*!
     \brief This function configure the SimpleLink device in its default state. It:
@@ -1279,12 +1715,7 @@ static _i32 configureSimpleLinkToDefaultState()
 static _i32 initializeAppVariables()
 {
     g_Status = 0;
-    pal_Memset(g_auth_name, 0, sizeof(g_auth_name));
-    pal_Memset(g_auth_password, 0, sizeof(g_auth_name));
-    pal_Memset(g_auth_realm, 0, sizeof(g_auth_name));
-    pal_Memset(g_domain_name, 0, sizeof(g_auth_name));
-    pal_Memset(g_device_urn, 0, sizeof(g_auth_name));
-
+		EventSelector=0;
     return SUCCESS;
 }
 

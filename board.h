@@ -184,7 +184,9 @@ void
 SysTickIntHandler();
 
 void DisableTimer0(void);
+void DisableTimer1(void);
 void EnableTimer0(void);
+void EnableTimer1(void);
 
 void initI2C(void);
 

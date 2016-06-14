@@ -420,10 +420,9 @@ void Timer1IntHandler(void)
 				break;
 		}
 		case 3:
-		{
+		{						
 				SHT21DataRead(&g_sSHT21Inst, SHT21AppCallback, &g_sSHT21Inst);
 				TimerDisable(TIMER1_BASE, TIMER_A);
-				
 				break;
 		}
 		case 4:
@@ -677,10 +676,10 @@ void MPU9150AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 
         
 }
-
+unsigned char flag=0;
 void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 {
-		static unsigned char flag=0;
+		
 		float fTemperature, fHumidity;
     
 		unsigned char tempString[30]={0};
@@ -690,23 +689,22 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 			
 				if(flag==0)
 				{
+					
+						
 						//
-						// Get a copy of the most recent raw data in floating point format.
+						// Get the most recent temperature result as a float in celcius.
 						//
-						SHT21DataHumidityGetFloat(&g_sSHT21Inst, &fHumidity);
-							
+						SHT21DataTemperatureGetFloat(&g_sSHT21Inst, &fTemperature);
+						flag=(flag+1)%3;
+					
 						//
-						// Write the command to start a temperature measurement.
+						// Write the command to start a humidity measurement.
 						//
-						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_T, g_sSHT21Inst.pui8Data, 0,
+						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
 										SHT21AppCallback, &g_sSHT21Inst);
 						
-						SysCtlDelay(g_SysClock / (100 * 3));	
-						//
-						// Print the humidity value using the integers we just created.
-						//
-						sprintf(tempString,"Humidity %3d.%03d\t", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
-						CLI_Write(tempString);
+						SysCtlDelay(g_SysClock / (100 * 3));
+						
 						//
 						// Perform the conversion from float to a printable set of integers.
 						//
@@ -717,20 +715,25 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 						{
 								SHT21_i32FractionPart2 *= -1;
 						}
-						flag=(flag+1)%3;
-				}
-				else if(flag==1)
-				{
-						SHT21DataRead(&g_sSHT21Inst, SHT21AppCallback, &g_sSHT21Inst);
-						flag=(flag+1)%3;
+						
+//						//
+//						// Print the temperature as integer and fraction parts.
+//						//
+//						sprintf(tempString,"Temperature %3d.%03d\n\r", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
+//						CLI_Write(tempString);
 				}
 				else
 				{
+						SHT21DataRead(&g_sSHT21Inst, SHT21AppCallback, &g_sSHT21Inst);
+					
+						SysCtlDelay(g_SysClock / (100 * 3));	
 						//
-						// Get the most recent temperature result as a float in celcius.
+						// Get a copy of the most recent raw data in floating point format.
 						//
-						SHT21DataTemperatureGetFloat(&g_sSHT21Inst, &fTemperature);
-
+						SHT21DataHumidityGetFloat(&g_sSHT21Inst, &fHumidity);
+						
+					
+					
 						//
 						// Convert the floats to an integer part and fraction part for easy
 						// print. Humidity is returned as 0.0 to 1.0 so multiply by 100 to get
@@ -746,23 +749,26 @@ void SHT21AppCallback(void *pvCallbackData, unsigned     int ui8Status)
 						}
 
 						
-						//
-						// Print the temperature as integer and fraction parts.
-						//
-						sprintf(tempString,"Temperature %3d.%03d\n\r", SHT21_i32IntegerPart2, SHT21_i32FractionPart2);
-						CLI_Write(tempString);
+						
+//						
+//						//
+//						// Print the humidity value using the integers we just created.
+//						//
+						//sprintf(tempString,"Humidity %3d.%03d\n\r", SHT21_i32IntegerPart1, SHT21_i32FractionPart1);
+						//CLI_Write(tempString);
 						
 						sensorTurn=(sensorTurn+1)%NumberOfSensor;
 						TimerEnable(TIMER1_BASE, TIMER_A);
-						flag=(flag+1)%3;
-						//
-						// Write the command to start a humidity measurement.
-						//
-						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_RH, g_sSHT21Inst.pui8Data, 0,
-										SHT21AppCallback, &g_sSHT21Inst);
 						
-						SysCtlDelay(g_SysClock / (100 * 3));
+						flag=(flag+1)%3;
+						
+						//
+						// Write the command to start a temperature measurement.
+						//
+						SHT21Write(&g_sSHT21Inst, SHT21_CMD_MEAS_T, g_sSHT21Inst.pui8Data, 0,
+										SHT21AppCallback, &g_sSHT21Inst);
 			}
+		
 		}
 }
 
@@ -1071,11 +1077,20 @@ void DisableTimer0(void)
 		TimerDisable(TIMER0_BASE, TIMER_A);
 		timer0_status=0;
 }
+void DisableTimer1(void)
+{
+		TimerDisable(TIMER1_BASE, TIMER_A);
+}
 
 void EnableTimer0(void)
 {
 		TimerEnable(TIMER0_BASE, TIMER_A);
 		timer0_status=1;
+}
+
+void EnableTimer1(void)
+{
+		TimerEnable(TIMER1_BASE, TIMER_A);
 }
 
 void stopWDT()
