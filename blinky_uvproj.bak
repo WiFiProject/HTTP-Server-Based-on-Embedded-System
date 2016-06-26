@@ -557,6 +557,11 @@
               <FileType>1</FileType>
               <FilePath>C:\software\tii\CC3100SDK_1.2.0\cc3100-sdk\simplelink\source\wlan.c</FilePath>
             </File>
+            <File>
+              <FileName>sensorlib.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>C:\software\tii\TivaWare_C_Series-2.1.2.111\sensorlib\rvmdk\sensorlib.lib</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
